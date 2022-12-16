@@ -1,0 +1,84 @@
+body {
+   background-color: #258ea6;
+   width: 100%;
+   justify-content: center;
+   align-items: center;
+   display: flex;
+}
+
+input[type ='submit'] {
+   background: #E43C2A;
+   border: 1px solid #E43C2A;
+   color: white;
+   font-size: 20px;
+   font-weight: bold;
+   cursor: pointer;
+}
+
+.mainBox {
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   flex-direction: column;
+
+   height: 130vh;
+   width: 500px;
+   padding: 5px 40px;
+   border-radius: 10px;
+   box-shadow: 0px 10px 50px #555;
+   background-color: #ffffff;
+}
+
+.main-radioBox {
+   display: flex;
+   gap: 20px;
+}
+
+form {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   position:relative;
+}
+
+
+.registerPass {
+   position: absolute;
+   top: 75px;
+   right: 15px;
+   cursor: pointer;
+}
+
+.loginPass {
+   position:absolute;
+   top: 75px;
+   right: 10px;
+   cursor: pointer;
+}
+
+.registerButton {
+   text-align: center;
+}
+
+.fb {
+   height: 50px;
+   display: block;
+}
+
+.fb-box {
+   cursor: pointer;
+}
+
+.fb .fb-box h2 {
+   border-radius: 5px;
+   padding: 10px; 
+   line-height: 1.2;
+   width: 460px;
+   background: blue;
+   border: 1px solid blue;
+   color: white;
+   font-size: 20px;
+   font-weight: bold;
+   text-align: center;
+}
