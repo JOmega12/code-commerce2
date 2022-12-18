@@ -12,10 +12,11 @@ export const emailValidation = (value) => {
 
 export const passwordValidation = (value) => {
    if (value) {
-      if (/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z@$!%*#?&]{8,}$/i.test(value)) {
+      //this is 8 min, one letter, one number
+      if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i.test(value)) {
          return undefined
       } else {
-         return 'Password does not meet requirements'
+         return 'Password needs 8 minimum chars, 1 Capital, 1 Number'
       }
    } else {
       return undefined;
@@ -27,7 +28,7 @@ export const zipCodeValidation = (value) => {
       if (/^([0-9]{5})(?:[-\s]*([0-9]{4}))?$/i.test(value)) {
          return undefined
       } else {
-         return 'Zipcode does not meet requirements'
+         return 'Zipcode needs 5 characters'
       }
    }
 }

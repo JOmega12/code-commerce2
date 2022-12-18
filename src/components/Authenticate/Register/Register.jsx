@@ -13,6 +13,11 @@ class Register extends React.Component {
       }
    }
 
+   submitRegister = (e) => {
+      e.preventDefault(e);
+      this.props.onSubmitFunc()
+   }
+   
    //why do these error messages only show after i clicked off it? 
    render() {
 
@@ -22,14 +27,14 @@ class Register extends React.Component {
       const inputData = [
          {label: 'Email', type: 'text', name: 'email', error: 'emailError'},
          {className: 'passwordInputType',label: 'Password', type: (passwordState ? 'text' : 'password'), name: 'password', error:'passwordError'},
-         {label: 'Confirm Password', type: (passwordState ? 'text' : 'password'), name: 'cpassword', error:'confPasswordError'},
+         {label: 'Confirm Password', type: (passwordState ? 'text' : 'password'), name: 'confPassword', error:'confPasswordError'},
          {label: 'First Name', type: 'text', name: 'firstName', error:'firstNameError'},
          {label: 'Last Name', type: 'text', name: 'lastName', error: 'lastNameError'},
          {label: 'Zip Code', type: 'number', name: 'zipCode', error:'zipCodeError'},
       ]
 
       return (
-         <form>
+         <form onSubmit= {(e) => this.submitRegister(e)}>
             {inputData.map((item) => (
             <InputBase
             placeholder= {item.label}
@@ -51,9 +56,12 @@ class Register extends React.Component {
          ))}
             <i className="bi bi-eye-slash registerPass" id="togglePassword" onClick={passwordState ? handlePasswordVisibilityF: handlePasswordVisibilityT}
             ></i>
+            
 
+            {/* i know this has something to do with the submitting function because everything should be going */}
             <div className='registerButton'>
-            <InputBase type = 'submit' value='Register' onSubmit= {(e)=> this.props.onSubmitFunc(e)}/>
+            <InputBase type = 'submit' value='Register'
+            />
             </div>
          </form>
       )

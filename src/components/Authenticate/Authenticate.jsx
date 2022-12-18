@@ -28,6 +28,15 @@ class Authenticate extends React.Component {
    }
 
 
+   addUserToState = (obj) => {
+      const newArr = [...this.state.users];
+      newArr.push(obj);
+      this.setState((prevState) => ({
+         ...prevState,
+         users: newArr,
+      }))
+   }
+
    handleValidations = (name, value) => {
       let errorText;
 
@@ -64,7 +73,7 @@ class Authenticate extends React.Component {
             //checks if confirm password is === to initial password
 
             if (value !== this.state.newUser.password) {
-               errorText = 'password does not match'
+               errorText = 'Password does not match'
             }
 
             this.setState((prevState) => ({
@@ -136,7 +145,7 @@ class Authenticate extends React.Component {
       })
    }
 
-
+ //it works in terms of  but why does it not reset the values when pressing the register button and why does it not go to the next component
    checkErrorBeforeSave = () => {
       let errorValue = {};
       let isError = false;
@@ -144,38 +153,36 @@ class Authenticate extends React.Component {
          if (!this.state.user[val].length) {
             errorValue = { ...errorValue, [`${val}Error`] : 'Required' };
             isError = true
+         } 
+         
+         else if (val.email) {
+            this.state.user.forEach(user => {
+               if (user.email === this.state.users.email) {
+                  errorValue = {...errorValue, emailError: 'Email is already logged in'};
+                  isError = true
+               }
+            })
          }
+
       });
       this.setState({ error : errorValue });
       return isError;
    }
 
-   addUserToState = (obj) => {
-      const newArr = [...this.state.users];
-      newArr.push(obj);
-      this.setState((prevState) => ({
-         ...prevState,
-         users: newArr,
-      }))
-
-   }
-   //this gets the state from parent component to be called in this component in the register component when clicked 
-   //****put a validations if email address is in */
    //this is the submit button for Register
-   handleSignUpUser = (e) => {
-      e.preventDefault();
-
+   handleSignUpUser = () => {
       const errorCheck = this.checkErrorBeforeSave();
+      console.log(errorCheck);
+
       if (!errorCheck) {
          this.addUserToState(this.state.user);
-         this.props.handleIsLoggedInStateT();
+         this.props.isLoggedInStateT();
          this.setState({
-         users: newUser,
-      })
+            users: newUser,
+            user: ''
+         })
       }
    }
-
-
 
 
    render() {

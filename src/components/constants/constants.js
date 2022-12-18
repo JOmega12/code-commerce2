@@ -3,7 +3,7 @@
 export const INIT_TEST = {
    email: 'test@test.com',
    password: 'Test@1234',
-   confPassword: 'Test@1234',
+   confPassword: 'Test1234',
    firstName: 'jake',
    lastName: 'snake',
    zipCode: '11111',

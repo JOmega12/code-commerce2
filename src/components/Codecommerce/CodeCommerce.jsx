@@ -2,6 +2,7 @@ import React from 'react';
 import Authenticate from '../Authenticate/Authenticate';
 // import { INIT_TEST } from '../constants/constants';
 // import { emailValidation, onlyTextValidation, passwordValidation, zipCodeValidation } from '../validations/validation';
+import Checkout from '../Checkout/Checkout';
 
 
 
@@ -28,9 +29,14 @@ class CodeCommerce extends React.Component {
       return (
          <div>
             
-            <Authenticate isLoggedInStateT  = {this.handleIsLoggedInStateT}
-            isLoggedInStateF = {this.isLoggedInStateF}
-            />
+            {this.state.isLoggedIn ? (
+               <Checkout />
+            ): 
+               <Authenticate isLoggedInStateT  = {this.handleIsLoggedInStateT}
+               isLoggedInStateF = {this.isLoggedInStateF}
+               />
+            }
+
          </div>
       )
 
