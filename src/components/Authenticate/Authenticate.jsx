@@ -39,6 +39,7 @@ class Authenticate extends React.Component {
 
    //this checks if current user is in array
    checkIfUserExist = (arr, type) => {
+      //attempt 1
       // if (arr) {
       //    const foundUser=  arr.filter(item => {
       //       return item.type === type
@@ -47,6 +48,8 @@ class Authenticate extends React.Component {
       //    return foundUser.length > 0 ? true : false;
       // }
 
+
+      //attempt 2
       // let foundUser;
       // return Object.keys(arr).forEach((item) => {
       //    foundUser=  item.filter(val => {
@@ -55,12 +58,22 @@ class Authenticate extends React.Component {
    
       //    return foundUser.length > 0 ? true : false;
       // })
+      
+      //attempt 3 
+      const foundUser = arr.forEach((item) => {
+         return item.type === type
+      })
 
-      const foundUser=  arr.filter(item => {
-            return item.type === type
-         })
-   
-         return foundUser.length > 0 ? true : false;
+      console.log(foundUser, 'fU')
+      return foundUser.length > 0 ? true: false;
+
+      //attempt 4
+      // const foundUser=  arr.filter(item => {
+      //       return item.type === type
+      //    })
+         
+      //    console.log(foundUser, 'FU');
+      //    return foundUser.length > 0 ? true : false;
    }
 
    handleValidations = (name, value) => {
@@ -111,22 +124,30 @@ class Authenticate extends React.Component {
 
          case 'email':
 
-            if (this.checkIfUserExist(this.state.users, this.state.user)) {
-               this.setState((prevState) => ({
-                 error: {
+            errorText = emailValidation(value);
+            this.setState((prevState) => ({
+               error: {
                   ...prevState.error,
-                  emailError: 'Email cannot be found HV'
-                 } 
-               }))
-            } else {
-               errorText = emailValidation(value);
-               this.setState((prevState) => ({
-                  error: {
-                     ...prevState.error,
-                     emailError: errorText
-                  },
-               }))
-            }
+                  emailError: errorText
+               },
+            }))
+
+            // if (this.checkIfUserExist(this.state.users, this.state.user)) {
+            //    this.setState((prevState) => ({
+            //      error: {
+            //       ...prevState.error,
+            //       emailError: 'Email cannot be found HV'
+            //      } 
+            //    }))
+            // } else {
+            //    errorText = emailValidation(value);
+            //    this.setState((prevState) => ({
+            //       error: {
+            //          ...prevState.error,
+            //          emailError: errorText
+            //       },
+            //    }))
+            // }
 
             //if email valid === undef, check if users function if it is in array or return string value, then need to set the text value in line 88, 
          break;
@@ -186,18 +207,25 @@ class Authenticate extends React.Component {
             errorValue = { ...errorValue, [`${val}Error`] : 'Required' };
             isError = true
          } 
-         
 
-         else if (type === 'signIn') {
-            this.state.users.forEach(val => {
-               if (val.email !== this.state.users.email) {
-                  console.log(val.email, 'val email')
+         else if (type === 'signUp') {
+            this.state.users.forEach(item => {
+               if (item.email === this.state.user.email) {
                   errorValue = {
                      ...errorValue, 
-                     emailError: 'Email cannot be found CEBS'};
+                     emailError: 'Email already exists'};
                      isError = true
                }
             })
+         
+            // if (this.checkIfUserExist(this.state.users, this.state.user)) {
+            //    this.setState((prevState) => ({
+            //      error: {
+            //       ...prevState.error,
+            //       emailError: 'Email cannot be found HV'
+            //      } 
+            //    }))
+            // }
          }
 
       });
@@ -214,39 +242,39 @@ class Authenticate extends React.Component {
       console.log(this.checkIfUserExist(this.state.testUser, this.state.user.email), 'CEIU')
 
 
-      if (this.checkIfUserExist(this.state.users, this.state.user.email) || this.checkIfUserExist(this.state.testUser, this.state.user.email)) {
-
+      if (!errorCheck) {
          this.setState((prevState) => ({
-            error: {
-               ...prevState.error,
-               emailError: 'This email already exists'
+            users: {
+               ...prevState.users,
+               user: '',
             }
          }))
-      }
-      else if (!errorCheck) {
          this.addUserToState(this.state.user);
          this.props.isLoggedInStateT();
-         this.setState({
-            users: newUser,
-            user: '',
-         })
       }
+      // else if (!errorCheck) {
+      //    this.setState({
+      //       users: newUser,
+      //       user: '',
+      //    })
+      // }
    }
 
    handleSignInUser = () => {
       // const errorCheck = this.checkErrorBeforeSave();
       const errorCheck = this.checkErrorBeforeSave('signIn');
    
-      console.log(this.state.testUser[0].email, 'testUser')
+      // console.log(this.state.testUser[0].email, 'testUser')
 
       // console.log(errorCheck);
-      console.log(this.checkIfUserExist(this.state.users, this.state.user.email), 'CEIU')
+      // console.log(this.checkIfUserExist(this.state.users, this.state.user.email), 'CEIU')
 
-      console.log(this.checkIfUserExist(this.state.testUser, this.state.user.email), 'CEIU')
+      // console.log(this.checkIfUserExist(this.state.testUser, this.state.user.email), 'CEIU')
 
 
       if (!errorCheck) {
          
+         //attempt #1
          // if (this.checkIfUserExist(this.state.users, this.state.user.email) || this.checkIfUserExist(this.state.testUser, this.state.user.email)) {
          //    this.setState((prevState) => ({
          //       error: {
@@ -255,24 +283,100 @@ class Authenticate extends React.Component {
          //       }
          //    }))
          // } 
-         
-         if (this.checkIfUserExist(this.state.users, this.state.user.password) || this.checkIfUserExist(this.state.testUser, this.state.user.password)) {
-            this.setState((prevState) => ({
-               error: {
-                  ...prevState.error,
-                  passwordError: 'Password is incorrect'
-               }
-            }))
-         } 
 
-         else {
-            this.addUserToState(this.state.user);
-            this.props.isLoggedInStateT();
-            this.setState({
-               users: newUser,
-               user: '',
-            })
+         //attempt #2
+         // this.state.users.forEach(user => {
+         //    console.log(user)
+         //    if (user.email !== this.state.user.email) {
+         //       this.setState((prevState) => ({
+         //          error: {
+         //             ...prevState.error,
+         //             emailError: 'Email cannot be found'
+         //          }
+         //       }))
+         //    } else if (user.password !== this.state.user.password) {
+         //       this.setState((prevState) => ({
+         //          error: {
+         //             ...prevState.error,
+         //             passwordError: 'Password is Incorrect'
+         //          }
+         //       }))
+         //    }  else {
+         //          this.addUserToState(this.state.user);
+         //          this.props.isLoggedInStateT();
+         //          this.setState({
+         //             users: newUser,
+         //             user: '',
+         //          })
+         //       }
+         // })
+
+         //attempt #3
+         // this.state.users.map(user => {
+         //    console.log(user);           
+         //    // console.log(user[1]);           
+
+         // });
+
+
+         //attempt #4
+         // Object.values(this.state.users).forEach(item => item.forEach(user => {
+         //    {
+         //       console.log(user)
+         //       if (user.email !== this.state.user.email) {
+         //          this.setState((prevState) => ({
+         //             error: {
+         //                ...prevState.error,
+         //                emailError: 'Email cannot be found'
+         //             }
+         //          }))
+         //       } else if (user.password !== this.state.user.password) {
+         //          this.setState((prevState) => ({
+         //             error: {
+         //                ...prevState.error,
+         //                passwordError: 'Password is Incorrect'
+         //             }
+         //          }))
+         //       }  else {
+         //             this.addUserToState(this.state.user);
+         //             this.props.isLoggedInStateT();
+         //             this.setState({
+         //                users: newUser,
+         //                user: '',
+         //             })
+         //          }
+         //    }
+         // }))
+
+         //attempt #5 
+         for (let i=0; i < this.state.users.length; i++) {
+            let innerDataSet = this.state.users[i].length;
+            for(let j= 0; j < innerDataSet; j++){
+               console.log(this.state.users[i][j])
+            }
          }
+
+
+         
+
+         //previous attempt at password validation when clicked
+         // if (this.checkIfUserExist(this.state.users, this.state.user.password) || this.checkIfUserExist(this.state.testUser, this.state.user.password)) {
+         //    this.setState((prevState) => ({
+         //       error: {
+         //          ...prevState.error,
+         //          passwordError: 'Password is incorrect'
+         //       }
+         //    }))
+         // } 
+
+         // else {
+         //    this.addUserToState(this.state.user);
+         //    this.props.isLoggedInStateT();
+         //    this.setState({
+         //       users: newUser,
+         //       user: '',
+         //    })
+         // }
       } 
    }
 

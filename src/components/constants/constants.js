@@ -9,11 +9,17 @@ export const INIT_TEST = [{
    zipCode: '11111',
 }]
 
-export const newUser =[{
+export const newUser =[
+   {
    email: '',
    password: '',
    confPassword: '',
    firstName: '',
    lastName: '',
    zipCode: '',
-}]
+   },
+   {
+      INIT_TEST
+   },
+
+]
