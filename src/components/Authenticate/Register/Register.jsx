@@ -9,7 +9,8 @@ class Register extends React.Component {
       this.state = {
          user: this.props.UserState,
          users: this.props.UsersState,
-         userTest: this.props.userTest
+         userTest: this.props.userTest,
+         currentUserEmail: '',
       }
    }
 
@@ -17,8 +18,8 @@ class Register extends React.Component {
       e.preventDefault(e);
       this.props.onSubmitFunc()
    }
-   
-   //why do these error messages only show after i clicked off it? 
+
+
    render() {
 
       //functions

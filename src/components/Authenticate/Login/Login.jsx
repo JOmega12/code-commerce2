@@ -12,12 +12,16 @@ class Login extends React.Component {
       }
    }
 
+   submitRegister = (e) => {
+      e.preventDefault(e);
+      this.props.onSubmitFunc()
+   }
+   
 
 
    render() {
 
       const {handleInputData, handlePasswordVisibilityT,handlePasswordVisibilityF, onBlurFunc, passwordState} = this.props;
-
 
       const loginData = [
          {label: 'Email', type: 'text', name: 'email', error: 'emailError'},
@@ -25,7 +29,7 @@ class Login extends React.Component {
       ]
 
       return (
-         <form action="">
+         <form onSubmit= {(e) => this.submitRegister(e)}>
             {loginData.map((item) => (
                <InputBase 
                placeholder= {item.label}

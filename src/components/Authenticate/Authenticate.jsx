@@ -27,7 +27,7 @@ class Authenticate extends React.Component {
       }
    }
 
-
+   //add the test user to users to populate the object
    addUserToState = (obj) => {
       const newArr = [...this.state.users];
       newArr.push(obj);
@@ -35,6 +35,32 @@ class Authenticate extends React.Component {
          ...prevState,
          users: newArr,
       }))
+   }
+
+   //this checks if current user is in array
+   checkIfUserExist = (arr, type) => {
+      // if (arr) {
+      //    const foundUser=  arr.filter(item => {
+      //       return item.type === type
+      //    })
+   
+      //    return foundUser.length > 0 ? true : false;
+      // }
+
+      // let foundUser;
+      // return Object.keys(arr).forEach((item) => {
+      //    foundUser=  item.filter(val => {
+      //       return val.type === type
+      //    })
+   
+      //    return foundUser.length > 0 ? true : false;
+      // })
+
+      const foundUser=  arr.filter(item => {
+            return item.type === type
+         })
+   
+         return foundUser.length > 0 ? true : false;
    }
 
    handleValidations = (name, value) => {
@@ -61,6 +87,7 @@ class Authenticate extends React.Component {
             }));
          break;
          case 'password':
+
             errorText = passwordValidation(value);
             this.setState((prevState) => ({
                error: {
@@ -70,9 +97,8 @@ class Authenticate extends React.Component {
             }))
          break;
          case 'confPassword':
-            //checks if confirm password is === to initial password
 
-            if (value !== this.state.newUser.password) {
+            if (value !== this.state.user.password) {
                errorText = 'Password does not match'
             }
 
@@ -82,15 +108,27 @@ class Authenticate extends React.Component {
                }))
 
          break;
-         case 'email':
-            errorText = emailValidation(value);
 
-            this.setState((prevState) => ({
-               error: {
+         case 'email':
+
+            if (this.checkIfUserExist(this.state.users, this.state.user)) {
+               this.setState((prevState) => ({
+                 error: {
                   ...prevState.error,
-                  emailError: errorText
-               },
-            }))
+                  emailError: 'Email cannot be found HV'
+                 } 
+               }))
+            } else {
+               errorText = emailValidation(value);
+               this.setState((prevState) => ({
+                  error: {
+                     ...prevState.error,
+                     emailError: errorText
+                  },
+               }))
+            }
+
+            //if email valid === undef, check if users function if it is in array or return string value, then need to set the text value in line 88, 
          break;
          case 'zipCode':
             errorText= zipCodeValidation(value);
@@ -102,6 +140,8 @@ class Authenticate extends React.Component {
                },
             }))
          break;
+         
+
          default:
             break;
       }
@@ -111,7 +151,7 @@ class Authenticate extends React.Component {
       this.handleValidations(e.target.name, e.target.value);
    }
 
-   //onChange function (done)
+   //onChange function
    handleInputData = (e) => {
       this.setState((prevState) => ({
          user: {
@@ -138,15 +178,7 @@ class Authenticate extends React.Component {
       this.setState({passwordClicked: false});
    }
 
-   //this checks if current user is in 
-   checkIfUserExist = (email) => {
-      return this.props.userData.filter(item => {
-         return item.email === email
-      })
-   }
-
- //it works in terms of  but why does it not reset the values when pressing the register button and why does it not go to the next component
-   checkErrorBeforeSave = () => {
+   checkErrorBeforeSave = (type) => {
       let errorValue = {};
       let isError = false;
       Object.keys(this.state.user).forEach((val) => {
@@ -155,11 +187,15 @@ class Authenticate extends React.Component {
             isError = true
          } 
          
-         else if (val.email) {
-            this.state.user.forEach(user => {
-               if (user.email === this.state.users.email) {
-                  errorValue = {...errorValue, emailError: 'Email is already logged in'};
-                  isError = true
+
+         else if (type === 'signIn') {
+            this.state.users.forEach(val => {
+               if (val.email !== this.state.users.email) {
+                  console.log(val.email, 'val email')
+                  errorValue = {
+                     ...errorValue, 
+                     emailError: 'Email cannot be found CEBS'};
+                     isError = true
                }
             })
          }
@@ -169,21 +205,76 @@ class Authenticate extends React.Component {
       return isError;
    }
 
-   //this is the submit button for Register
+   
    handleSignUpUser = () => {
-      const errorCheck = this.checkErrorBeforeSave();
-      console.log(errorCheck);
+      const errorCheck = this.checkErrorBeforeSave('create');
 
-      if (!errorCheck) {
+      console.log(this.checkIfUserExist(this.state.users, this.state.user.email), 'CEIU')
+
+      console.log(this.checkIfUserExist(this.state.testUser, this.state.user.email), 'CEIU')
+
+
+      if (this.checkIfUserExist(this.state.users, this.state.user.email) || this.checkIfUserExist(this.state.testUser, this.state.user.email)) {
+
+         this.setState((prevState) => ({
+            error: {
+               ...prevState.error,
+               emailError: 'This email already exists'
+            }
+         }))
+      }
+      else if (!errorCheck) {
          this.addUserToState(this.state.user);
          this.props.isLoggedInStateT();
          this.setState({
             users: newUser,
-            user: ''
+            user: '',
          })
       }
    }
 
+   handleSignInUser = () => {
+      // const errorCheck = this.checkErrorBeforeSave();
+      const errorCheck = this.checkErrorBeforeSave('signIn');
+   
+      console.log(this.state.testUser[0].email, 'testUser')
+
+      // console.log(errorCheck);
+      console.log(this.checkIfUserExist(this.state.users, this.state.user.email), 'CEIU')
+
+      console.log(this.checkIfUserExist(this.state.testUser, this.state.user.email), 'CEIU')
+
+
+      if (!errorCheck) {
+         
+         // if (this.checkIfUserExist(this.state.users, this.state.user.email) || this.checkIfUserExist(this.state.testUser, this.state.user.email)) {
+         //    this.setState((prevState) => ({
+         //       error: {
+         //          ...prevState.error,
+         //          emailError: 'Email cannot be found'
+         //       }
+         //    }))
+         // } 
+         
+         if (this.checkIfUserExist(this.state.users, this.state.user.password) || this.checkIfUserExist(this.state.testUser, this.state.user.password)) {
+            this.setState((prevState) => ({
+               error: {
+                  ...prevState.error,
+                  passwordError: 'Password is incorrect'
+               }
+            }))
+         } 
+
+         else {
+            this.addUserToState(this.state.user);
+            this.props.isLoggedInStateT();
+            this.setState({
+               users: newUser,
+               user: '',
+            })
+         }
+      } 
+   }
 
    render() {
 
@@ -233,9 +324,10 @@ class Authenticate extends React.Component {
                handlePasswordVisibilityT = {this.handlePasswordVisibilityT}
                handlePasswordVisibilityF = {this.handlePasswordVisibilityF}
                passwordState = {this.state.passwordClicked}
-
                onBlurFunc = {this.handleBlur}
                errorMState = {this.state.error}
+
+               onSubmitFunc = {this.handleSignInUser}
                />
             
             }
