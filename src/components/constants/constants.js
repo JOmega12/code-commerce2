@@ -7,7 +7,7 @@ export const INIT_TEST = [{
    firstName: 'jake',
    lastName: 'snake',
    zipCode: '11111',
-}]
+},]
 
 export const newUser =[
    {
@@ -17,9 +17,6 @@ export const newUser =[
    firstName: '',
    lastName: '',
    zipCode: '',
-   },
-   {
-      INIT_TEST
    },
 
 ]

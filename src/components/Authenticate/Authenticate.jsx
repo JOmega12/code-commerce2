@@ -18,8 +18,8 @@ class Authenticate extends React.Component {
       this.state = {
          // isLoggedInState: this.props.isLoggedInState,
          isLogInClicked: false,
-         testUser: INIT_TEST,
-         users: newUser,
+         // testUser: INIT_TEST,
+         users: INIT_TEST,
          //this is where the user will be added 
          user: '',
          error: {},
@@ -233,150 +233,70 @@ class Authenticate extends React.Component {
       return isError;
    }
 
-   
+   //button for signUP
    handleSignUpUser = () => {
       const errorCheck = this.checkErrorBeforeSave('create');
 
-      console.log(this.checkIfUserExist(this.state.users, this.state.user.email), 'CEIU')
-
-      console.log(this.checkIfUserExist(this.state.testUser, this.state.user.email), 'CEIU')
-
 
       if (!errorCheck) {
-         this.setState((prevState) => ({
-            users: {
-               ...prevState.users,
-               user: '',
+
+         this.state.users.forEach(user => {
+            if(user.email === this.state.user.email) {
+               this.setState((prevState) => ({
+                  error: {
+                     ...prevState.error,
+                     emailError: 'Email already exists, please sign in'
+                  }
+               }))
+            } else {
+               this.addUserToState(this.state.user);
+               this.props.isLoggedInStateT();
+               this.setState((prevState) => ({
+                  users: {
+                     ...prevState.users,
+                     user: '',
+                  }
+               }))
             }
-         }))
-         this.addUserToState(this.state.user);
-         this.props.isLoggedInStateT();
+         })
+
       }
-      // else if (!errorCheck) {
-      //    this.setState({
-      //       users: newUser,
-      //       user: '',
-      //    })
-      // }
+
    }
 
+   //button for signIn
    handleSignInUser = () => {
       // const errorCheck = this.checkErrorBeforeSave();
       const errorCheck = this.checkErrorBeforeSave('signIn');
-   
-      // console.log(this.state.testUser[0].email, 'testUser')
-
-      // console.log(errorCheck);
-      // console.log(this.checkIfUserExist(this.state.users, this.state.user.email), 'CEIU')
-
-      // console.log(this.checkIfUserExist(this.state.testUser, this.state.user.email), 'CEIU')
 
 
       if (!errorCheck) {
-         
-         //attempt #1
-         // if (this.checkIfUserExist(this.state.users, this.state.user.email) || this.checkIfUserExist(this.state.testUser, this.state.user.email)) {
-         //    this.setState((prevState) => ({
-         //       error: {
-         //          ...prevState.error,
-         //          emailError: 'Email cannot be found'
-         //       }
-         //    }))
-         // } 
 
-         //attempt #2
-         // this.state.users.forEach(user => {
-         //    console.log(user)
-         //    if (user.email !== this.state.user.email) {
-         //       this.setState((prevState) => ({
-         //          error: {
-         //             ...prevState.error,
-         //             emailError: 'Email cannot be found'
-         //          }
-         //       }))
-         //    } else if (user.password !== this.state.user.password) {
-         //       this.setState((prevState) => ({
-         //          error: {
-         //             ...prevState.error,
-         //             passwordError: 'Password is Incorrect'
-         //          }
-         //       }))
-         //    }  else {
-         //          this.addUserToState(this.state.user);
-         //          this.props.isLoggedInStateT();
-         //          this.setState({
-         //             users: newUser,
-         //             user: '',
-         //          })
-         //       }
-         // })
-
-         //attempt #3
-         // this.state.users.map(user => {
-         //    console.log(user);           
-         //    // console.log(user[1]);           
-
-         // });
-
-
-         //attempt #4
-         // Object.values(this.state.users).forEach(item => item.forEach(user => {
-         //    {
-         //       console.log(user)
-         //       if (user.email !== this.state.user.email) {
-         //          this.setState((prevState) => ({
-         //             error: {
-         //                ...prevState.error,
-         //                emailError: 'Email cannot be found'
-         //             }
-         //          }))
-         //       } else if (user.password !== this.state.user.password) {
-         //          this.setState((prevState) => ({
-         //             error: {
-         //                ...prevState.error,
-         //                passwordError: 'Password is Incorrect'
-         //             }
-         //          }))
-         //       }  else {
-         //             this.addUserToState(this.state.user);
-         //             this.props.isLoggedInStateT();
-         //             this.setState({
-         //                users: newUser,
-         //                user: '',
-         //             })
-         //          }
-         //    }
-         // }))
-
-         //attempt #5 
-         for (let i=0; i < this.state.users.length; i++) {
-            let innerDataSet = this.state.users[i].length;
-            for(let j= 0; j < innerDataSet; j++){
-               console.log(this.state.users[i][j])
-            }
-         }
-
-
-         
-
-         //previous attempt at password validation when clicked
-         // if (this.checkIfUserExist(this.state.users, this.state.user.password) || this.checkIfUserExist(this.state.testUser, this.state.user.password)) {
-         //    this.setState((prevState) => ({
-         //       error: {
-         //          ...prevState.error,
-         //          passwordError: 'Password is incorrect'
-         //       }
-         //    }))
-         // } 
-
-         // else {
-         //    this.addUserToState(this.state.user);
-         //    this.props.isLoggedInStateT();
-         //    this.setState({
-         //       users: newUser,
-         //       user: '',
-         //    })
-         // }
+         this.state.users.forEach(user => {
+            console.log(user)
+            if (user.email !== this.state.user.email) {
+               this.setState((prevState) => ({
+                  error: {
+                     ...prevState.error,
+                     emailError: 'Email cannot be found'
+                  }
+               }))
+            } else if (user.password !== this.state.user.password) {
+               this.setState((prevState) => ({
+                  error: {
+                     ...prevState.error,
+                     passwordError: 'Password is Incorrect'
+                  }
+               }))
+            }  else {
+                  this.addUserToState(this.state.user);
+                  this.props.isLoggedInStateT();
+                  this.setState({
+                     users: newUser,
+                     user: '',
+                  })
+               }
+         })
       } 
    }
 
