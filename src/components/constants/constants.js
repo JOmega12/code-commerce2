@@ -20,3 +20,10 @@ export const newUser =[
    },
 
 ]
+
+export const shoppingItems = [
+   {name: 'milk', price: 10},
+   {name: 'cheese', price: 20},
+   {name: 'goat', price: 50},
+   {name: 'rice', price: 5},
+]

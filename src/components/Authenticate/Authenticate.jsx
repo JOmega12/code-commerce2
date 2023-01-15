@@ -16,7 +16,6 @@ class Authenticate extends React.Component {
    constructor(props) {
       super(props)
       this.state = {
-         // isLoggedInState: this.props.isLoggedInState,
          isLogInClicked: false,
          // testUser: INIT_TEST,
          users: INIT_TEST,
@@ -39,41 +38,10 @@ class Authenticate extends React.Component {
 
    //this checks if current user is in array
    checkIfUserExist = (arr, type) => {
-      //attempt 1
-      // if (arr) {
-      //    const foundUser=  arr.filter(item => {
-      //       return item.type === type
-      //    })
-   
-      //    return foundUser.length > 0 ? true : false;
-      // }
-
-
-      //attempt 2
-      // let foundUser;
-      // return Object.keys(arr).forEach((item) => {
-      //    foundUser=  item.filter(val => {
-      //       return val.type === type
-      //    })
-   
-      //    return foundUser.length > 0 ? true : false;
-      // })
-      
-      //attempt 3 
       const foundUser = arr.forEach((item) => {
          return item.type === type
       })
-
-      console.log(foundUser, 'fU')
       return foundUser.length > 0 ? true: false;
-
-      //attempt 4
-      // const foundUser=  arr.filter(item => {
-      //       return item.type === type
-      //    })
-         
-      //    console.log(foundUser, 'FU');
-      //    return foundUser.length > 0 ? true : false;
    }
 
    handleValidations = (name, value) => {
@@ -131,25 +99,6 @@ class Authenticate extends React.Component {
                   emailError: errorText
                },
             }))
-
-            // if (this.checkIfUserExist(this.state.users, this.state.user)) {
-            //    this.setState((prevState) => ({
-            //      error: {
-            //       ...prevState.error,
-            //       emailError: 'Email cannot be found HV'
-            //      } 
-            //    }))
-            // } else {
-            //    errorText = emailValidation(value);
-            //    this.setState((prevState) => ({
-            //       error: {
-            //          ...prevState.error,
-            //          emailError: errorText
-            //       },
-            //    }))
-            // }
-
-            //if email valid === undef, check if users function if it is in array or return string value, then need to set the text value in line 88, 
          break;
          case 'zipCode':
             errorText= zipCodeValidation(value);
@@ -162,7 +111,6 @@ class Authenticate extends React.Component {
             }))
          break;
          
-
          default:
             break;
       }
@@ -217,15 +165,6 @@ class Authenticate extends React.Component {
                      isError = true
                }
             })
-         
-            // if (this.checkIfUserExist(this.state.users, this.state.user)) {
-            //    this.setState((prevState) => ({
-            //      error: {
-            //       ...prevState.error,
-            //       emailError: 'Email cannot be found HV'
-            //      } 
-            //    }))
-            // }
          }
 
       });
@@ -239,7 +178,6 @@ class Authenticate extends React.Component {
 
 
       if (!errorCheck) {
-
          this.state.users.forEach(user => {
             if(user.email === this.state.user.email) {
                this.setState((prevState) => ({
@@ -266,12 +204,9 @@ class Authenticate extends React.Component {
 
    //button for signIn
    handleSignInUser = () => {
-      // const errorCheck = this.checkErrorBeforeSave();
       const errorCheck = this.checkErrorBeforeSave('signIn');
 
-
       if (!errorCheck) {
-
          this.state.users.forEach(user => {
             console.log(user)
             if (user.email !== this.state.user.email) {
@@ -312,14 +247,14 @@ class Authenticate extends React.Component {
                      checked = {this.state.isLogInClicked}
                      />
                      Register
-                  </label>
-                  <label htmlFor="">
+               </label>
+               <label htmlFor="">
                      <input type="radio" name='radioTag' value='login'
                      onClick={this.handleSignInRadio}
                      checked = {!this.state.isLogInClicked}
                      />
                      Login
-                  </label>
+               </label>
             </div>
 
             

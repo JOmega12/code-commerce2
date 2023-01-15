@@ -57,9 +57,6 @@ class Register extends React.Component {
          ))}
             <i className="bi bi-eye-slash registerPass" id="togglePassword" onClick={passwordState ? handlePasswordVisibilityF: handlePasswordVisibilityT}
             ></i>
-            
-
-            {/* i know this has something to do with the submitting function because everything should be going */}
             <div className='registerButton'>
             <InputBase type = 'submit' value='Register'
             />

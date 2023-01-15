@@ -12,7 +12,8 @@ class CodeCommerce extends React.Component {
       super()
 
       this.state = {
-         isLoggedIn: false,
+         //originally is false
+         isLoggedIn: true,
       }
    }
 
