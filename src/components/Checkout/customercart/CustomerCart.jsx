@@ -2,11 +2,12 @@ import React from "react";
 import InputBase from "../../InputBase/InputBase";
 import './customerCart.css'
 
+// import '../../Images/cheese.png'
 
 class CustomerCart extends React.Component {
 
-   constructor() {
-      super();
+   constructor(props) {
+      super(props);
       this.state= {
          counter: 0
       }
@@ -26,53 +27,50 @@ class CustomerCart extends React.Component {
 
 
    render() {
-
-      const itemCartData = [
-         {imageItem: 'image-item', image: '', description: 'Milk', price: ''}
-      ]
-
-      // if else component would be here for the value i think
-      const buttonInput = [
-         {type: 'button', value:'incrementCounter/decrement', name:'buttonPlus' },
-         {type: 'button', value:'decrementCounter/decrement', name:'buttonPlus' },
-      ]
-
       //make the item numbers specific per item in the data array then increment them
 
       return(
          <div className="mainCustomerForm">
-            <h3>Cart Screen</h3>
+            <h3>Shopping Cart</h3>
             <div className="items-container">
-               <div className="item">
-                  <div className="image-item">
-                     <img src="" alt="" />
-                  </div>
-                  <div className="description">
-                     <span>Milk</span>
-                  </div>
-                  <div className="quantity">
-                     <InputBase type='button' 
-                     value='incrementCounter'
-                     onClick={this.incrementCounter}
-                     name='buttonPlus'/>
-                     <p className="incrPlus">{this.state.counter}</p>
-                     <InputBase 
-                     type='input'
-                     onChange= {this.somethingaddingonIncrement}
-                     />
-                     <InputBase
-                     type='button'
-                     value='decrementCounter'
-                     onClick={this.decrementCounter}
-                     name='buttonMinus'/>
-                     <p className="incrPlus">{this.state.counter}</p>
-
+               <div className="item-cart">
+                     {this.props.shoppingItemsProps.map(item => (
+                        <div className="mini-container-items">
+                           <p>{item.name}</p>
+                           <p>${item.price}</p>
+                           <p>Quanity:</p>
+                           <label htmlFor="quantity"></label>
+                           <select name="quantity" id=""> Quantity
+                              <option value="option1">1</option>
+                              <option value="option2">2</option>
+                              <option value="option3">3</option>
+                           </select>
+                           <p>Total: {item.totalPrice}</p>
+                        </div>
+                     ))}
+               </div>
+               <div className="summary">
+                  <h3>Summary</h3>
+                  <div className="promo-container">
+                     <p>Do you have a promo code?</p>
+                     <div className="promo-button">
+                        <input type="text" />
+                        <button>Apply</button>
+                     </div>
+                     <div className="total-price">
+                        <p>Cart Subtotal: </p>
+                        <p>Shipping and Handling: </p>
+                        <p>Discount: </p>
+                        <p>Total: {this.props.totalAmountItemsProps}
+                        </p>
+                     </div>
+                     <div>
+                        <button
+                        disabled={this.props.checkoutDisabledProps}
+                        >Checkout</button>
+                     </div>
                   </div>
                </div>
-               <div className="total-price"></div>
-            </div>
-            <div className="summary">
-
             </div>
          </div>
       )

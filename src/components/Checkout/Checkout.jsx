@@ -11,7 +11,21 @@ class Checkout extends React.Component {
       this.state = {
          shoppingItems: shoppingItems,
          total: 0,
+         checkoutDisabled: false,
+         shipPlusHandle: 0,
+         discount: 0,
+         optionValue: 'option1'
       }
+   }
+
+   //onChange function
+   handleInputData = (e) => {
+      this.setState((prevState) => ({
+         user: {
+            ...prevState.user,
+            [e.target.name]: e.target.value,
+         }
+      }))
    }
 
    addToTotalItems = () => {
@@ -26,7 +40,11 @@ class Checkout extends React.Component {
 
       return (
             <div>
-               <CustomerCart/>
+               <CustomerCart
+               shoppingItemsProps ={this.state.shoppingItems}
+               totalAmountItemsProps = {this.state.total}
+               checkoutDisabledProps = {this.state.checkoutDisabled}
+               />
             </div>
       )
    }

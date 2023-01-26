@@ -22,8 +22,13 @@ export const newUser =[
 ]
 
 export const shoppingItems = [
-   {name: 'milk', price: 10},
-   {name: 'cheese', price: 20},
-   {name: 'goat', price: 50},
-   {name: 'rice', price: 5},
+   {name: 'Milk', price: 10, quantity: 5, totalPrice: 0},
+   {name: 'Cheese', price: 20, quantity: 3, totalPrice: 0},
+   {name: 'Goat', price: 50, quantity: 2, totalPrice: 0},
+   {name: 'Rice', price: 5, quantity: 4, totalPrice: 0},
+]
+
+export const discountVal = [
+   {ten: 0.10},
+   {twenty: 0.20},
 ]
