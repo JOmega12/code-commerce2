@@ -1,10 +1,9 @@
 
 .mainCustomerForm  {
-   border: blue solid 2px;
    display: flex;
    flex-direction: column;
-   width: 600px;
-   height: 70vh;
+   width: 900px;
+   height: 90vh;
    background-color: #ffffff;
    border-radius: 10px;
    box-shadow: 0px 10px 50px #555;
@@ -15,18 +14,26 @@
    display: flex;
    justify-content: space-evenly;
    align-items: center;
-   border: brown 2px solid;
+   /* border: brown 2px solid; */
    margin: 10px 15px 10px 15px;
    padding: 10px;
    gap: 20px;
+   box-shadow: 0px 10px 30px #555;
+   border-radius: 10px;
+
 }
 
 
 .item-cart{
    display: flex;
    flex-direction: column;
+   justify-content: center;
+   align-items: center;
    color: black;
    /* border: black solid 2px; */
+   border-radius: 20px;
+   /* box-shadow: 0px 10px 50px #555; */
+   width: 60%
 }
 
 .summary {
@@ -41,17 +48,25 @@
 }
 
 .mini-container-items{
-   border: 2px solid yellow;
+   /* border: 2px solid yellow; */
    display: flex;
    justify-content: space-between;
    align-items: center;
    flex-direction: row;
    gap: 10px;
-   padding: 0 10px 0 10px;
+   padding: 10px 20px 10px 20px;
+}
 
+.img-item-container {
+   width: 40px;
+   height: 40px;
+}
+
+.img-item-container img {
+   width: 100%;
 }
 
 .mini-container-items p {
-   border: grey solid 2px;
+   /* border: grey solid 2px; */
    gap: 10px;
 }

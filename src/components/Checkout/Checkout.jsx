@@ -31,10 +31,17 @@ class Checkout extends React.Component {
    addToTotalItems = () => {
       let totalOfItems = 0;
       this.state.shoppingItems.forEach(item => {
-         totalOfItems += item.price;
+         totalOfItems += item.price * item.quantity;
       });
       this.setState({total: totalOfItems})
    }
+
+   handleCheckout = () => {
+      if(this.state.shoppingItems.length > 0){
+         this.setState({checkoutDisabled: true});
+      }
+   }
+
 
    render() {
 
@@ -51,7 +58,7 @@ class Checkout extends React.Component {
 }
   
 
-// have a main screen, where the checkout 
+// have a main screen, where the checkout (check)
 //write out the html for the product where in the quantity, you will have an increment dropdown with price
 //price * quantity = total price for 1 product
 //total product will be in another component with the summary bar 
