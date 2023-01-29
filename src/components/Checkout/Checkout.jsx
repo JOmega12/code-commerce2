@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomerCart from './customercart/CustomerCart';
-import PaymentInfo from './paymentInfo/PaymentInfo';
-import ShippingInfo from './shippingInfo/ShippingInfo';
+// import PaymentInfo from './paymentInfo/PaymentInfo';
+// import ShippingInfo from './shippingInfo/ShippingInfo';
 import './checkout.css';
 import { shoppingItems } from '../constants/constants';
 
@@ -10,11 +10,10 @@ class Checkout extends React.Component {
       super(props)
       this.state = {
          shoppingItems: shoppingItems,
-         total: 0,
+         subTotal: 0,
          checkoutDisabled: false,
-         shipPlusHandle: 0,
+         shipPlusHandle: 3.00,
          discount: 0,
-         optionValue: 'option1'
       }
    }
 
@@ -28,12 +27,19 @@ class Checkout extends React.Component {
       }))
    }
 
-   addToTotalItems = () => {
-      let totalOfItems = 0;
-      this.state.shoppingItems.forEach(item => {
-         totalOfItems += item.price * item.quantity;
-      });
-      this.setState({total: totalOfItems})
+   updateTotalPrice = (index, e) =>{
+      const shoppingStuff = [...this.state.shoppingItems];
+      shoppingItems[index].totalPrice = shoppingItems[index].price * e.target.value;
+      this.setState({shoppingItems: shoppingStuff, subTotal: shoppingStuff.reduce((acc, item) => acc + item.totalPrice, 0)});
+   }
+
+   handleSummary = () => {
+      let subTotal = this.state.subTotal;
+      let sH = this.state.shipPlusHandle;
+      //this one needs an in else and another separate onchange event on the input for discount for this to be applied
+      let discount = this.state.discount;
+
+      //then add total amount here
    }
 
    handleCheckout = () => {
@@ -43,14 +49,18 @@ class Checkout extends React.Component {
    }
 
 
+
+
    render() {
 
       return (
+         // <div>checkout</div>
             <div>
                <CustomerCart
                shoppingItemsProps ={this.state.shoppingItems}
-               totalAmountItemsProps = {this.state.total}
+               subTotalAmountItemsProps = {this.state.subTotal}
                checkoutDisabledProps = {this.state.checkoutDisabled}
+               updateTotalPriceProps={this.updateTotalPrice}
                />
             </div>
       )

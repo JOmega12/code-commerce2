@@ -16,7 +16,7 @@
    align-items: center;
    /* border: brown 2px solid; */
    margin: 10px 15px 10px 15px;
-   padding: 10px;
+   padding: 30px 10px;
    gap: 20px;
    box-shadow: 0px 10px 30px #555;
    border-radius: 10px;
@@ -55,6 +55,7 @@
    flex-direction: row;
    gap: 10px;
    padding: 10px 20px 10px 20px;
+   width: 70%;
 }
 
 .img-item-container {
@@ -69,4 +70,8 @@
 .mini-container-items p {
    /* border: grey solid 2px; */
    gap: 10px;
+}
+
+.mini-container-items label {
+   align-items: center;
 }
