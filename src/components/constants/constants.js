@@ -29,6 +29,6 @@ export const shoppingItems = [
 ]
 
 export const discountVal = [
-   {ten: 0.10},
-   {twenty: 0.20},
+   {number: 0.10, word: 'ten'},
+   {number: 0.20, word: 'twenty'},
 ]

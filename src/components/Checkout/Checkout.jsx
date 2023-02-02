@@ -1,49 +1,77 @@
 import React from 'react';
 import CustomerCart from './customercart/CustomerCart';
 // import PaymentInfo from './paymentInfo/PaymentInfo';
-// import ShippingInfo from './shippingInfo/ShippingInfo';
+import ShippingInfo from './shippingInfo/ShippingInfo';
 import './checkout.css';
-import { shoppingItems } from '../constants/constants';
+import { shoppingItems, discountVal } from '../constants/constants';
 
 class Checkout extends React.Component {
    constructor(props){
       super(props)
-      this.state = {
+      this.state = { 
          shoppingItems: shoppingItems,
          subTotal: 0,
          checkoutDisabled: false,
-         shipPlusHandle: 3.00,
+         shipPlusHandle: 3.99 ,
+         discountValueInput: '',
          discount: 0,
+         finalTotal: 0,
+         nextShippingStep: false,
       }
    }
 
    //onChange function
    handleInputData = (e) => {
-      this.setState((prevState) => ({
-         user: {
-            ...prevState.user,
-            [e.target.name]: e.target.value,
-         }
-      }))
+      this.setState({
+         [e.target.name] : e.target.value
+      })
    }
 
    updateTotalPrice = (index, e) =>{
+      let preDiscount = 0;
       const shoppingStuff = [...this.state.shoppingItems];
       shoppingItems[index].totalPrice = shoppingItems[index].price * e.target.value;
-      this.setState({shoppingItems: shoppingStuff, subTotal: shoppingStuff.reduce((acc, item) => acc + item.totalPrice, 0)});
+
+      let preTotal = shoppingStuff.reduce((acc, item) => acc + item.totalPrice, 0);
+
+      this.setState({
+         shoppingItems: shoppingStuff,
+         subTotal: preTotal,
+         discount: preDiscount,
+         finalTotal: preTotal,
+      });
    }
 
-   handleSummary = () => {
+   handleDiscountButton = () => {
+
       let subTotal = this.state.subTotal;
       let sH = this.state.shipPlusHandle;
-      //this one needs an in else and another separate onchange event on the input for discount for this to be applied
-      let discount = this.state.discount;
+      let discountValWord = this.state.discountValueInput;
+      let discount = 0;
+      let semiTotal = subTotal + sH;
+      let totalTotal = 0;
 
-      //then add total amount here
+      const discountValue = discountVal.find(item => {
+         return item.word === discountValWord
+      })
+
+      if(discountValue){
+         totalTotal += (semiTotal * discountValue.number) + semiTotal;
+         discount += discountValue.number * 100;
+         this.setState({
+            finalTotal: totalTotal.toFixed(2),
+            discount: discount.toFixed(2)
+         })
+      } else {
+         this.setState({
+            finalTotal: totalTotal.toFixed(2),
+            discount: discount.toFixed(2)
+         })
+      }
    }
 
    handleCheckout = () => {
-      if(this.state.shoppingItems.length > 0){
+      if(this.state.finalTotal > 0){
          this.setState({checkoutDisabled: true});
       }
    }
@@ -56,17 +84,31 @@ class Checkout extends React.Component {
       return (
          // <div>checkout</div>
             <div>
+               {this.state.checkoutDisabled ?(
+               <ShippingInfo /> ):
                <CustomerCart
                shoppingItemsProps ={this.state.shoppingItems}
                subTotalAmountItemsProps = {this.state.subTotal}
                checkoutDisabledProps = {this.state.checkoutDisabled}
+               shippingAndHandleProps = {this.state.shipPlusHandle}
+               discountValueProps = {this.state.discountValueInput}
+               discountNumberProps = {this.state.discount}
+               finalTotalProps = {this.state.finalTotal}
+
+
+               handleInputData = {this.handleInputData}
                updateTotalPriceProps={this.updateTotalPrice}
+               discountButtonProps ={this.handleDiscountButton}
+
+
+               
+               handleCheckoutProp = {this.handleCheckout}
                />
+               }
             </div>
       )
    }
 }
-  
 
 // have a main screen, where the checkout (check)
 //write out the html for the product where in the quantity, you will have an increment dropdown with price

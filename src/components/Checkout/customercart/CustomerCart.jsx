@@ -12,15 +12,27 @@ class CustomerCart extends React.Component {
       }
    }
 
+   handleDiscount = (e) => {
+      e.preventDefault(e);
+      this.props.discountButtonProps();
+   }
+   
+   handleCheckout = (e) => {
+      e.preventDefault(e);
+      this.props.handleCheckoutProp();
+   }
+
 
    render() {
-      //make the item numbers specific per item in the data array then increment them
+
+      const {handleInputData} = this.props;
+
 
       return(
          // <div>hi</div>
          <div className="mainCustomerForm">
             <h3>Shopping Cart</h3>
-            <div className="items-container">
+            <form className="items-container">
                <div className="item-cart">
                      {this.props.shoppingItemsProps.map(item => (
                         <div className="mini-container-items">
@@ -36,7 +48,7 @@ class CustomerCart extends React.Component {
                            onChange={(e)=> this.props.updateTotalPriceProps(this.props.shoppingItemsProps.indexOf(item), e)}
                            >
                                Quantity: 
-                           {[...Array(10).keys()].map( (_ , index) => (<option value={index+1}>{index + 1}</option>))}
+                           {[...Array(11).keys()].map( (_ , index) => (<option value={index}>{index}</option>))}
                            </select>
 
 
@@ -49,27 +61,46 @@ class CustomerCart extends React.Component {
                   <div className="promo-container">
                      <p>Do you have a promo code?</p>
                      <div className="promo-button">
-                        <input type="text" />
-                        <button>Apply</button>
+                        
+                        <input
+                        autoComplete = 'off'
+                        placeholder="Promo"
+                        name='discountValueInput'
+                        type="text" 
+                        onChange={handleInputData}
+                        />
+
+                        <button
+                        onClick={(e) => this.handleDiscount(e)}
+                        >Apply
+                        </button>
+
+
                      </div>
                      <div className="total-price">
                         <p>Subtotal: {this.props.subTotalAmountItemsProps}</p>
-                        <p>Shipping and Handling: </p>
-                        <p>Discount: </p>
-                        <p>Total:
+                        <p>Shipping and Handling: {this.props.shippingAndHandleProps}</p>
+                        <p>Discount: {this.props.discountNumberProps}</p>
+                        <p>Total: {this.props.finalTotalProps}
                         </p>
                      </div>
                      <div>
                         <button
                         disabled={this.props.checkoutDisabledProps}
-                        >Checkout</button>
+                        onClick={(e)=> this.handleCheckout(e)}
+                        >Checkout
+                        </button>
                      </div>
                   </div>
                </div>
-            </div>
+            </form>
          </div>
       )
    }
 }
 
+
+//currently writing the button for onclick when being disabled for the checkout button
+// the next one will be validating the discount button
+//then moving on to be shipping information 
 export default CustomerCart;
