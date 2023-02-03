@@ -1,16 +1,16 @@
 import React from "react";
 // import InputBase from "../../InputBase/InputBase";
-import './customerCart.css'
+import './customerCart.css';
 
 
 class CustomerCart extends React.Component {
 
-   constructor(props) {
+/*    constructor(props) {
       super(props);
       this.state= {
          counter: 0
       }
-   }
+   } */
 
    handleDiscount = (e) => {
       e.preventDefault(e);
@@ -100,7 +100,6 @@ class CustomerCart extends React.Component {
 }
 
 
-//currently writing the button for onclick when being disabled for the checkout button
 // the next one will be validating the discount button
 //then moving on to be shipping information 
 export default CustomerCart;

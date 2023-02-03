@@ -11,12 +11,14 @@ class Checkout extends React.Component {
       this.state = { 
          shoppingItems: shoppingItems,
          subTotal: 0,
-         checkoutDisabled: false,
+         //set checkoutDisabled as false to go back to checkout component
+         //checkout component is always set as false
+         checkoutDisabled: true,
          shipPlusHandle: 3.99 ,
          discountValueInput: '',
          discount: 0,
          finalTotal: 0,
-         nextShippingStep: false,
+         // nextShippingStep: false,
       }
    }
 
@@ -110,9 +112,4 @@ class Checkout extends React.Component {
    }
 }
 
-// have a main screen, where the checkout (check)
-//write out the html for the product where in the quantity, you will have an increment dropdown with price
-//price * quantity = total price for 1 product
-//total product will be in another component with the summary bar 
-//would the inputbase be useful in this scenario for the cart screen? 
 export default Checkout 
