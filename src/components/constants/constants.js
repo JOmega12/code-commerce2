@@ -32,3 +32,7 @@ export const discountVal = [
    {number: 0.10, word: 'ten'},
    {number: 0.20, word: 'twenty'},
 ]
+
+export const shippingInfoData = [
+   {AddressTitle: '', Name: '', Address: '', ZipCode: '', County: '', City: '', State: '', PhoneNumber: '', Telephone: '', regular: '', express: ''},
+]

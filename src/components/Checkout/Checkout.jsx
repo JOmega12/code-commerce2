@@ -3,7 +3,7 @@ import CustomerCart from './customercart/CustomerCart';
 // import PaymentInfo from './paymentInfo/PaymentInfo';
 import ShippingInfo from './shippingInfo/ShippingInfo';
 import './checkout.css';
-import { shoppingItems, discountVal } from '../constants/constants';
+import { shoppingItems, discountVal, shippingInfoData } from '../constants/constants';
 
 class Checkout extends React.Component {
    constructor(props){
@@ -18,6 +18,7 @@ class Checkout extends React.Component {
          discountValueInput: '',
          discount: 0,
          finalTotal: 0,
+         shippingInfoData: shippingInfoData,
          // nextShippingStep: false,
       }
    }
@@ -87,7 +88,10 @@ class Checkout extends React.Component {
          // <div>checkout</div>
             <div>
                {this.state.checkoutDisabled ?(
-               <ShippingInfo /> ):
+               <ShippingInfo 
+               shippingInfoDataProps= {this.state.shippingInfoData}
+               handleInputData = {this.handleInputData}
+               /> ):
                <CustomerCart
                shoppingItemsProps ={this.state.shoppingItems}
                subTotalAmountItemsProps = {this.state.subTotal}

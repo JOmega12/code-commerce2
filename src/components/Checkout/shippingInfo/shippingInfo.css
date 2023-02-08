@@ -13,20 +13,92 @@
 .shippingInfoContainer{
    display: flex;
    flex-direction: row;
+   border: brown 2px solid;
+   justify-content: space-between;
+   width: 100%;
 }
 
 .shipping-box-container {
    display: flex;
+   /* border: blue 2px solid; */
    flex-direction: column;
 }
 
 .shippingInfoContainerBox {
    display: flex;
    flex-direction: column;
+   /* border: lightseagreen 2px solid; */
+   width: fit-content;
+   margin: 20px;
+}
 
+.inputShippingInfoContainer {
+   display: flex;
+   justify-content: flex-start;
+   margin: 10px 0;
+}
+
+.label {
+   min-width: 100px;
+}
+
+.summary {
+   display: flex;
+   flex-direction: column;
+   /* border: 2px solid blueviolet; */
+   width: 250px;
 }
 
 .other-shipping-info {
    display: flex;
    flex-direction: row;
+   align-items: center;
+   gap: 10px;
+}
+
+.zipCodeShipping {
+   display: flex;
+   align-items: center;
+}
+
+.zipCodeOtherItems {
+   display: flex;
+   align-items: center;
+}
+
+.phone-number-shipping{
+   display: flex;
+   align-items: center;
+   margin: 10px 0;
+}
+
+hr {
+   border: gray 1px thin;
+   width: 100%;
+}
+
+.shipping-method-container {
+   display: flex;
+   flex-direction: column;
+}
+
+.radio-shipping {
+   display: flex;
+   flex-direction: row;
+   gap: 20px;
+}
+
+.back-to-cart{
+   padding: 10px;
+   cursor: pointer;
+   border: 1px solid black;
+   border-radius: 10px;
+   color: black;
+   background-color: #ffffff;
+   margin: 10px 0 10px 10px;
+}
+
+.back-to-cart:hover{
+   color:white;
+   background-color: black;
 }
