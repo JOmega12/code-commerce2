@@ -33,6 +33,20 @@ export const discountVal = [
    {number: 0.20, word: 'twenty'},
 ]
 
+
+//i think it has to do with something in the state data ofmain checkout component which ties back to here, try to make a small adjustment on the state where you will only measure the address title input and check for any on change values. 
+//i think I will need two state data to finish this because the onchange is fine, so it needs one export const for general input and one for storing the state data
 export const shippingInfoData = [
-   {AddressTitle: '', Name: '', Address: '', ZipCode: '', County: '', City: '', State: '', PhoneNumber: '', Telephone: '', regular: '', express: ''},
+   {addressTitle: 'Tester Industry', name: 'jake', address: '123 test', zipCode: '12345', county: 'Los Angeles', city: 'Los Angeles', phoneNumber: '1234567890', telephone: '1234567890'},
+]
+
+export const shippingInfoDataInput =[
+   {addressTitle: '', name: '', address: '', zipCode: '', county: '', city: '', phoneNumber: '', telephone: ''},
+]
+
+   // {addressTitle: 'Tester Industry', name: 'jake', address: '123 test', zipCode: '12345', county: 'Los Angeles', city: 'Los Angeles', phoneNumber: '1234567890', telephone: '1234567890'},
+
+export const expressShipping = [
+   {regularShipping: 0},
+   {expressShipping: 5}
 ]

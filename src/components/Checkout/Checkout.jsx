@@ -3,13 +3,16 @@ import CustomerCart from './customercart/CustomerCart';
 // import PaymentInfo from './paymentInfo/PaymentInfo';
 import ShippingInfo from './shippingInfo/ShippingInfo';
 import './checkout.css';
-import { shoppingItems, discountVal, shippingInfoData } from '../constants/constants';
+import { shoppingItems, discountVal, shippingInfoData,  } from '../constants/constants';
+
+// shippingInfoDataInput
 
 class Checkout extends React.Component {
    constructor(props){
       super(props)
       this.state = { 
          shoppingItems: shoppingItems,
+         shoppingEmpty: '',
          subTotal: 0,
          //set checkoutDisabled as false to go back to checkout component
          //checkout component is always set as false
@@ -19,21 +22,29 @@ class Checkout extends React.Component {
          discount: 0,
          finalTotal: 0,
          shippingInfoData: shippingInfoData,
+         shippingInfoDataInput: '',
          // nextShippingStep: false,
       }
    }
 
-   //onChange function
+   //onChange function for customerCart
    handleInputData = (e) => {
       this.setState({
-         [e.target.name] : e.target.value
+         [e.target.name] : e.target.value,
+         // shippingInfoData: {
+         //    ...prevState.shippingInfoData,
+         //    [e.target.name] : e.target.value
+         // }
       })
    }
 
    updateTotalPrice = (index, e) =>{
       let preDiscount = 0;
       const shoppingStuff = [...this.state.shoppingItems];
-      shoppingItems[index].totalPrice = shoppingItems[index].price * e.target.value;
+      shoppingStuff[index].totalPrice = shoppingStuff[index].price * e.target.value;
+      shoppingStuff[index].quantity = e.target.value;
+
+      console.log(shoppingStuff[index].quantity)
 
       let preTotal = shoppingStuff.reduce((acc, item) => acc + item.totalPrice, 0);
 
@@ -81,17 +92,42 @@ class Checkout extends React.Component {
 
 
 
+   //onChange function for shippingInfo
+   // handleInputDataShippingInfo = (e) => {
+   //    this.setState({
+   //       shippingInfoData: {
+   //          ...shippingInfoData,
+   //          [e.target.name] : e.target.value
+   //       }
+   //    })
+   // }
+
+   handleInputDataShippingInfo = (e) => {
+      let shippingInfoData = [...this.state.shippingInfoDataInput];
+      shippingInfoData[0][e.target.name] = e.target.value;
+      this.setState({ shippingInfoData });
+   }
+
+
+
+
 
    render() {
 
       return (
-         // <div>checkout</div>
             <div>
                {this.state.checkoutDisabled ?(
                <ShippingInfo 
                shippingInfoDataProps= {this.state.shippingInfoData}
+               shippingInfoDataInputProps = {this.state.shippingInfoDataInput}
+
+
                handleInputData = {this.handleInputData}
+               handleInputDataShippingInfo = {this.handleInputDataShippingInfo}
                /> ):
+
+
+
                <CustomerCart
                shoppingItemsProps ={this.state.shoppingItems}
                subTotalAmountItemsProps = {this.state.subTotal}

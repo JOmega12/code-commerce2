@@ -1,22 +1,29 @@
 import React from "react";
 import '../shippingInfo/shippingInfo.css';
 
+
+
 class ShippingInfo extends React.Component {
  
    render() {
 
       const address = [
-         {name: 'Address Title', value: this.props.shippingInfoDataProps.AddressTitle},
-         {name: 'Name', value: this.props.shippingInfoDataProps.Name},
-         {name: 'Address', value: this.props.shippingInfoDataProps.Address},
+         {placeHolder: 'Address Title', name: 'addressTitle', value: this.props.shippingInfoDataInputProps , },
+         {placeHolder: 'Name', name: 'name', value: this.props.shippingInfoDataInputProps},
+         {placeHolder: 'Address', name: 'address', value: this.props.shippingInfoDataInputProps , },
       ]
 
       const zipCode = [
          {name: 'Country', 
-         type: ['United States', 'United Kingdom', 'Canada',]
+         type: ['United States', 'United Kingdom', 'Canada'],
+         value: this.props.shippingInfoDataInputProps,
          },
-         {name: 'City', type: ['California', 'Texas', 'New York'] },
-         {name: 'State', },
+         {name: 'City',
+         type: ['Los Angeles', 'Austin', 'New York'],
+         value: this.props.shippingInfoDataInputProps, },
+         {name: 'State',
+         type: ['California', 'Texas', 'New York'],
+         value: this.props.shippingInfoDataInputProps, },
       ]
 
       const phone = [
@@ -49,16 +56,17 @@ class ShippingInfo extends React.Component {
                   <div className="loadingBar"></div>
                   <h3>Shipping Information</h3>
                   <div className="shippingInfoContainerBox">
-
-                     {/* fixed width for label and then 100% on input  look at screen shots*/}
-
+         
                      {address.map(item=> (
                         <div className="inputShippingInfoContainer">
-                           <span className="label">{item.name}</span>
+                           <span className="label">{item.placeHolder}</span>
                            <input 
                            style={{width: '50%', height: '25px'}}
-                           value={item.value}
-                           onChange={this.props.handleInputData}
+                           name={item.name}
+                           value={item.value[item.name]}
+                           // onChange={this.props.handleInputDataShippingInfo}
+                           onChange={this.props.handleInputDataShippingInfo
+                           }
                            />
                         </div>
                      ))}
@@ -95,7 +103,7 @@ class ShippingInfo extends React.Component {
                            <span className="label">{item.name}</span>
                            <input type="number"
                            style={{width: '150px', height: '25px'}}
-                           onChange ={this.props.handleInputData}
+                           onChange ={this.props.handleInputDataShippingInfo}
                            />
                         </div>
                      ))}
