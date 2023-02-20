@@ -40,6 +40,9 @@
 .summary {
    display: flex;
    flex-direction: column;
+   height: 100%;
+   width: 100%;
+   /* justify-content: center; */
 }
 
 .promo-button{
@@ -75,4 +78,13 @@
 
 .mini-container-items label {
    align-items: center;
+}
+
+.total-price {
+   /* display: flex;
+   margin: 2px 0;
+   padding: 0; */
+   /* flex-direction: column; */
+   justify-content: center;
+   font-size: medium;
 }

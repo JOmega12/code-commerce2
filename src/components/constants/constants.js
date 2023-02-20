@@ -33,20 +33,29 @@ export const discountVal = [
    {number: 0.20, word: 'twenty'},
 ]
 
+//then the error messages, cannot move forward until it is in
+//also the loading bar which comprises of true or false statements and show the color
 
-//i think it has to do with something in the state data ofmain checkout component which ties back to here, try to make a small adjustment on the state where you will only measure the address title input and check for any on change values. 
-//i think I will need two state data to finish this because the onchange is fine, so it needs one export const for general input and one for storing the state data
+
 export const shippingInfoData = [
    {addressTitle: 'Tester Industry', name: 'jake', address: '123 test', zipCode: '12345', county: 'Los Angeles', city: 'Los Angeles', phoneNumber: '1234567890', telephone: '1234567890'},
 ]
 
 export const shippingInfoDataInput =[
-   {addressTitle: '', name: '', address: '', zipCode: '', county: '', city: '', phoneNumber: '', telephone: ''},
+   {name: 'addressTitle', value: ''},
+   {name: 'name', value: ''},
+   {name: 'address', value: ''},
+   {name: 'zipCode', value: ''},
+   {name: 'country', value: 'United States'},
+   {name: 'city', value: 'Los Angeles'},
+   {name: 'state', value: 'California'},
+   {name: 'phoneNumber', value: ''},
+   {name: 'telephone', value: ''},
 ]
 
    // {addressTitle: 'Tester Industry', name: 'jake', address: '123 test', zipCode: '12345', county: 'Los Angeles', city: 'Los Angeles', phoneNumber: '1234567890', telephone: '1234567890'},
 
 export const expressShipping = [
-   {regularShipping: 0},
-   {expressShipping: 5}
+   {regularShipping: 0, value: ''},
+   {expressShipping: 5, value: ''}
 ]

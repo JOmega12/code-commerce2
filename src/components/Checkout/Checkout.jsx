@@ -3,9 +3,8 @@ import CustomerCart from './customercart/CustomerCart';
 // import PaymentInfo from './paymentInfo/PaymentInfo';
 import ShippingInfo from './shippingInfo/ShippingInfo';
 import './checkout.css';
-import { shoppingItems, discountVal, shippingInfoData,  } from '../constants/constants';
+import { shoppingItems, discountVal, shippingInfoData, shippingInfoDataInput} from '../constants/constants';
 
-// shippingInfoDataInput
 
 class Checkout extends React.Component {
    constructor(props){
@@ -17,13 +16,13 @@ class Checkout extends React.Component {
          //set checkoutDisabled as false to go back to checkout component
          //checkout component is always set as false
          checkoutDisabled: true,
-         shipPlusHandle: 3.99 ,
+         shipPlusHandle: 0 ,
          discountValueInput: '',
          discount: 0,
          finalTotal: 0,
          shippingInfoData: shippingInfoData,
-         shippingInfoDataInput: '',
-         // nextShippingStep: false,
+         shippingInfoDataInput: shippingInfoDataInput,
+         shippingFast: false,
       }
    }
 
@@ -59,10 +58,10 @@ class Checkout extends React.Component {
    handleDiscountButton = () => {
 
       let subTotal = this.state.subTotal;
-      let sH = this.state.shipPlusHandle;
+      // let sH = this.state.shipPlusHandle;
       let discountValWord = this.state.discountValueInput;
       let discount = 0;
-      let semiTotal = subTotal + sH;
+      // let semiTotal = subTotal + sH;
       let totalTotal = 0;
 
       const discountValue = discountVal.find(item => {
@@ -70,16 +69,17 @@ class Checkout extends React.Component {
       })
 
       if(discountValue){
-         totalTotal += (semiTotal * discountValue.number) + semiTotal;
-         discount += discountValue.number * 100;
+         totalTotal += subTotal - (subTotal * discountValue.number);
+         discount += subTotal * discountValue.number
+
          this.setState({
-            finalTotal: totalTotal.toFixed(2),
-            discount: discount.toFixed(2)
+            finalTotal: totalTotal,
+            discount: discount
          })
       } else {
          this.setState({
-            finalTotal: totalTotal.toFixed(2),
-            discount: discount.toFixed(2)
+            finalTotal: totalTotal,
+            discount: discount
          })
       }
    }
@@ -90,22 +90,49 @@ class Checkout extends React.Component {
       }
    }
 
-
-
-   //onChange function for shippingInfo
-   // handleInputDataShippingInfo = (e) => {
-   //    this.setState({
-   //       shippingInfoData: {
-   //          ...shippingInfoData,
-   //          [e.target.name] : e.target.value
-   //       }
-   //    })
-   // }
+   //shippingInfo container code
 
    handleInputDataShippingInfo = (e) => {
-      let shippingInfoData = [...this.state.shippingInfoDataInput];
-      shippingInfoData[0][e.target.name] = e.target.value;
-      this.setState({ shippingInfoData });
+      const {name, value} = e.target
+      let shippingInfoDataInput =[...this.state.shippingInfoDataInput];
+
+      shippingInfoDataInput.find((input) => input.name === name).value = value;
+
+      this.setState( (prev) => ({ 
+         ...prev,
+         shippingInfoDataInput 
+      }));
+   }
+
+   handleShippingFastFalse = () => {
+
+      let currentSHTotal= 0;
+      let subtractFromTotal = this.state.finalTotal - 5
+
+      this.setState({
+         shippingFast: false,
+         shipPlusHandle: currentSHTotal,
+         finalTotal: subtractFromTotal,
+      })
+   }
+
+   handleShippingFastTrue = () => {
+      //when clicked, it would add another $5 to the subtotal amount
+      let currentSHTotal = 5;
+
+      let addToTotalAmount = this.state.finalTotal + currentSHTotal
+      
+      console.log(addToTotalAmount)
+
+      this.setState({
+         shippingFast: true,
+         shipPlusHandle: currentSHTotal,
+         finalTotal: addToTotalAmount,
+      })
+   }
+
+   handleBackToCart = () => {
+      this.setState({checkoutDisabled: false})
    }
 
 
@@ -118,13 +145,26 @@ class Checkout extends React.Component {
             <div>
                {this.state.checkoutDisabled ?(
                <ShippingInfo 
+               //state data for component
                shippingInfoDataProps= {this.state.shippingInfoData}
                shippingInfoDataInputProps = {this.state.shippingInfoDataInput}
+               shippingFastStateProps= {this.state.shippingFast}
 
-
+               //functions for component
                handleInputData = {this.handleInputData}
                handleInputDataShippingInfo = {this.handleInputDataShippingInfo}
-               /> ):
+               handleShippingFastFalse = {this.handleShippingFastFalse}
+               handleShippingFastTrue = {this.handleShippingFastTrue}
+               handleBackToCartProps = {this.handleBackToCart}
+               
+               //summary functions and numbers for component
+               shoppingItemsProps ={this.state.shoppingItems}
+               subTotalAmountItemsProps = {this.state.subTotal}
+               shippingAndHandleProps = {this.state.shipPlusHandle}
+               discountNumberProps = {this.state.discount}
+               finalTotalProps = {this.state.finalTotal}
+               /> 
+               ):
 
 
 
@@ -133,7 +173,7 @@ class Checkout extends React.Component {
                subTotalAmountItemsProps = {this.state.subTotal}
                checkoutDisabledProps = {this.state.checkoutDisabled}
                shippingAndHandleProps = {this.state.shipPlusHandle}
-               discountValueProps = {this.state.discountValueInput}
+               // discountValueProps = {this.state.discountValueInput}
                discountNumberProps = {this.state.discount}
                finalTotalProps = {this.state.finalTotal}
 

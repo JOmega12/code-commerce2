@@ -1,39 +1,72 @@
 import React from "react";
+import { expressShipping, shippingInfoDataInput } from "../../constants/constants";
 import '../shippingInfo/shippingInfo.css';
 
 
 
 class ShippingInfo extends React.Component {
  
+   constructor(props) {
+      super(props)
+      this.state= {
+         shippingFast: false,
+      }
+   }
+
+   // handleSelected = (e) => {
+   //    this.setState((prev) => ({
+   //       ...prev,
+   //       country: e.target.value
+   //    }))
+   // }
+
+   handleShippingFastTrue = () => {
+      this.setState({shippingFast: true})
+   }
+
+   handleShippingFastFalse = () => {
+      this.setState({shippingFast: false})
+   }
+
    render() {
 
       const address = [
-         {placeHolder: 'Address Title', name: 'addressTitle', value: this.props.shippingInfoDataInputProps , },
-         {placeHolder: 'Name', name: 'name', value: this.props.shippingInfoDataInputProps},
-         {placeHolder: 'Address', name: 'address', value: this.props.shippingInfoDataInputProps , },
+         {placeHolder: 'Address Title', name: 'addressTitle', value: this.props.shippingInfoDataInputProps.value , },
+
+         {placeHolder: 'Name', name: 'name', value: this.props.shippingInfoDataInputProps.value},
+
+         {placeHolder: 'Address', name: 'address', value: this.props.shippingInfoDataInputProps.value , },
       ]
 
       const zipCode = [
-         {name: 'Country', 
-         type: ['United States', 'United Kingdom', 'Canada'],
-         value: this.props.shippingInfoDataInputProps,
+         {placeHolder: 'Country',
+         name: shippingInfoDataInput[4].name, 
          },
-         {name: 'City',
-         type: ['Los Angeles', 'Austin', 'New York'],
-         value: this.props.shippingInfoDataInputProps, },
-         {name: 'State',
-         type: ['California', 'Texas', 'New York'],
-         value: this.props.shippingInfoDataInputProps, },
+
+         {placeHolder: 'City',
+         name: shippingInfoDataInput[5].name, },
+         
+         {placeHolder: 'State',
+         name: shippingInfoDataInput[6].name, },
       ]
 
       const phone = [
-         {name: 'Phone Number'},
-         {name: 'Telephone'},
+         {placeHolder: 'Phone Number',
+         name: shippingInfoDataInput[7].name,
+         value: this.props.shippingInfoDataInputProps.value},
+         {placeHolder: 'Telephone',
+         name: shippingInfoDataInput[8].name,
+         value: this.props.shippingInfoDataInputProps.value},
       ]
 
       const radio = [
-         {name: 'Standard Shipping', description: 'Delivery in 4-6 Business Days - Free'},
-         {name: 'Express Shipping', description: 'Delivery in 1-3 Business Days - $5', shippingDetails: 'View Shipping Details'},
+         {placeHolder: 'Standard Shipping', description: 'Delivery in 4-6 Business Days - Free', 
+         shippingDetails: '',
+         onClick: this.props.handleShippingFastFalse, checked: !this.props.shippingFastStateProps,
+         name: expressShipping.regularShipping,},
+         {placeHolder: 'Express Shipping', description: 'Delivery in 1-3 Business Days - $5', shippingDetails: 'View Shipping Details', 
+         onClick: this.props.handleShippingFastTrue, checked: this.props.shippingFastStateProps
+         },
 
       ]
 
@@ -63,10 +96,9 @@ class ShippingInfo extends React.Component {
                            <input 
                            style={{width: '50%', height: '25px'}}
                            name={item.name}
-                           value={item.value[item.name]}
-                           // onChange={this.props.handleInputDataShippingInfo}
-                           onChange={this.props.handleInputDataShippingInfo
-                           }
+                           //value does not work since the onchange does the lifting for the item.name === item.value
+                           // value={item.value}
+                           onChange={this.props.handleInputDataShippingInfo}
                            />
                         </div>
                      ))}
@@ -75,23 +107,36 @@ class ShippingInfo extends React.Component {
                            <span>Zip Code: </span>
                            <input
                            style={{width: '50px', height: '25px'}}
-                           value={this.props.shippingInfoDataProps.ZipCode}
-                           onChange={this.props.handleInputData}
+                           name= 'zipCode'
+                           value={this.props.shippingInfoDataInputProps.value}
+                           onChange={this.props.handleInputDataShippingInfo}
                            />
                         </div>
 
                         {zipCode.map(item => (
                            <div className="zipCodeOtherItems">
-                              <p>{item.name}: </p>
-                              <select name="" id="">
-                              {item.name === 'Country' && country.map((val) => (
-                                 <option value={val}>{val}</option>
+                              <p>{item.placeHolder}: </p>
+                              <select 
+                              name={item.name}
+                              id=""
+                              onChange={this.props.handleInputDataShippingInfo}
+                              defaultValue={item.value}
+                              >
+                              {item.name === 'country' && country.map((val) => (
+                                 <option 
+                                 key={val}
+                                 value={val}
+                                 >{val}</option>
                               ))}
-                              {item.name === 'State' && states.map((val) => (
-                                 <option value={val}>{val}</option>
+                              {item.name === 'state' && states.map((val) => (
+                                 <option 
+                                 key={val}
+                                 value={val}>{val}</option>
                               ))}
-                              {item.name === 'City' && citys.map((val) => (
-                                 <option value={val}>{val}</option>
+                              {item.name === 'city' && citys.map((val) => (
+                                 <option value={val}
+                                 key={val}
+                                 >{val}</option>
                               ))}
                               </select> 
                            </div>
@@ -100,9 +145,10 @@ class ShippingInfo extends React.Component {
 
                      {phone.map(item => (
                         <div className="phone-number-shipping">
-                           <span className="label">{item.name}</span>
+                           <span className="label">{item.placeHolder}</span>
                            <input type="number"
                            style={{width: '150px', height: '25px'}}
+                           name={item.name}
                            onChange ={this.props.handleInputDataShippingInfo}
                            />
                         </div>
@@ -111,22 +157,57 @@ class ShippingInfo extends React.Component {
                      <div className="shipping-method-container">
                         {radio.map(item => (
                            <div className="radio-shipping">
-                              <input type="radio" />
-                              <p>{item.name}</p>
+                              <input type="radio" 
+                              name={item.name}
+                              value=''
+                              onChange={this.props.handleInputDataShippingInfo}
+                              onClick={item.onClick}
+                              checked = {item.checked}
+                              />
+                              <p>{item.placeHolder}</p>
                               <p>{item.description}</p>
-                              <p>{item.shoppingDetails}</p>
+                              <p>{item.shippingDetails}</p>
                            </div>
                         ))}
                      </div>
 
                      <div>
-                        <button className="back-to-cart">Back To Cart</button>
+                        <button className="back-to-cart"
+                        onClick={this.props.handleBackToCartProps}
+                        >
+                           Back To Cart
+                        </button>
                      </div>
                   </div>
                </div>
                <div className="summary">
                   <h3>Summary</h3>
                   {/* missing the items that are moved from previous component*/}
+
+                     {this.props.shoppingItemsProps.map((item, index) => {
+                        if(item.quantity > 0) {
+                           return (
+                              <div className="itemsFromCart"
+                              key ={index}
+                              >
+                              <div className="individualItemL">
+                                 <img src={item.img} alt="" />
+                              </div>
+                              <div className="individualItemR">
+                                 <h5>{item.name}</h5>
+                                 <div className="description-items">
+                                    <p>Price: ${item.price}</p>
+                                    <p>Quantity: {item.quantity}</p>
+                                    <p>Total: ${item.totalPrice}</p>
+                                 </div>
+                              </div>
+                           </div>
+                           )
+                        } else {
+                           return null;
+                        }
+                     })}
+
                   <div className="total-price">
                      <p>
                         Subtotal: {this.props.subTotalAmountItemsProps}
@@ -141,9 +222,10 @@ class ShippingInfo extends React.Component {
                   </div>
                   <div>
                      <button
+                     className="checkout-next"
                      disabled={this.props.checkoutDisabledProps}
-                     onClick={(e)=> this.handleCheckout(e)}
-                     >Payment
+                     onClick={(e)=> this.handleNext(e)}
+                     >CHECKOUT
                      </button>
                   </div>
                </div>
