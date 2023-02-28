@@ -88,3 +88,21 @@ export const cardExpireValidation = (value) => {
 
 export const securityCodeValidation = (min, value) => 
 (value && value.length < min) ? 'Must be 3 characters or more' : undefined 
+
+
+export const addressValidation = (value) => {
+   if (value) {
+      if(/^[0-9]{1,4}(([\-\/][0-9]{1,4})|(\/[ABCDFGHJKLMNPRSTV]{1,2}))*$/) {
+         return undefined
+      }
+   } else if (!value) {
+      return 'You need an address'
+   }
+}
+
+export const phoneNumberValidation = (value) => {
+   const phoneNumberRegex = /^[0-9]{10}$/; 
+   if (!phoneNumberRegex.test(value)) {
+      return 'Please enter a valid 10-digit phone number.';
+   }
+}

@@ -33,27 +33,29 @@ export const discountVal = [
    {number: 0.20, word: 'twenty'},
 ]
 
-//then the error messages, cannot move forward until it is in
-//also the loading bar which comprises of true or false statements and show the color
-
 
 export const shippingInfoData = [
    {addressTitle: 'Tester Industry', name: 'jake', address: '123 test', zipCode: '12345', county: 'Los Angeles', city: 'Los Angeles', phoneNumber: '1234567890', telephone: '1234567890'},
 ]
 
+//might have to restructure the shippingInfoDataInput  similar to shippingInfoData because when i click the button to go next, i would put the data input into the shippingInfoData, therefore it would change the whole structure of my code in shippingINfo component because it would change my onchange and value and have it structured similar to authenticate component in order for the object to be properly added and then move on
+
+//so then the problem and the solution is when i restructure the shippingInfoDataInput, how do i change the onchange value to better reflect the onchange so that i am able to add the data into the button? 
+
 export const shippingInfoDataInput =[
-   {name: 'addressTitle', value: ''},
-   {name: 'name', value: ''},
-   {name: 'address', value: ''},
-   {name: 'zipCode', value: ''},
-   {name: 'country', value: 'United States'},
-   {name: 'city', value: 'Los Angeles'},
-   {name: 'state', value: 'California'},
-   {name: 'phoneNumber', value: ''},
-   {name: 'telephone', value: ''},
+   {addressTitle: '', name: '', address: '', zipCode: '', country: 'United States', city: 'Los Angeles', state: 'California', phoneNumber: '', telephone: ''},
 ]
 
-   // {addressTitle: 'Tester Industry', name: 'jake', address: '123 test', zipCode: '12345', county: 'Los Angeles', city: 'Los Angeles', phoneNumber: '1234567890', telephone: '1234567890'},
+
+   // {name: 'addressTitle', value: ''},
+   // {name: 'name', value: ''},
+   // {name: 'address', value: ''},
+   // {name: 'zipCode', value: ''},
+   // {name: 'country', value: 'United States'},
+   // {name: 'city', value: 'Los Angeles'},
+   // {name: 'state', value: 'California'},
+   // {name: 'phoneNumber', value: ''},
+   // {name: 'telephone', value: ''},
 
 export const expressShipping = [
    {regularShipping: 0, value: ''},

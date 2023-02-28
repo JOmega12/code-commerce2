@@ -4,6 +4,7 @@ import CustomerCart from './customercart/CustomerCart';
 import ShippingInfo from './shippingInfo/ShippingInfo';
 import './checkout.css';
 import { shoppingItems, discountVal, shippingInfoData, shippingInfoDataInput} from '../constants/constants';
+import { addressValidation, onlyTextValidation, phoneNumberValidation, zipCodeValidation } from '../validations/validation';
 
 
 class Checkout extends React.Component {
@@ -14,7 +15,7 @@ class Checkout extends React.Component {
          shoppingEmpty: '',
          subTotal: 0,
          //set checkoutDisabled as false to go back to checkout component
-         //checkout component is always set as false
+         //checkout and shippingInfo component is always set as false
          checkoutDisabled: true,
          shipPlusHandle: 0 ,
          discountValueInput: '',
@@ -23,19 +24,30 @@ class Checkout extends React.Component {
          shippingInfoData: shippingInfoData,
          shippingInfoDataInput: shippingInfoDataInput,
          shippingFast: false,
+         error: {},
       }
    }
 
-   //onChange function for customerCart
+   // onChange function for customerCart
    handleInputData = (e) => {
-      this.setState({
+      this.setState((prevState) => ({
+         shippingInfoDataInput: prevState.shippingInfoDataInput.map(item => {
+            if (item.hasOwnProperty(e.target.name)) {
+              return { ...item, [e.target.name]: e.target.value };
+            }
+            return item;
+          }),
+
+         //why does this snippet break the code
+         // shippingInfoDataInput: {
+         //    ...prevState.shippingInfoDataInput,
+         //    [e.target.name] : e.target.value,
+         // },
          [e.target.name] : e.target.value,
-         // shippingInfoData: {
-         //    ...prevState.shippingInfoData,
-         //    [e.target.name] : e.target.value
-         // }
-      })
+      }))
+      this.handleValidations(e.target.name, e.target.value)
    }
+
 
    updateTotalPrice = (index, e) =>{
       let preDiscount = 0;
@@ -92,16 +104,27 @@ class Checkout extends React.Component {
 
    //shippingInfo container code
 
-   handleInputDataShippingInfo = (e) => {
-      const {name, value} = e.target
-      let shippingInfoDataInput =[...this.state.shippingInfoDataInput];
+   // handleInputDataShippingInfo = (e) => {
+   //    // const {name, value} = e.target
+   //    // let shippingInfoDataInput =[...this.state.shippingInfoDataInput];
 
-      shippingInfoDataInput.find((input) => input.name === name).value = value;
+   //    // shippingInfoDataInput.find((input) => input.name === name).value = value;
 
-      this.setState( (prev) => ({ 
-         ...prev,
-         shippingInfoDataInput 
-      }));
+   //    this.setState( (prev) => ({ 
+   //       shippingInfoDataInput: {
+   //          ...prev.shippingInfoDataInput,
+   //          [e.target.name]: e.target.value,
+   //       }
+   //    }));
+   // }
+
+   addShippingInfoToState = (obj) => {
+      const newArr = [...this.state.shippingInfoDataInput];
+      newArr.push(obj);
+      this.setState((prevState) => ({
+         ...prevState,
+         shippingInfoData: newArr,
+      }))
    }
 
    handleShippingFastFalse = () => {
@@ -135,9 +158,68 @@ class Checkout extends React.Component {
       this.setState({checkoutDisabled: false})
    }
 
+   handleValidations = (name, value) => {
+      let errorText;
+      
+      switch(name){
+         case 'addressTitle' :
+            errorText= onlyTextValidation(value);
+            //find addressTitle type
+            //set the state of error message
+            break;
+         case 'name' :
+            errorText= onlyTextValidation(value);
+            break;
+         case 'address' :
+            // errorText= onlyTextValidation(value);
+            errorText= addressValidation(value);
+            break;
+         case 'zipCode' :
+            errorText= zipCodeValidation(value);
+         break;
+         case 'phoneNumber' :
+            errorText = phoneNumberValidation(value);
+         break;
+         case 'telephone' :
+            errorText = phoneNumberValidation(value);
+         break;
+         default:
+            errorText = undefined;
+            break;
+      }
+
+      this.setState((prevState) => ({
+         error: {
+            ...prevState.error,
+            [name]: errorText,
+         }
+      }))
+   }
+
+   handleBlur = (e) => {
+      this.handleValidations(e.target.name, e.target.value);
+   }
 
 
+   //it kind of works since it keeps the state in the area and can be transferred to the next
+   //might need to work on how to get the button working
+   
+   //next button for credit card
+   handleCheckoutShippingInfo = () => {
+      const errorMessage = this.state.error
 
+      if(!errorMessage){
+         this.addShippingInfoToState(this.state.shippingInfoDataInput)
+         this.setState((prevState) => ({
+            shippingInfoData: {
+               ...prevState.shippingInfoData,
+               shippingInfoDataInput: shippingInfoDataInput
+            }
+         }))
+      }
+   }
+
+ 
 
    render() {
 
@@ -149,13 +231,16 @@ class Checkout extends React.Component {
                shippingInfoDataProps= {this.state.shippingInfoData}
                shippingInfoDataInputProps = {this.state.shippingInfoDataInput}
                shippingFastStateProps= {this.state.shippingFast}
+               errorMState = {this.state.error}
 
                //functions for component
                handleInputData = {this.handleInputData}
-               handleInputDataShippingInfo = {this.handleInputDataShippingInfo}
+               // handleInputDataShippingInfo = {this.handleInputDataShippingInfo}
                handleShippingFastFalse = {this.handleShippingFastFalse}
                handleShippingFastTrue = {this.handleShippingFastTrue}
                handleBackToCartProps = {this.handleBackToCart}
+               onBlurFunc = {this.handleBlur}
+               handleCheckoutShippingInfo = {this.handleCheckoutShippingInfo}
                
                //summary functions and numbers for component
                shoppingItemsProps ={this.state.shoppingItems}
