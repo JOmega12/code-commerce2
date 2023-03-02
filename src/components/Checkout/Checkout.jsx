@@ -4,7 +4,7 @@ import CustomerCart from './customercart/CustomerCart';
 import ShippingInfo from './shippingInfo/ShippingInfo';
 import './checkout.css';
 import { shoppingItems, discountVal, shippingInfoData, shippingInfoDataInput} from '../constants/constants';
-import { addressValidation, onlyTextValidation, phoneNumberValidation, zipCodeValidation } from '../validations/validation';
+import { addressValidation, onlyTextValidation, phoneNumberValidation, securityCodeValidation, zipCodeValidation } from '../validations/validation';
 
 
 class Checkout extends React.Component {
@@ -21,10 +21,15 @@ class Checkout extends React.Component {
          discountValueInput: '',
          discount: 0,
          finalTotal: 0,
+
+         //shippingInfoState
          shippingInfoData: shippingInfoData,
          shippingInfoDataInput: shippingInfoDataInput,
          shippingFast: false,
          error: {},
+
+         //paymentInfoState
+         
       }
    }
 
@@ -182,6 +187,21 @@ class Checkout extends React.Component {
          break;
          case 'telephone' :
             errorText = phoneNumberValidation(value);
+         break;
+         case 'cardHolderName' :
+            errorText = phoneNumberValidation(value);
+         break;
+         case 'cardNumber' :
+            errorText = phoneNumberValidation(value);
+         break;
+         case 'monthExp' :
+            errorText = phoneNumberValidation(value);
+         break;
+         case 'yearExp' :
+            errorText = phoneNumberValidation(value);
+         break;
+         case 'cvv' :
+            errorText = securityCodeValidation(value);
          break;
          default:
             errorText = undefined;

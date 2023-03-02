@@ -12,7 +12,7 @@ class ShippingInfo extends React.Component {
       this.state= {
          shippingFast: false,
          //shippingInfoDisabled is always false
-         shippingInfoDisabled: false,
+         shippingInfoDisabled: true,
       }
    }
 
@@ -35,7 +35,8 @@ class ShippingInfo extends React.Component {
    //next button for credit card
    handleCheckoutShippingInfo = (e) => {
       e.preventDefault();
-
+      //if the props items > 0, then set the state and the props
+      //need to write that 
       this.props.handleCheckoutShippingInfo();
       this.setState({shippingInfoDisabled: true})
    }
@@ -93,7 +94,13 @@ class ShippingInfo extends React.Component {
       return (
          <div>
          {this.state.shippingInfoDisabled ? (
-            <PaymentInfo />
+            <PaymentInfo 
+            shoppingItemsProps = {this.props.shoppingItemsProps}
+            subTotalAmountItemsProps = {this.props.subTotalAmountItemsProps}
+            shippingAndHandleProps = {this.props.shippingAndHandleProps}
+            discountNumberProps = {this.props.discountNumberProps}
+            finalTotalProps = {this.props.finalTotalProps}
+            />
          ): 
          <div className="mainShippingForm">
             <div className="shippingInfoContainer">

@@ -92,13 +92,14 @@ export const securityCodeValidation = (min, value) =>
 
 export const addressValidation = (value) => {
    if (value) {
-      if(/^[0-9]{1,4}(([\-\/][0-9]{1,4})|(\/[ABCDFGHJKLMNPRSTV]{1,2}))*$/) {
+      if(/^[0-9]{1,4}(([/][0-9]{1,4})|(\/[ABCDFGHJKLMNPRSTV]{1,2}))*$/) {
          return undefined
       }
    } else if (!value) {
       return 'You need an address'
    }
 }
+// /^[0-9]{1,4}(([\-\/][0-9]{1,4})|(\/[ABCDFGHJKLMNPRSTV]{1,2}))*$/
 
 export const phoneNumberValidation = (value) => {
    const phoneNumberRegex = /^[0-9]{10}$/; 

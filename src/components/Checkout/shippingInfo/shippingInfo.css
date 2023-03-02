@@ -46,7 +46,7 @@
 .summary {
    display: flex;
    flex-direction: column;
-   /* border: 2px solid blueviolet; */
+   border: 2px solid blueviolet;
    width: 250px;
 }
 

@@ -1,4 +1,7 @@
-
+import VISA_ICON from '../assets/visa.png';
+import AMERICAN_EXPRESS from '../assets/amex.png';
+import MASTER_CARD from '../assets/masterCard.png';
+import DISCOVER_ICON from '../assets/discover.png';
 
 export const INIT_TEST = [{
    email: 'test@test.com',
@@ -47,17 +50,69 @@ export const shippingInfoDataInput =[
 ]
 
 
-   // {name: 'addressTitle', value: ''},
-   // {name: 'name', value: ''},
-   // {name: 'address', value: ''},
-   // {name: 'zipCode', value: ''},
-   // {name: 'country', value: 'United States'},
-   // {name: 'city', value: 'Los Angeles'},
-   // {name: 'state', value: 'California'},
-   // {name: 'phoneNumber', value: ''},
-   // {name: 'telephone', value: ''},
-
 export const expressShipping = [
    {regularShipping: 0, value: ''},
    {expressShipping: 5, value: ''}
 ]
+
+
+export const cardInformation = [
+   {cardHolderName: '', cardNumber: '', monthExp: '', yearExp: '', cvv: ''}
+]
+
+
+export const OTHERCARDS = [
+   /[1-9]/,
+   /\d/,
+   /\d/,
+   /\d/,
+   ' ',
+   /\d/,
+   /\d/,
+   /\d/,
+   /\d/,
+   ' ',
+   /\d/,
+   /\d/,
+   /\d/,
+   /\d/,
+   ' ',
+   /\d/,
+   /\d/,
+   /\d/,
+   /\d/,
+];
+
+export const AMERICANEXPRESS = [
+   /[1-9]/,
+   /\d/,
+   /\d/,
+   /\d/,
+   ' ',
+   /\d/,
+   /\d/,
+   /\d/,
+   /\d/,
+   /\d/,
+   /\d/,
+   ' ',
+   /\d/,
+   /\d/,
+   /\d/,
+   /\d/,
+   /\d/,
+];
+
+export const CARD = [
+   'VISA',
+   'MASTERCARD',
+   'AMERICAN_EXPRESS',
+   'DISCOVER'
+];
+
+export const CARDICON = {
+   VISA: VISA_ICON,
+   MASTERCARD: MASTER_CARD,
+   AMERICAN_EXPRESS: AMERICAN_EXPRESS,
+   DISCOVER: DISCOVER_ICON,
+}
