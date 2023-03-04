@@ -56,9 +56,8 @@ export const expressShipping = [
 ]
 
 
-export const cardInformation = [
-   {cardHolderName: '', cardNumber: '', monthExp: '', yearExp: '', cvv: ''}
-]
+export const cardInformation = 
+{cardHolderName: '', cardNumber: '', monthExp: '', yearExp: '', cvv: ''}
 
 
 export const OTHERCARDS = [
@@ -116,3 +115,11 @@ export const CARDICON = {
    AMERICAN_EXPRESS: AMERICAN_EXPRESS,
    DISCOVER: DISCOVER_ICON,
 }
+
+
+//next have the card images be hooked up to a specific number
+//next have error messages synced up in the right spots
+//next have the props information be in the summary 
+
+
+//current bug is forcing me to cut me off after the first character input

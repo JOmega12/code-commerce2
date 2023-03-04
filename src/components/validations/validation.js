@@ -46,7 +46,6 @@ export const onlyTextValidation = (value) => {
    }
 }
 
-
 export const cardNumberValidation = (cardNumber) => {
    const regexPattern = {
       MASTERCARD: /^5[1-5][0-9]{1,}^[2-7][0-9]{1,}$/,

@@ -1,7 +1,8 @@
 import React from "react";
-import { cardInformation, OTHERCARDS } from "../../constants/constants";
+import { CARDICON, cardInformation, OTHERCARDS } from "../../constants/constants";
 import ProgressBar from "../../ProgressBar/ProgressBar";
 import { cardNumberValidation, onlyTextValidation, securityCodeValidation } from "../../validations/validation";
+import { CARD } from "../../constants/constants";
 
 import '../paymentInfo/paymentInfo.css'
 
@@ -12,10 +13,10 @@ class PaymentInfo extends React.Component {
       this.state= {
          cardData: cardInformation,
          maxLength: OTHERCARDS.length,
-         cardType: null
+         cardType: null,
+         error: {},
       }
    }
-
 
    findDebitCardType = (cardNumber) => {
       const regexPattern = {
@@ -50,7 +51,7 @@ class PaymentInfo extends React.Component {
             }
          }))
       }
-   } else {
+   }  else {
       this.setState((prevState) => ({
          cardData: {
             ...prevState.cardData,
@@ -62,6 +63,15 @@ class PaymentInfo extends React.Component {
          //    [e.target.name] : e.target.value,
          // },
       }))
+
+      // else if (e.target.name === 'monthExp' || e.target.name === 'yearExp') {
+      //    this.setState((prevState) => ({
+      //       cardData: {
+      //          ...prevState.cardData,
+      //          [e.target.name]: e.target.value
+      //       }
+      //    }))
+      // }
    }
       this.handleValidations(e.target.name, e.target.value)
    }
@@ -72,6 +82,9 @@ class PaymentInfo extends React.Component {
       switch(name){
          case 'cardHolderName' :
             errorText = onlyTextValidation(value);
+            this.setState((prevState) => ({
+               error: {...prevState.error, cardHolderName: errorText}
+            }))
          break;
          case 'cardNumber' :
             errorText = cardNumberValidation(value);
@@ -79,12 +92,15 @@ class PaymentInfo extends React.Component {
                cardType: this.findDebitCardType(value),
                error: {
                   ...prevState.error,
-                  cardError: errorText,
+                  cardNumber: errorText,
                },
             }));
          break;
          case 'cvv' :
-            errorText = securityCodeValidation(value);
+            errorText = securityCodeValidation(3, value);
+            this.setState((prevState) => ({
+               error: {...prevState.error, cvv: errorText}
+            }))
          break;
          default:
             errorText = undefined;
@@ -106,15 +122,15 @@ class PaymentInfo extends React.Component {
    render(){
 
       const cardInput = [
-         {label: 'Cardholder Name', type: 'text', name:'cardHolderName', error: 'cardHolderNameError'},
-         {label: 'Card Number', type: 'text', name:'cardNumber', error: 'cardNumberError'},
+         {label: 'Cardholder Name', type: 'text', name:'cardHolderName'},
+         {label: 'Card Number', type: 'text', name:'cardNumber'},
       ];
 
       const expInput = [
          // {label: 'Exp.Date', name:'expDate'},
          {label: 'Month', name:'monthExp'},
          {label: 'Year', name:'yearExp'},
-      ]
+      ];
 
       // const cvvInput= [
       //    {label: 'CVV', type: 'number', name:'cvv', error: 'cvvError'},
@@ -124,11 +140,10 @@ class PaymentInfo extends React.Component {
       
       const monthDropdown = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
-      const yearDropdown = [2023, 2024, 2025]
+      const yearDropdown = [2023, 2024, 2025];
 
+      const cardImage = this.state.cardType ? CARDICON[this.state.cardType]: null
 
-      //create the html first then go from there
-      //next watch the videos and copy them for payment information regarding the validation for credit cards
       return(
          <div className="mainPaymentForm">
             <div className="paymentInfoContainer">
@@ -147,8 +162,22 @@ class PaymentInfo extends React.Component {
                      name = {item.name}
                      value={this.state.cardData && this.state.cardData[item.name]}
                      onChange = {this.handleInputData}
-
+                     maxLength = {this.state.maxLength}
                      />
+
+                     {this.state.error[item.name] && <span className="errorMSI">{this.state.error[item.name]}</span>}
+                     {item.name === 'cardNumber' && cardImage && (
+                        <img 
+                           style = {{
+                              border: 'black, 2px solid',
+                              width: '50px',
+                              height: '50px'
+                           }}
+                           src={cardImage} 
+                           alt="card icon" 
+                        />
+                     )}
+
                      </div>
                      ))}
                      
@@ -160,6 +189,8 @@ class PaymentInfo extends React.Component {
                               <select 
                               name={item.name} 
                               id=""
+                              defaultValue = {item.value}
+                              onChange={this.handleInputData}
                               >
                                  {item.name === 'monthExp' && monthDropdown.map((val) => (
                                     <option
@@ -183,9 +214,13 @@ class PaymentInfo extends React.Component {
                      <span class='labelPayment cvvInput'>CVV</span>
                      <input 
                      style={{width: '20%', height: '25px'}}
-                     type= 'number'
+                     type= 'text'
                      name = 'cvv'
+                     autoComplete="off"
+                     value={this.state.cardData && this.state.cardData['cvv']}
+                     onChange = {this.handleInputData}
                      />
+                     {this.state.error['cvv'] && <span className="errorMSI">{this.state.error['cvv']}</span>}
                      </div>
 
                   </div>
