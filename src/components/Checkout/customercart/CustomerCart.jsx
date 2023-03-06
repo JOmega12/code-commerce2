@@ -100,6 +100,4 @@ class CustomerCart extends React.Component {
 }
 
 
-// the next one will be validating the discount button
-//then moving on to be shipping information 
 export default CustomerCart;

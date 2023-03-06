@@ -1,5 +1,5 @@
 import React from "react";
-import { CARDICON, cardInformation, OTHERCARDS } from "../../constants/constants";
+import { CARDICON, cardInformation, expressShipping, OTHERCARDS } from "../../constants/constants";
 import ProgressBar from "../../ProgressBar/ProgressBar";
 import { cardNumberValidation, onlyTextValidation, securityCodeValidation } from "../../validations/validation";
 import { CARD } from "../../constants/constants";
@@ -16,7 +16,7 @@ class PaymentInfo extends React.Component {
          maxLength: OTHERCARDS.length,
          cardType: null,
          error: {},
-         isFinalCheckout: false,
+         isFinalCheckout: true,
       }
    }
 
@@ -66,14 +66,6 @@ class PaymentInfo extends React.Component {
          // },
       }))
 
-      // else if (e.target.name === 'monthExp' || e.target.name === 'yearExp') {
-      //    this.setState((prevState) => ({
-      //       cardData: {
-      //          ...prevState.cardData,
-      //          [e.target.name]: e.target.value
-      //       }
-      //    }))
-      // }
    }
       this.handleValidations(e.target.name, e.target.value)
    }
@@ -124,7 +116,7 @@ class PaymentInfo extends React.Component {
    finalCheckout = (e) => {
       e.preventDefault();
       
-      if(this.props.finalTotal) {
+      if(this.props.finalTotalProps) {
          this.setState({isFinalCheckout: true})
       }
    }
@@ -319,9 +311,19 @@ class PaymentInfo extends React.Component {
                   <hr />
                   <div className="shipmentMethod">
                      <h3>Shipment Method</h3>
-                     {/* if this.state.shippingFast === false then show shippingFastInfostate shipping address name of regular*/}
-                     {/* else show expedtied info */}
-                     <p></p>
+                    {this.props.shippingFastProps ? (
+                      <div className="expressShipping-PI">
+                        <h4>{expressShipping[1].placeHolder}</h4>
+                        <p>{expressShipping[1].description}</p>
+                      </div>
+                    ): 
+                    (
+                      <div className="expressShipping-PI">
+                        <h4>{expressShipping[0].placeHolder}</h4>
+                        <p>{expressShipping[0].description}</p>
+                      </div>
+                    )
+                    }
                   </div>
                   <div>
                     <button

@@ -25,7 +25,7 @@ export const newUser =[
 ]
 
 export const shoppingItems = [
-   {img: '/IMAGE/milk.png', name: 'Milk', price: 10, totalPrice: 0, quantity: 1},
+   {img: '/IMAGE/milk.png', name: 'Milk', price: 10, totalPrice: 0, quantity: 0},
    {img: '/IMAGE/cheese1.png', name: 'Cheese', price: 20, totalPrice: 0, quantity: 0},
    {img: '/IMAGE/goat.png', name: 'Goat', price: 50, totalPrice: 0, quantity: 0},
    {img: '/IMAGE/rice.png', name: 'Rice', price: 5, totalPrice: 0, quantity: 0},
@@ -116,11 +116,16 @@ export const CARDICON = {
    DISCOVER: DISCOVER_ICON,
 }
 
-//next have the shipping express info in the summary 
-// if there are elements in the summary, go to payment then build on confirmation screen
 
-//after all 3, next build the confirmation screen with all of the props
 
+// the confirmation screen with all of the props
+//make the progress bar at top
+//
 
 //current bug is forcing me to cut me off after the first character input
 //reason being is because the elements are in an input instead of outside of the input
+
+
+//current bug is in shippingexpress info because whenever i click the radio button in shippingInfo comp
+// it doesn't click the button when clicked, but it does show the state to go true or false why is not clicking?
+//it wasnt hooked up properly to the state of checkout comp of t/f

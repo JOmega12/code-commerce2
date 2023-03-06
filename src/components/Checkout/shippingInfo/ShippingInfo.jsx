@@ -10,10 +10,8 @@ class ShippingInfo extends React.Component {
    constructor(props) {
       super(props)
       this.state= {
-         shippingFast: false,
          //shippingInfoDisabled is always false
          shippingInfoDisabled: true,
-         shippingFastInfo: expressShipping,
       }
    }
 
@@ -24,15 +22,6 @@ class ShippingInfo extends React.Component {
    //    }))
    // }
 
-   handleShippingFastTrue = () => {
-      this.setState({shippingFast: true})
-   }
-
-   handleShippingFastFalse = () => {
-      this.setState({shippingFast: false})
-   }
-
-   
    //next button for credit card
    handleCheckoutShippingInfo = (e) => {
       e.preventDefault();
@@ -83,10 +72,15 @@ class ShippingInfo extends React.Component {
       const radio = [
          {placeHolder: 'Standard Shipping', description: 'Delivery in 4-6 Business Days - Free', 
          shippingDetails: '',
-         onClick: this.props.handleShippingFastFalse, checked: !this.props.shippingFastStateProps,
-         name: expressShipping.regularShipping,},
-         {placeHolder: 'Express Shipping', description: 'Delivery in 1-3 Business Days - $5', shippingDetails: 'View Shipping Details', 
-         onClick: this.props.handleShippingFastTrue, checked: this.props.shippingFastStateProps
+         onClick: this.props.handleShippingFastFalse,
+         // checked: !this.state.shippingFast,
+         checked: !this.props.shippingFastStateProps,
+         name: expressShipping.regularShipping,
+         },
+         {placeHolder: 'Express Shipping', description: 'Delivery in 1-3 Business Days - $5',
+         shippingDetails: 'View Shipping Details', 
+         onClick: this.props.handleShippingFastTrue,
+         checked: this.props.shippingFastStateProps,
          },
       ]
 
@@ -108,6 +102,8 @@ class ShippingInfo extends React.Component {
             backToShippingInfoProps = {this.backToShippingInfoButton}
 
             shippingInfoDataInputProps = {this.props.shippingInfoDataInputProps}
+            shippingFastProps = {this.props.shippingFastStateProps}
+
 
             />
          ): 
@@ -197,7 +193,7 @@ class ShippingInfo extends React.Component {
                               <input type="radio" 
                               name={item.name}
                               value=''
-                              onChange={this.props.handleInputData}
+                              // onChange={this.props.handleInputData}
                               onClick={item.onClick}
                               checked = {item.checked}
                               />
@@ -219,7 +215,6 @@ class ShippingInfo extends React.Component {
                </div>
                <div className="summary">
                   <h3>Summary</h3>
-                  {/* missing the items that are moved from previous component*/}
 
                      {this.props.shoppingItemsProps.map((item, index) => {
                         if(item.quantity > 0) {

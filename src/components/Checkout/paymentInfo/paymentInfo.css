@@ -108,6 +108,10 @@
    border-radius: 5px;
 }
 
+.expressShipping-PI p{
+   font-size: small;
+}
+
 
 .backToContainerShip {
    padding: 10px;

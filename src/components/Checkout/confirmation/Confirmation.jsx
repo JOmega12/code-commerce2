@@ -1,11 +1,11 @@
 import React from "react";
-
+import '../confirmation/confirmation.css'
 
 class Confirmation extends React.Component {
    
    render() {
       return(
-         <div>this is confirmation comp</div>
+         <div >this is confirmation comp</div>
       )
    }
 }

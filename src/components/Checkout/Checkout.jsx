@@ -147,9 +147,7 @@ class Checkout extends React.Component {
    handleShippingFastTrue = () => {
       //when clicked, it would add another $5 to the subtotal amount
       let currentSHTotal = 5;
-
       let addToTotalAmount = this.state.finalTotal + currentSHTotal
-      
       console.log(addToTotalAmount)
 
       this.setState({
@@ -220,10 +218,6 @@ class Checkout extends React.Component {
       this.handleValidations(e.target.name, e.target.value);
    }
 
-
-   //it kind of works since it keeps the state in the area and can be transferred to the next
-   //might need to work on how to get the button working
-   
    //next button for credit card
    handleCheckoutShippingInfo = () => {
       const errorMessage = this.state.error
@@ -258,6 +252,7 @@ class Checkout extends React.Component {
                // handleInputDataShippingInfo = {this.handleInputDataShippingInfo}
                handleShippingFastFalse = {this.handleShippingFastFalse}
                handleShippingFastTrue = {this.handleShippingFastTrue}
+
                handleBackToCartProps = {this.handleBackToCart}
                onBlurFunc = {this.handleBlur}
                handleCheckoutShippingInfo = {this.handleCheckoutShippingInfo}
