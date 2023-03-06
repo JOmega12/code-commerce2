@@ -5,6 +5,7 @@ import { cardNumberValidation, onlyTextValidation, securityCodeValidation } from
 import { CARD } from "../../constants/constants";
 
 import '../paymentInfo/paymentInfo.css'
+import Confirmation from "../confirmation/Confirmation";
 
 
 class PaymentInfo extends React.Component {
@@ -15,6 +16,7 @@ class PaymentInfo extends React.Component {
          maxLength: OTHERCARDS.length,
          cardType: null,
          error: {},
+         isFinalCheckout: false,
       }
    }
 
@@ -118,6 +120,14 @@ class PaymentInfo extends React.Component {
    handleBlur = (e) => {
       this.handleValidations(e.target.name, e.target.value);
    }
+
+   finalCheckout = (e) => {
+      e.preventDefault();
+      
+      if(this.props.finalTotal) {
+         this.setState({isFinalCheckout: true})
+      }
+   }
    
    render(){
 
@@ -132,160 +142,202 @@ class PaymentInfo extends React.Component {
          {label: 'Year', name:'yearExp'},
       ];
 
-      // const cvvInput= [
-      //    {label: 'CVV', type: 'number', name:'cvv', error: 'cvvError'},
-      // ]
-
-
-      
       const monthDropdown = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
       const yearDropdown = [2023, 2024, 2025];
 
       const cardImage = this.state.cardType ? CARDICON[this.state.cardType]: null
 
-      return(
-         <div className="mainPaymentForm">
-            <div className="paymentInfoContainer">
-               <div className="payment-box-container">
+      return (
+        <div>
+          {this.state.isFinalCheckout ? (
+            <Confirmation 
+            
+            shoppingItemsProps = {this.props.shoppingItemsProps}
+            subTotalAmountItemsProps = {this.props.subTotalAmountItemsProps}
+            shippingAndHandleProps = {this.props.shippingAndHandleProps}
+            discountNumberProps = {this.props.discountNumberProps}
+            finalTotalProps = {this.props.finalTotalProps}
+            backToShippingInfoProps = {this.backToShippingInfoButton}
+
+            shippingInfoDataInputProps = {this.props.shippingInfoDataInputProps}
+            />
+          ) : (
+            <div className="mainPaymentForm">
+              <div className="paymentInfoContainer">
+                <div className="payment-box-container">
                   <div className="loadingBar">
-                     <ProgressBar percentage = {75} />
+                    <ProgressBar percentage={75} />
                   </div>
                   <h3>Payment Information</h3>
                   <div className="paymentInfoContainerBox">
-                     {cardInput.map((item) => (
-                     <div className="inputPaymentInfoContainer">
-                     <span class='labelPayment'>{item.label}</span>
-                     <input 
-                     style={{width: '70%', height: '25px'}}
-                     type={item.type} 
-                     name = {item.name}
-                     value={this.state.cardData && this.state.cardData[item.name]}
-                     onChange = {this.handleInputData}
-                     maxLength = {this.state.maxLength}
-                     />
-
-                     {this.state.error[item.name] && <span className="errorMSI">{this.state.error[item.name]}</span>}
-                     {item.name === 'cardNumber' && cardImage && (
-                        <img 
-                           style = {{
-                              border: 'black, 2px solid',
-                              width: '50px',
-                              height: '50px'
-                           }}
-                           src={cardImage} 
-                           alt="card icon" 
-                        />
-                     )}
-
-                     </div>
-                     ))}
-                     
-                     <div className="other-payment-info">
-                        <span>Exp. Date</span>
-                        <div className="expDateItemsContainer">
-                        {expInput.map(item => (
-                           <div className="expDateItems">
-                              <select 
-                              name={item.name} 
-                              id=""
-                              defaultValue = {item.value}
-                              onChange={this.handleInputData}
-                              >
-                                 {item.name === 'monthExp' && monthDropdown.map((val) => (
-                                    <option
-                                    key={val}
-                                    value={val}
-                                    >{val}</option>
-                                 ))}
-                                 {item.name === 'yearExp' && yearDropdown.map((val) => (
-                                    <option
-                                    key={val}
-                                    value={val}
-                                    >{val}</option>
-                                 ))}
-                              </select>
-                           </div>
-                        ))}
+                    {cardInput.map((item) => (
+                      <div className="inputPaymentInfoContainer">
+                        <div className="labelContainerPI">
+                          <span class="labelPayment">{item.label}</span>
+                          <input
+                            style={{ width: "70%", height: "25px" }}
+                            type={item.type}
+                            name={item.name}
+                            value={
+                              this.state.cardData &&
+                              this.state.cardData[item.name]
+                            }
+                            onChange={this.handleInputData}
+                            maxLength={this.state.maxLength}
+                          />
+                          {item.name === "cardNumber" && cardImage && (
+                            <img
+                              style={{
+                                border: "black, 2px solid",
+                                width: "35px",
+                                height: "25px",
+                              }}
+                              src={cardImage}
+                              alt="card icon"
+                            />
+                          )}          
                         </div>
-                     </div>
-                     
-                     <div className="inputPaymentInfoContainer">
-                     <span class='labelPayment cvvInput'>CVV</span>
-                     <input 
-                     style={{width: '20%', height: '25px'}}
-                     type= 'text'
-                     name = 'cvv'
-                     autoComplete="off"
-                     value={this.state.cardData && this.state.cardData['cvv']}
-                     onChange = {this.handleInputData}
-                     />
-                     {this.state.error['cvv'] && <span className="errorMSI">{this.state.error['cvv']}</span>}
-                     </div>
+                        {this.state.error[item.name] && (
+                          <span className="errorMSI-PI">
+                            {this.state.error[item.name]}
+                          </span>
+                        )}
+                      </div>
+                    ))}
 
+                    <div className="other-payment-info">
+                      <span>Exp. Date</span>
+                      <div className="expDateItemsContainer">
+                        {expInput.map((item) => (
+                          <div className="expDateItems">
+                            <select
+                              name={item.name}
+                              id=""
+                              defaultValue={item.value}
+                              onChange={this.handleInputData}
+                            >
+                              {item.name === "monthExp" &&
+                                monthDropdown.map((val) => (
+                                  <option key={val} value={val}>
+                                    {val}
+                                  </option>
+                                ))}
+                              {item.name === "yearExp" &&
+                                yearDropdown.map((val) => (
+                                  <option key={val} value={val}>
+                                    {val}
+                                  </option>
+                                ))}
+                            </select>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="inputPaymentInfoContainer">
+                      <div className="labelContainerPI">
+                        <span class="labelPayment cvvInput">CVV</span>
+                        <input
+                          style={{ width: "20%", height: "25px" }}
+                          type="text"
+                          name="cvv"
+                          autoComplete="off"
+                          value={
+                            this.state.cardData && this.state.cardData["cvv"]
+                          }
+                          onChange={this.handleInputData}
+                        />
+                      </div>
+                      {this.state.error["cvv"] && (
+                        <span className="errorMSI-PI">
+                          {this.state.error["cvv"]}
+                        </span>
+                      )}
+                    </div>
+                        
+
+                     <button
+                        className="checkout-next2"
+                        // disabled={this.props.checkoutDisabledProps}
+                        onClick={(e) => this.finalCheckout(e)}
+                     >
+                        PAY ${this.props.finalTotalProps}
+                     </button>
                   </div>
 
                   <div>
-                     <button
-                     className="backToContainerShip"
-                     > 
-                        Back To Address
-                     </button>
+                    <button
+                      className="backToContainerShip"
+                      onClick={this.props.backToShippingInfoProps}
+                    >
+                      Back To Address
+                    </button>
                   </div>
-               </div>
+                </div>
 
-               
-               <div className="summary">
-               <h3>Summary</h3>
+                <div className="summary">
+                  <h3>Summary</h3>
                   {/* missing the items that are moved from previous component*/}
                   {this.props.shoppingItemsProps.map((item, index) => {
-                     if(item.quantity > 0) {
-                        return (
-                           <div className="itemsFromCart"
-                           key ={index}
-                           >
-                           <div className="individualItemL">
-                              <img src={item.img} alt="" />
-                           </div>
-                           <div className="individualItemR">
-                              <h5>{item.name}</h5>
-                              <div className="description-items">
-                                 <p>Price: ${item.price}</p>
-                                 <p>Quantity: {item.quantity}</p>
-                                 <p>Total: ${item.totalPrice}</p>
-                              </div>
-                           </div>
+                    if (item.quantity > 0) {
+                      return (
+                        <div className="itemsFromCart" key={index}>
+                          <div className="individualItemL">
+                            <img src={item.img} alt="" />
+                          </div>
+                          <div className="individualItemR">
+                            <h5>{item.name}</h5>
+                            <div className="description-items">
+                              <p>Price: ${item.price}</p>
+                              <p>Quantity: {item.quantity}</p>
+                              <p>Total: ${item.totalPrice}</p>
+                            </div>
+                          </div>
                         </div>
-                        )
-                     } else {
-                        return null;
-                     }
+                      );
+                    } else {
+                      return null;
+                    }
                   })}
 
-               <div className="total-price">
-                  <p>
-                     Subtotal: {this.props.subTotalAmountItemsProps}
-                  </p>
-                  <p>
-                     Shipping and Handling: {this.props.shippingAndHandleProps}</p>
-                  <p>
-                     Discount: {this.props.discountNumberProps}</p>
-                  <p>
-                     Total: {this.props.finalTotalProps}
-                  </p>
-               </div>
-               <div>
-                  <button
-                  className="checkout-next"
-                  disabled={this.props.checkoutDisabledProps}
-                  // onClick={(e)=> this.handleCheckoutShippingInfo(e)}
-                  >CHECKOUT
-                  </button>
-               </div>
-               </div>
+                  <div className="total-price">
+                    <p>Subtotal: ${this.props.subTotalAmountItemsProps}</p>
+                    <p>
+                      Shipping and Handling: ${this.props.shippingAndHandleProps}
+                    </p>
+                    <p>Discount: ${this.props.discountNumberProps}</p>
+                    <p>Total: ${this.props.finalTotalProps}</p>
+                  </div>
+                  <hr />
+                  <div className="shipmentAddress">
+                     <h3>Shipment Address</h3>
+                     <p>{this.props.shippingInfoDataInputProps[0].addressTitle}</p>
+                     <p>{this.props.shippingInfoDataInputProps[0].name}</p>
+                     <p>{this.props.shippingInfoDataInputProps[0].address}</p>
+                  </div>
+                  <hr />
+                  <div className="shipmentMethod">
+                     <h3>Shipment Method</h3>
+                     {/* if this.state.shippingFast === false then show shippingFastInfostate shipping address name of regular*/}
+                     {/* else show expedtied info */}
+                     <p></p>
+                  </div>
+                  <div>
+                    <button
+                      className="checkout-next"
+                      // disabled={this.props.checkoutDisabledProps}
+                      onClick={(e) => this.finalCheckout(e)}
+                    >
+                      PAY ${this.props.finalTotalProps}
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-         </div>
-      )
+          )}
+        </div>
+      );
    }
 }
 

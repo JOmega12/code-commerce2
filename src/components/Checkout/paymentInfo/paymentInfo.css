@@ -13,7 +13,7 @@
 .paymentInfoContainer {
    display: flex;
    flex-direction: row;
-   border: brown 2px solid;
+   /* border: brown 2px solid; */
    justify-content: space-evenly;
    gap: 30px;
    width: 100%;
@@ -22,7 +22,7 @@
 
 .payment-box-container {
    display: flex;
-   border: blue 2px solid;
+   /* border: blue 2px solid; */
    flex-direction: column;
    width: 100%;
 }
@@ -32,8 +32,9 @@
    flex-direction: column;
    /* border: lightseagreen 2px solid; */
    /* width: fit-content; */
-   width: 60%;
+   width: 70%;
    margin: 20px;
+   gap: 10px;
    justify-content: flex-start;
 }
 
@@ -42,6 +43,19 @@
    justify-content: flex-start;
    margin: 10px 0;
    font-weight: 400;
+   flex-direction: column;
+}
+
+.errorMSI-PI {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 2px;
+   color:red
+}
+
+.labelContainerPI {
+   display: flex;
 }
 
 .labelPayment {
@@ -68,6 +82,21 @@
    justify-content: flex-start;
    margin: 10px 0;
    margin-left: 20px;
+}
+
+.checkout-next2 {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 0 150px;
+   padding: 10px;
+   border-radius: 10px;
+   background-color: red;
+   color:white;
+   border: none;
+}
+.checkout-next2:hover{
+   background-color: black;
 }
 
 .expDateItems select {

@@ -78,10 +78,10 @@ class CustomerCart extends React.Component {
 
                      </div>
                      <div className="total-price">
-                        <p>Subtotal: {this.props.subTotalAmountItemsProps}</p>
-                        <p>Shipping and Handling: {this.props.shippingAndHandleProps}</p>
-                        <p>Discount: {this.props.discountNumberProps}</p>
-                        <p>Total: {this.props.finalTotalProps}
+                        <p>Subtotal: ${this.props.subTotalAmountItemsProps}</p>
+                        <p>Shipping and Handling: ${this.props.shippingAndHandleProps}</p>
+                        <p>Discount: ${this.props.discountNumberProps}</p>
+                        <p>Total: ${this.props.finalTotalProps}
                         </p>
                      </div>
                      <div>

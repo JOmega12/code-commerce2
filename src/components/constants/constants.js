@@ -25,7 +25,7 @@ export const newUser =[
 ]
 
 export const shoppingItems = [
-   {img: '/IMAGE/milk.png', name: 'Milk', price: 10, totalPrice: 0, quantity: 0},
+   {img: '/IMAGE/milk.png', name: 'Milk', price: 10, totalPrice: 0, quantity: 1},
    {img: '/IMAGE/cheese1.png', name: 'Cheese', price: 20, totalPrice: 0, quantity: 0},
    {img: '/IMAGE/goat.png', name: 'Goat', price: 50, totalPrice: 0, quantity: 0},
    {img: '/IMAGE/rice.png', name: 'Rice', price: 5, totalPrice: 0, quantity: 0},
@@ -51,8 +51,8 @@ export const shippingInfoDataInput =[
 
 
 export const expressShipping = [
-   {regularShipping: 0, value: ''},
-   {expressShipping: 5, value: ''}
+   {placeHolder: 'Standard Shipping', regularShipping: 0, value: '', description: 'Delivery in 4-6 Business Days - Free',},
+   {placeHolder: 'Express Shipping', expressShipping: 5, value: '', description: 'Delivery in 1-3 Business Days - $5',}
 ]
 
 
@@ -116,10 +116,11 @@ export const CARDICON = {
    DISCOVER: DISCOVER_ICON,
 }
 
+//next have the shipping express info in the summary 
+// if there are elements in the summary, go to payment then build on confirmation screen
 
-//next have the card images be hooked up to a specific number
-//next have error messages synced up in the right spots
-//next have the props information be in the summary 
+//after all 3, next build the confirmation screen with all of the props
 
 
 //current bug is forcing me to cut me off after the first character input
+//reason being is because the elements are in an input instead of outside of the input

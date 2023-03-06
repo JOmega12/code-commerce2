@@ -13,6 +13,7 @@ class ShippingInfo extends React.Component {
          shippingFast: false,
          //shippingInfoDisabled is always false
          shippingInfoDisabled: true,
+         shippingFastInfo: expressShipping,
       }
    }
 
@@ -39,6 +40,10 @@ class ShippingInfo extends React.Component {
       //need to write that 
       this.props.handleCheckoutShippingInfo();
       this.setState({shippingInfoDisabled: true})
+   }
+
+   backToShippingInfoButton = () => {
+      this.setState({shippingInfoDisabled: false})
    }
 
    render() {
@@ -100,6 +105,10 @@ class ShippingInfo extends React.Component {
             shippingAndHandleProps = {this.props.shippingAndHandleProps}
             discountNumberProps = {this.props.discountNumberProps}
             finalTotalProps = {this.props.finalTotalProps}
+            backToShippingInfoProps = {this.backToShippingInfoButton}
+
+            shippingInfoDataInputProps = {this.props.shippingInfoDataInputProps}
+
             />
          ): 
          <div className="mainShippingForm">
@@ -238,14 +247,14 @@ class ShippingInfo extends React.Component {
 
                   <div className="total-price">
                      <p>
-                        Subtotal: {this.props.subTotalAmountItemsProps}
+                        Subtotal: ${this.props.subTotalAmountItemsProps}
                      </p>
                      <p>
-                        Shipping and Handling: {this.props.shippingAndHandleProps}</p>
+                        Shipping and Handling: ${this.props.shippingAndHandleProps}</p>
                      <p>
-                        Discount: {this.props.discountNumberProps}</p>
+                        Discount: ${this.props.discountNumberProps}</p>
                      <p>
-                        Total: {this.props.finalTotalProps}
+                        Total: ${this.props.finalTotalProps}
                      </p>
                   </div>
                   <div>
