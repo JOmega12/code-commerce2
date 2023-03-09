@@ -155,6 +155,9 @@ class PaymentInfo extends React.Component {
             shippingInfoDataInputProps = {this.props.shippingInfoDataInputProps}
 
             shippingFastProps = {this.props.shippingFastProps}
+            
+            cardDataInfoProps = {this.state.cardData}
+            cardTypeProps = {this.state.cardType}
             />
           ) : (
             <div className="mainPaymentForm">

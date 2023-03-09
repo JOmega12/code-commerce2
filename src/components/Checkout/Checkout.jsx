@@ -14,7 +14,7 @@ class Checkout extends React.Component {
          shoppingItems: shoppingItems,
          shoppingEmpty: '',
          subTotal: 0,
-         checkoutDisabled: false,
+         checkoutDisabled: true,
          shipPlusHandle: 0 ,
          discountValueInput: '',
          discount: 0,

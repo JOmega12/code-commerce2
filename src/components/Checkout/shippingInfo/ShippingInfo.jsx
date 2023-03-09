@@ -11,7 +11,7 @@ class ShippingInfo extends React.Component {
       super(props)
       this.state= {
          //shippingInfoDisabled is always false
-         shippingInfoDisabled: false,
+         shippingInfoDisabled: true,
       }
    }
 

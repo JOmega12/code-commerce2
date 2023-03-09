@@ -5,6 +5,13 @@ import '../confirmation/confirmation.css'
 
 class Confirmation extends React.Component {
    
+   constructor(props) {
+      super(props)
+      this.state ={
+         card: 4545454545454545,
+      }
+   }
+
    render() {
       return(
          <div className="mainBoxConfirmation">
@@ -105,6 +112,11 @@ class Confirmation extends React.Component {
                            <p>View Payment Details</p>
                         </div>
                         <div>
+                           <div>
+                              <p>Card Number: **** **** **** {this.props.cardDataInfoProps.cardNumber.substr(-4)}</p>
+                              <p>{this.props.cardTypeProps}</p>
+                           </div>
+
                            <p>Total: ${this.props.finalTotalProps}</p>
                         </div>
                      </div>
