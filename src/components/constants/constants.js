@@ -118,10 +118,6 @@ export const CARDICON = {
 
 
 
-// the confirmation screen with all of the props
-//make the progress bar at top
-//
-
 //current bug is forcing me to cut me off after the first character input
 //reason being is because the elements are in an input instead of outside of the input
 

@@ -2,7 +2,7 @@ import React from "react";
 import { CARDICON, cardInformation, expressShipping, OTHERCARDS } from "../../constants/constants";
 import ProgressBar from "../../ProgressBar/ProgressBar";
 import { cardNumberValidation, onlyTextValidation, securityCodeValidation } from "../../validations/validation";
-import { CARD } from "../../constants/constants";
+// import { CARD } from "../../constants/constants";
 
 import '../paymentInfo/paymentInfo.css'
 import Confirmation from "../confirmation/Confirmation";
@@ -16,7 +16,7 @@ class PaymentInfo extends React.Component {
          maxLength: OTHERCARDS.length,
          cardType: null,
          error: {},
-         isFinalCheckout: true,
+         isFinalCheckout: false,
       }
    }
 
@@ -153,6 +153,8 @@ class PaymentInfo extends React.Component {
             backToShippingInfoProps = {this.backToShippingInfoButton}
 
             shippingInfoDataInputProps = {this.props.shippingInfoDataInputProps}
+
+            shippingFastProps = {this.props.shippingFastProps}
             />
           ) : (
             <div className="mainPaymentForm">

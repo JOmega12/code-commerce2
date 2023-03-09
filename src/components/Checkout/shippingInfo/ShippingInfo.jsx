@@ -11,16 +11,9 @@ class ShippingInfo extends React.Component {
       super(props)
       this.state= {
          //shippingInfoDisabled is always false
-         shippingInfoDisabled: true,
+         shippingInfoDisabled: false,
       }
    }
-
-   // handleSelected = (e) => {
-   //    this.setState((prev) => ({
-   //       ...prev,
-   //       country: e.target.value
-   //    }))
-   // }
 
    //next button for credit card
    handleCheckoutShippingInfo = (e) => {

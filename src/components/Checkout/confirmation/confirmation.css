@@ -1,0 +1,185 @@
+.mainBoxConfirmation {
+   border: black 2px solid;
+   display: flex;
+   flex-direction: column;
+   width: 900px;
+   /* height: 130vh; */
+   background-color: #f5f5f5;
+   border-radius: 10px;
+   box-shadow: 0px 10px 50px #555;
+   padding: 5px 40px;
+   border: black 2px solid;
+   flex-wrap: wrap;
+   height: fit-content
+}
+
+.confirmationBoxContainer {
+   display: flex;
+   flex-direction: column;
+   /* border: brown 2px solid; */
+   width: 100%;
+   height: 100%;
+}
+
+.progressBar {
+   margin-top: 2vh;
+   /* border: 2px solid black; */
+   /* border-radius: 10px; */
+   /* box-shadow: 0px 10px 50px #555; */
+}
+
+.mainBoxContainer {
+   /* border: 2px solid orangered; */
+   display: flex;
+   justify-content: center;
+   width: 100%;
+   gap: 10px;
+   margin-top: 20px;
+   object-fit: contain;
+}
+
+.left-mainbox {
+   /* border: blue 2px solid; */
+   width: 100%;
+   box-shadow: -18px 10px 57px -23px rgba(0,0,0,0.75);
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   gap: 40px;
+   border-radius: 10px;
+}
+
+.confirmationTitle {
+   color: #454545;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 0;
+   font-size: 30px;
+   font-weight: 600;
+}
+
+.checkmark {
+   display: flex;
+   justify-content: center;
+   margin-top: 20px;
+   font-size: 50px;
+   color:green;
+   background-color: #dadada;
+   width: 20%;
+   border-radius: 100px;
+}
+
+.congratulations {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-family: Georgia, 'Times New Roman', Times, serif;
+   color: #454545;
+}
+
+.congratulations p {
+   display: flex;
+   justify-content: center;
+   width: 80%;
+}
+
+.trackOrder, .backToHome {
+   display: flex;
+   justify-content: center;
+   padding: 10px 35px;
+   border-radius: 10px;
+   border: 1px solid black;
+   cursor: pointer;
+}
+
+.trackOrder {
+   background-color: black;
+   color: white;
+}
+
+.trackOrder:hover {
+   background-color: white;
+   color: black;
+}
+
+.backToHome {
+   margin-bottom: 40px;
+}
+
+
+.right-mainbox {
+   /* border: green 2px solid; */
+   width: 100%;
+   box-shadow: 10px 10px 57px -23px rgba(0,0,0,0.75);
+   display: flex;
+   flex-direction: column;
+   /* height: 100%; */
+   box-sizing: content-box;
+   border-radius: 10px;
+}
+
+.itemsFromCart-Conf {
+   display: flex;
+   flex-direction: row;
+}
+
+.individualItemL-Conf {
+   width: 50px;
+   height: 50px;
+   margin-top: 10px;
+   margin-left: 10px;
+}
+
+.individualItemL-Conf img {
+   width: 100%;
+}
+
+.individualItemR-Conf {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+}
+
+.individualItemR-Conf h5 {
+   font-size: large;
+   margin-left: 30px;
+}
+
+.description-items-Conf {
+   display: flex;
+   /* justify-content: center; */
+   align-items: center;
+}
+
+.cart-subTotal-confirmation {
+   display: flex;
+   justify-content:right;
+   flex-direction: column;
+   align-items: flex-end;
+}
+
+.cart-subTotal-confirmation p {
+   width: max-content;
+   margin-right: 70px;
+}
+
+.shipping-confirmation, .payment-confirmation {
+   display: flex;
+   flex-direction: column;
+   margin-left: 15px;
+}
+
+.shipping-title, .payment-title {
+   display: flex;
+   gap: 50px;
+   align-items: center;
+}
+
+.shipping-title p, .payment-title p {
+   color: red;
+   text-decoration: underline;
+   cursor: pointer;
+}

@@ -14,9 +14,7 @@ class Checkout extends React.Component {
          shoppingItems: shoppingItems,
          shoppingEmpty: '',
          subTotal: 0,
-         //set checkoutDisabled as false to go back to checkout component
-         //checkout and shippingInfo component is always set as false
-         checkoutDisabled: true,
+         checkoutDisabled: false,
          shipPlusHandle: 0 ,
          discountValueInput: '',
          discount: 0,
@@ -108,21 +106,6 @@ class Checkout extends React.Component {
    }
 
    //shippingInfo container code
-
-   // handleInputDataShippingInfo = (e) => {
-   //    // const {name, value} = e.target
-   //    // let shippingInfoDataInput =[...this.state.shippingInfoDataInput];
-
-   //    // shippingInfoDataInput.find((input) => input.name === name).value = value;
-
-   //    this.setState( (prev) => ({ 
-   //       shippingInfoDataInput: {
-   //          ...prev.shippingInfoDataInput,
-   //          [e.target.name]: e.target.value,
-   //       }
-   //    }));
-   // }
-
    addShippingInfoToState = (obj) => {
       const newArr = [...this.state.shippingInfoDataInput];
       newArr.push(obj);
@@ -145,7 +128,6 @@ class Checkout extends React.Component {
    }
 
    handleShippingFastTrue = () => {
-      //when clicked, it would add another $5 to the subtotal amount
       let currentSHTotal = 5;
       let addToTotalAmount = this.state.finalTotal + currentSHTotal
       console.log(addToTotalAmount)
@@ -277,12 +259,9 @@ class Checkout extends React.Component {
                discountNumberProps = {this.state.discount}
                finalTotalProps = {this.state.finalTotal}
 
-
                handleInputData = {this.handleInputData}
                updateTotalPriceProps={this.updateTotalPrice}
                discountButtonProps ={this.handleDiscountButton}
-
-
                
                handleCheckoutProp = {this.handleCheckout}
                />

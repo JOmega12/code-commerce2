@@ -5,13 +5,6 @@ import './customerCart.css';
 
 class CustomerCart extends React.Component {
 
-/*    constructor(props) {
-      super(props);
-      this.state= {
-         counter: 0
-      }
-   } */
-
    handleDiscount = (e) => {
       e.preventDefault(e);
       this.props.discountButtonProps();

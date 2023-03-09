@@ -3,7 +3,7 @@
    display: flex;
    flex-direction: column;
    width: 900px;
-   height: 130vh;
+   height: fit-content;
    background-color: #ffffff;
    border-radius: 10px;
    box-shadow: 0px 10px 50px #555;
@@ -65,8 +65,8 @@
 .other-payment-info {
    display: flex;
    flex-direction: row;
-   /* width: fit-content; */
-   width: 100%;
+   width: fit-content;
+   /* width: 100%; */
    justify-content: flex-start;
    align-items: center;
    font-weight: 400;
@@ -88,7 +88,7 @@
    display: flex;
    justify-content: center;
    align-items: center;
-   margin: 0 150px;
+   /* margin: 0 150px; */
    padding: 10px;
    border-radius: 10px;
    background-color: red;
@@ -120,7 +120,7 @@
    border-radius: 10px;
    color: black;
    background-color: #ffffff;
-   margin: 10px 0 10px 10px;
+   /* margin: 10px 0 10px 10px; */
 }
 
 .backToContainerShip:hover {
