@@ -93,13 +93,10 @@ class ShippingInfo extends React.Component {
             discountNumberProps = {this.props.discountNumberProps}
             finalTotalProps = {this.props.finalTotalProps}
             backToShippingInfoProps = {this.backToShippingInfoButton}
-
             shippingInfoDataInputProps = {this.props.shippingInfoDataInputProps}
             shippingFastProps = {this.props.shippingFastStateProps}
-
-
             />
-         ): 
+         ): //enter rest of code
          <div className="mainShippingForm">
             <div className="shippingInfoContainer">
                <div className="shipping-box-container">

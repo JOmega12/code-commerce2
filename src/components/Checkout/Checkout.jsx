@@ -19,15 +19,11 @@ class Checkout extends React.Component {
          discountValueInput: '',
          discount: 0,
          finalTotal: 0,
-
          //shippingInfoState
          shippingInfoData: shippingInfoData,
          shippingInfoDataInput: shippingInfoDataInput,
          shippingFast: false,
          error: {},
-
-         //paymentInfoState
-         
       }
    }
 

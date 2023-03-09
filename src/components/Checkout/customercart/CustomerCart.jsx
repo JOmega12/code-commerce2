@@ -68,7 +68,6 @@ class CustomerCart extends React.Component {
                         >Apply
                         </button>
 
-
                      </div>
                      <div className="total-price">
                         <p>Subtotal: ${this.props.subTotalAmountItemsProps}</p>
