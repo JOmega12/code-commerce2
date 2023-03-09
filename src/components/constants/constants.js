@@ -41,9 +41,6 @@ export const shippingInfoData = [
    {addressTitle: 'Tester Industry', name: 'jake', address: '123 test', zipCode: '12345', county: 'Los Angeles', city: 'Los Angeles', phoneNumber: '1234567890', telephone: '1234567890'},
 ]
 
-//might have to restructure the shippingInfoDataInput  similar to shippingInfoData because when i click the button to go next, i would put the data input into the shippingInfoData, therefore it would change the whole structure of my code in shippingINfo component because it would change my onchange and value and have it structured similar to authenticate component in order for the object to be properly added and then move on
-
-//so then the problem and the solution is when i restructure the shippingInfoDataInput, how do i change the onchange value to better reflect the onchange so that i am able to add the data into the button? 
 
 export const shippingInfoDataInput =[
    {addressTitle: '', name: '', address: '', zipCode: '', country: 'United States', city: 'Los Angeles', state: 'California', phoneNumber: '', telephone: ''},
@@ -116,12 +113,3 @@ export const CARDICON = {
    DISCOVER: DISCOVER_ICON,
 }
 
-
-
-//current bug is forcing me to cut me off after the first character input
-//reason being is because the elements are in an input instead of outside of the input
-
-
-//current bug is in shippingexpress info because whenever i click the radio button in shippingInfo comp
-// it doesn't click the button when clicked, but it does show the state to go true or false why is not clicking?
-//it wasnt hooked up properly to the state of checkout comp of t/f
