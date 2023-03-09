@@ -1,5 +1,6 @@
 **You will build a 5-part checkout form. 
 **
+
 Signup/Login
 Customer cart
 Shipping information
