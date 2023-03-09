@@ -120,9 +120,7 @@ class Confirmation extends React.Component {
                            <p>Total: ${this.props.finalTotalProps}</p>
                         </div>
                      </div>
-
                   </div>
-                  
 
                </div>
             </div>

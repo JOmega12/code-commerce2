@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+**You will build a 5-part checkout form. 
+**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+-Signup/Login
 
-## Available Scripts
+-Customer cart
 
-In the project directory, you can run:
+-Shipping information
 
-### `npm start`
+-Payment information
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-Confirmation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-Must include the "progress bar" as shown in the SHIPPING & PAYMENT mockup below.
 
-### `npm test`
+-Note: Please do NOT use React Routing in this project. You will learn about it later. The goal is to master components, props, state and conditional UI rendering.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**🛠 Signup/Login
+**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-User can sign-in
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-Password field is obscured
 
-### `npm run eject`
+-There is an "eye" icon next to password to reveal what is being typed
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+-If password is invalid, show an error message as depicted in the screenshot below
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-If successful sign-in, take user to Customer Cart
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+-User can switch between Sign in and Create Account
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+-If creating an account there will be two password fields
 
-## Learn More
+-Passwords must match or show appropriate error as depicted below
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-First name and last name cannot have numbers
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-Postal code must not allow text (numbers only)
 
-### Code Splitting
+-Show an "eye" icon next to password to reveal what is being typed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+-If an account for that email already exists, show an error message
 
-### Analyzing the Bundle Size
+-Add a facebook sign in button (non-functional).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+**🛠 Customer Cart
+**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+-Create a cart that has 2-5 items in it
 
-### Advanced Configuration
+-These should be actual components with item value
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+-The total sum of all items should be calculated as a total
 
-### Deployment
+-Items can be removed and quantities can be increased or decreased -- cart total should adjust accordingly
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+-If there are zero cart items the Checkout button should be disabled
 
-### `npm run build` fails to minify
+-If Checkout is selected move to the shipping screen
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**🛠 Shipping Information
+**
+
+-Show all shipping fields as depicted in the screenshot below
+
+-Have standard and express shipping options -- the shipping & handling/checkout prices should adjust accordingly
+
+-Ensure phone fields cannot take text (only numbers)
+
+-Ensure postal code cannot take text (only numbers)
+
+-Make sure all fields are completed or prevent the user from moving forward. Show appropriate error messages
+
+-Back to cart button should go back to cart
+
+-There should be a Next or "Payment" button to go to next screen
+
+
+**🛠 Payment Information
+**
+
+-Create a credit card formatted that takes all major credit cards (Visa, Master Card, American Express, etc)
+-Format the credit card field so the numbers are properly spaced (we don't want it to look ugly!)
+-Have a dropdown for month and year for expiration dates
+-Show errors if fields are entered incorrectly
+-The Pay button should show the total price. If the fields are not complete this button should be disabled
+-Make sure to show the cart/total at the right (or somewhere else)
+-The Pay button should take the user to the confirmation screen
+-A user should be able to apply a promo code and receive a discount.
+
+**🛠 Confirmation Screen
+**
+
+-Should show amount paid
+
+-Should show last 4 digits of credit card used to make the purchase
+
+-Add other UI as depicted below
