@@ -42,8 +42,9 @@ export const shippingInfoData = [
 ]
 
 
-export const shippingInfoDataInput =[
-   {addressTitle: '', name: '', address: '', zipCode: '', country: 'United States', city: 'Los Angeles', state: 'California', phoneNumber: '', telephone: ''},
+export const shippingInfoDataInput = 
+[
+   {addressTitle: '', name: '', address: '', zipCode: '', country: 'United States', city: 'Los Angeles', state: 'California', phoneNumber: '', telephone: ''}
 ]
 
 
@@ -113,3 +114,7 @@ export const CARDICON = {
    DISCOVER: DISCOVER_ICON,
 }
 
+
+
+//customerCart - having to update state when going back
+//

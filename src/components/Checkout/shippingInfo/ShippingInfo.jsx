@@ -4,24 +4,18 @@ import ProgressBar from "../../ProgressBar/ProgressBar";
 import PaymentInfo from "../paymentInfo/PaymentInfo";
 import '../shippingInfo/shippingInfo.css';
 
-
 class ShippingInfo extends React.Component {
- 
-   constructor(props) {
-      super(props)
-      this.state= {
-         //shippingInfoDisabled is always false
-         shippingInfoDisabled: false,
-      }
-   }
 
    //next button for credit card
    handleCheckoutShippingInfo = (e) => {
       e.preventDefault();
-      //if the props items > 0, then set the state and the props
-      //need to write that 
-      this.props.handleCheckoutShippingInfo();
-      this.setState({shippingInfoDisabled: true})
+
+      // this.props.handleCheckoutShippingInfo()
+      // this.setState({shippingInfoDisabled: true})
+
+      if(this.props.handleCheckoutShippingInfo()) {
+         this.setState({shippingInfoDisabled: true})
+      }
    }
 
    backToShippingInfoButton = () => {
@@ -85,7 +79,7 @@ class ShippingInfo extends React.Component {
 
       return (
          <div>
-         {this.state.shippingInfoDisabled ? (
+         {this.props.shippingInfoDisabledProps ? 
             <PaymentInfo 
             shoppingItemsProps = {this.props.shoppingItemsProps}
             subTotalAmountItemsProps = {this.props.subTotalAmountItemsProps}
@@ -96,7 +90,7 @@ class ShippingInfo extends React.Component {
             shippingInfoDataInputProps = {this.props.shippingInfoDataInputProps}
             shippingFastProps = {this.props.shippingFastStateProps}
             />
-         ): //enter rest of code
+          : (
          <div className="mainShippingForm">
             <div className="shippingInfoContainer">
                <div className="shipping-box-container">
@@ -172,7 +166,7 @@ class ShippingInfo extends React.Component {
                            onChange ={this.props.handleInputData}
                            onBlur = {this.props.onBlurFunc}
                            />
-                            {this.props.errorMState[item.name] && <span className="errorMSI">{this.props.errorMState[item.name]}</span>}
+                           {this.props.errorMState[item.name] && <span className="errorMSI">{this.props.errorMState[item.name]}</span>}
                         </div>
                         
                      ))}
@@ -246,13 +240,14 @@ class ShippingInfo extends React.Component {
                      <button
                      className="checkout-next"
                      disabled={this.props.checkoutDisabledProps}
-                     onClick={(e)=> this.handleCheckoutShippingInfo(e)}
+                     onClick={(e)=> this.props.handleCheckoutShippingInfo(e)}
                      >CHECKOUT
                      </button>
                   </div>
                </div>
             </div>
          </div>
+         )
       }
          </div>
          

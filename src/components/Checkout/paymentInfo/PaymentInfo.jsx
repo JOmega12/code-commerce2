@@ -113,9 +113,18 @@ class PaymentInfo extends React.Component {
       this.handleValidations(e.target.name, e.target.value);
    }
 
+
+   checkErrorBeforeFinal = () => {
+ 
+    //set error value
+    //set error = false
+    //then for each of card information state  refer to each item such item.cardHolder and set the state and return the error
+   }
+
+
    finalCheckout = (e) => {
       e.preventDefault();
-      
+      //change the props to error message = checkerrorbeforefinal then set the state is FinalCheckout
       if(this.props.finalTotalProps) {
          this.setState({isFinalCheckout: true})
       }

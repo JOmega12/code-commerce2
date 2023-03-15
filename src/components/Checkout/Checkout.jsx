@@ -14,12 +14,13 @@ class Checkout extends React.Component {
          shoppingItems: shoppingItems,
          shoppingEmpty: '',
          subTotal: 0,
-         checkoutDisabled: false,
+         checkoutDisabled: true,
          shipPlusHandle: 0 ,
          discountValueInput: '',
          discount: 0,
          finalTotal: 0,
          //shippingInfoState
+         shippingInfoDisabled: true,
          shippingInfoData: shippingInfoData,
          shippingInfoDataInput: shippingInfoDataInput,
          shippingFast: false,
@@ -144,25 +145,49 @@ class Checkout extends React.Component {
       
       switch(name){
          case 'addressTitle' :
-            errorText= onlyTextValidation(value);
+            if(!value){
+               errorText = 'Address Title required'
+            } else {
+               errorText= onlyTextValidation(value);
+            }
             //find addressTitle type
             //set the state of error message
             break;
          case 'name' :
-            errorText= onlyTextValidation(value);
+            if(!value){
+               errorText = 'Name required'
+            } else {
+               errorText= onlyTextValidation(value);
+            }
             break;
          case 'address' :
             // errorText= onlyTextValidation(value);
-            errorText= addressValidation(value);
+            if(!value){
+               errorText = 'Address required'
+            } else {
+               errorText= addressValidation(value);
+            }
             break;
          case 'zipCode' :
-            errorText= zipCodeValidation(value);
+            if(!value){
+               errorText = 'Zipcode required'
+            } else {
+               errorText= zipCodeValidation(value);
+            }
          break;
-         case 'phoneNumber' :
-            errorText = phoneNumberValidation(value);
+         case 'phoneNumber':
+            if(!value){
+               errorText = 'Phone Number required'
+            } else {
+               errorText = phoneNumberValidation(value);
+            }
          break;
          case 'telephone' :
-            errorText = phoneNumberValidation(value);
+            if(!value){
+               errorText = 'Telephone number required'
+            } else {
+               errorText = phoneNumberValidation(value);
+            }
          break;
          case 'cardHolderName' :
             errorText = phoneNumberValidation(value);
@@ -170,12 +195,12 @@ class Checkout extends React.Component {
          case 'cardNumber' :
             errorText = phoneNumberValidation(value);
          break;
-         case 'monthExp' :
-            errorText = phoneNumberValidation(value);
-         break;
-         case 'yearExp' :
-            errorText = phoneNumberValidation(value);
-         break;
+         // case 'monthExp' :
+         //    errorText = phoneNumberValidation(value);
+         // break;
+         // case 'yearExp' :
+         //    errorText = phoneNumberValidation(value);
+         // break;
          case 'cvv' :
             errorText = securityCodeValidation(value);
          break;
@@ -196,19 +221,81 @@ class Checkout extends React.Component {
       this.handleValidations(e.target.name, e.target.value);
    }
 
+
+
+   //validate the inputs in credit card
+   checkErrorBeforeCreditCard = () => {
+      let errorValue = {};
+
+      let isError = false;
+
+      this.state.shippingInfoDataInput.forEach((item) => {
+         if (!item.name) {
+            errorValue = {
+               ...errorValue,
+               name: 'Name is required' };
+            isError = true;
+          }
+          if (!item.address) {
+            errorValue = {
+              ...errorValue,
+              address: 'Address required',
+            };
+            isError = true;
+          }
+          if (!item.addressTitle) {
+            errorValue = {
+              ...errorValue,
+              addressTitle: 'Address Title required',
+            };
+            isError = true;
+          }
+          if (!item.zipCode) {
+            errorValue = {
+              ...errorValue,
+              zipCode: 'ZipCode required',
+            };
+            isError = true;
+          }
+          if (!item.phoneNumber) {
+            errorValue = {
+              ...errorValue,
+              phoneNumber: 'Phone Number required',
+            };
+            isError = true;
+          }
+          if (!item.telephone) {
+            errorValue = {
+              ...errorValue,
+              telephone: 'Telephone required',
+            };
+            isError = true;
+          }
+       });
+
+      this.setState({
+         error: errorValue,
+      });
+      return isError;
+   }
+
    //next button for credit card
-   handleCheckoutShippingInfo = () => {
-      const errorMessage = this.state.error
+   handleCheckoutShippingInfo = (e) => {
+      e.preventDefault();
+      
+      const errorMessage = this.checkErrorBeforeCreditCard();
 
       if(!errorMessage){
-         this.addShippingInfoToState(this.state.shippingInfoDataInput)
+
          this.setState((prevState) => ({
             shippingInfoData: {
-               ...prevState.shippingInfoData,
-               shippingInfoDataInput: shippingInfoDataInput
-            }
-         }))
-      }
+               ...prevState.shippingInfoDataInput,
+            },
+            // shippingInfoDataInput: shippingInfoDataInput
+            shippingInfoDisabled: true,
+            }))
+         
+      } 
    }
 
  
@@ -220,6 +307,7 @@ class Checkout extends React.Component {
                {this.state.checkoutDisabled ?(
                <ShippingInfo 
                //state data for component
+               shippingInfoDisabledProps = {this.state.shippingInfoDisabled}
                shippingInfoDataProps= {this.state.shippingInfoData}
                shippingInfoDataInputProps = {this.state.shippingInfoDataInput}
                shippingFastStateProps= {this.state.shippingFast}
