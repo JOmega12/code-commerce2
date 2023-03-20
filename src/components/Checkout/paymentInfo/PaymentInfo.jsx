@@ -22,10 +22,12 @@ class PaymentInfo extends React.Component {
 
    findDebitCardType = (cardNumber) => {
       const regexPattern = {
-         MASTERCARD: /^5[1-5][0-9]{1,}^[2-7][0-9]{1,}$/,
-         VISA: /^4[0-9]{2,}$/,
-         AMERICAN_EXPRESS: /^3[47][0-9]{5,}$/,
-         DISCOVER: /^6(?:011|5[0-9]{2})[0-9]{3,}$/,
+        // MASTERCARD: /^5[1-5][0-9]{1,}^[2-7][0-9]{1,}$/,
+        // MASTERCARD:/^5[1-5][0-9]{14}$/ ,
+        MASTERCARD:/^(?:5[1-5][0-9]{14})$/ ,
+        VISA: /^4[0-9]{2,}$/,
+        AMERICAN_EXPRESS: /^3[47][0-9]{5,}$/,
+        DISCOVER: /^6(?:011|5[0-9]{2})[0-9]{3,}$/,
       };
 
       for (const card in regexPattern){
@@ -59,11 +61,6 @@ class PaymentInfo extends React.Component {
             ...prevState.cardData,
             [e.target.name]: e.target.value,
          }
-         //why does this snippet break the code
-         // shippingInfoDataInput: {
-         //    ...prevState.shippingInfoDataInput,
-         //    [e.target.name] : e.target.value,
-         // },
       }))
 
    }
@@ -75,12 +72,19 @@ class PaymentInfo extends React.Component {
       
       switch(name){
          case 'cardHolderName' :
+          if(!value) {
+            errorText = 'Name is Required'
+          } else {
             errorText = onlyTextValidation(value);
             this.setState((prevState) => ({
                error: {...prevState.error, cardHolderName: errorText}
             }))
+          }
          break;
          case 'cardNumber' :
+          if(!value) {
+            errorText = 'Card Number is Required'
+          } else {
             errorText = cardNumberValidation(value);
             this.setState((prevState) => ({
                cardType: this.findDebitCardType(value),
@@ -89,12 +93,17 @@ class PaymentInfo extends React.Component {
                   cardNumber: errorText,
                },
             }));
+          }
          break;
          case 'cvv' :
+          if(!value){
+            errorText= 'CVV is Required'
+          } else {
             errorText = securityCodeValidation(3, value);
             this.setState((prevState) => ({
                error: {...prevState.error, cvv: errorText}
             }))
+          }
          break;
          default:
             errorText = undefined;
@@ -115,19 +124,65 @@ class PaymentInfo extends React.Component {
 
 
    checkErrorBeforeFinal = () => {
- 
+    let errorValue= {};
+    let isError = false;
     //set error value
     //set error = false
     //then for each of card information state  refer to each item such item.cardHolder and set the state and return the error
+
+
+
+    Object.keys(this.state.cardData).forEach((val) => {
+      console.log(val);
+      if(!this.state.cardData[val].length) {
+        if(val === 'cardHolderName') {
+          errorValue = {
+            ...errorValue,
+            [`${val}`] : 'Name is Required'
+          }
+          isError = true;
+        } else if(val === 'cardNumber') {
+          errorValue = {
+            ...errorValue,
+            [`${val}`] : 'Card is Required'
+          }
+          isError = true; 
+        } else if(val === 'cvv') {
+          errorValue = {
+            ...errorValue,
+            [`${val}`] : 'CVV is Required'
+          }
+          isError = true;
+        }   else {
+          errorValue = {
+            ...errorValue,
+            [`${val}`] : 'Required'
+          }
+          isError = true;
+        }
+      }
+    })
+
+
+    this.setState({
+      error: errorValue,
+    });
+    return isError;
    }
 
 
    finalCheckout = (e) => {
       e.preventDefault();
-      //change the props to error message = checkerrorbeforefinal then set the state is FinalCheckout
-      if(this.props.finalTotalProps) {
-         this.setState({isFinalCheckout: true})
+
+      const errorMessage = this.checkErrorBeforeFinal()
+      
+      if(!errorMessage) {
+        this.setState({
+          cardData: cardInformation,  
+          isFinalCheckout: true
+        })
       }
+
    }
    
    render(){

@@ -55,8 +55,7 @@ export const expressShipping = [
 
 
 export const cardInformation = 
-{cardHolderName: '', cardNumber: '', monthExp: '', yearExp: '', cvv: ''}
-
+{cardHolderName: '', cardNumber: '', monthExp: 'Jan', yearExp: '2023', cvv: ''}
 
 export const OTHERCARDS = [
    /[1-9]/,
@@ -115,6 +114,9 @@ export const CARDICON = {
 }
 
 
+//current code problem in the authenticate component is that it goes on to the next component without checking if the input is not in
+//current code bugs are that errors only show after the first error is present then it can be shown. The error do not show intially until the first error unrelated to empty input occurs
+//the one thing related to the one above is in the handleValidations method but it does not occur in the checkErrorBeforeSave method. 
+//next try out the button to see if it works or not
 
-//customerCart - having to update state when going back
-//
+//also current bug does not want me to register/authenticate the user

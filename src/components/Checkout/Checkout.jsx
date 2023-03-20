@@ -14,13 +14,13 @@ class Checkout extends React.Component {
          shoppingItems: shoppingItems,
          shoppingEmpty: '',
          subTotal: 0,
-         checkoutDisabled: true,
+         checkoutDisabled: false,
          shipPlusHandle: 0 ,
          discountValueInput: '',
          discount: 0,
          finalTotal: 0,
          //shippingInfoState
-         shippingInfoDisabled: true,
+         shippingInfoDisabled: false,
          shippingInfoData: shippingInfoData,
          shippingInfoDataInput: shippingInfoDataInput,
          shippingFast: false,
@@ -233,7 +233,8 @@ class Checkout extends React.Component {
          if (!item.name) {
             errorValue = {
                ...errorValue,
-               name: 'Name is required' };
+               name: 'Name is required'
+            };
             isError = true;
           }
           if (!item.address) {
@@ -298,6 +299,10 @@ class Checkout extends React.Component {
       } 
    }
 
+   backToShippingInfoButton = () => {
+      this.setState({shippingInfoDisabled: false})
+   }
+
  
 
    render() {
@@ -308,6 +313,8 @@ class Checkout extends React.Component {
                <ShippingInfo 
                //state data for component
                shippingInfoDisabledProps = {this.state.shippingInfoDisabled}
+               backToShippingInfoProps = {this.backToShippingInfoButton}
+
                shippingInfoDataProps= {this.state.shippingInfoData}
                shippingInfoDataInputProps = {this.state.shippingInfoDataInput}
                shippingFastStateProps= {this.state.shippingFast}

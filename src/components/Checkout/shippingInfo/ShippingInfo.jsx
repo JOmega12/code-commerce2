@@ -6,6 +6,14 @@ import '../shippingInfo/shippingInfo.css';
 
 class ShippingInfo extends React.Component {
 
+
+   constructor(props) {
+      super(props);
+      this.state=  {
+         shippingInfoDisabled: false,
+      }
+   }
+
    //next button for credit card
    handleCheckoutShippingInfo = (e) => {
       e.preventDefault();
@@ -78,6 +86,7 @@ class ShippingInfo extends React.Component {
       const citys = ['Los Angeles', 'Houston', 'New York',]
 
       return (
+         //the back button for paymentInfo is broken
          <div>
          {this.props.shippingInfoDisabledProps ? 
             <PaymentInfo 
@@ -86,7 +95,7 @@ class ShippingInfo extends React.Component {
             shippingAndHandleProps = {this.props.shippingAndHandleProps}
             discountNumberProps = {this.props.discountNumberProps}
             finalTotalProps = {this.props.finalTotalProps}
-            backToShippingInfoProps = {this.backToShippingInfoButton}
+            backToShippingInfoProps = {this.props.backToShippingInfoProps}
             shippingInfoDataInputProps = {this.props.shippingInfoDataInputProps}
             shippingFastProps = {this.props.shippingFastStateProps}
             />

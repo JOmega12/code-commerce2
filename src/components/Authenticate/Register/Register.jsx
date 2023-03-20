@@ -13,12 +13,10 @@ class Register extends React.Component {
          currentUserEmail: '',
       }
    }
-
-   submitRegister = (e) => {
-      e.preventDefault(e);
-      this.props.onSubmitFunc()
-   }
-
+   // submitRegister = (e) => {
+   //    e.preventDefault(e);
+   //    this.props.onSubmitFunc()
+   // }
 
    render() {
 
@@ -35,7 +33,7 @@ class Register extends React.Component {
       ]
 
       return (
-         <form onSubmit= {(e) => this.submitRegister(e)}>
+         <form onSubmit= {(e) => this.props.onSubmitFunc(e)}>
             {inputData.map((item) => (
             <InputBase
             placeholder= {item.label}

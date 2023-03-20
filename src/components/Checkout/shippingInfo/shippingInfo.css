@@ -148,6 +148,7 @@ hr {
    cursor: pointer;
    border: 2px white solid;
    padding: 10px;
+   /* width: 50%; */
    border-radius: 10px;
    background-color: red;
    margin: 10px 0 10px 10px;

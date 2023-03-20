@@ -46,71 +46,94 @@ class Authenticate extends React.Component {
 
    handleValidations = (name, value) => {
       let errorText;
-
       switch (name) {
          case 'firstName':
-            errorText = onlyTextValidation(value);
-            this.setState((prevState) => ({
-               error: {
-                  ...prevState.error, 
-                  firstNameError: errorText
-               },
-            }));
+            if(!value) {
+               errorText = 'First Name is Required'
+               if(errorText) {
+                  this.setState((prevState) => ({
+                     error: {
+                       ...prevState.error, 
+                       [`${name}Error`]: errorText
+                     },
+                   }));
+               }
+            } else {
+               errorText = onlyTextValidation(value);
+               this.setState((prevState) => ({
+                  error: {
+                     ...prevState.error, 
+                     firstNameError: errorText
+                  },
+               }));
+            }
 
          break;
          case 'lastName':
-            errorText = onlyTextValidation(value);
-            this.setState((prevState) => ({
-               error: {
-                  ...prevState.error, 
-                  lastNameError: errorText
-               },
-            }));
+            if(!value){
+               errorText = 'Last Name is Required'
+            } else {
+               errorText = onlyTextValidation(value);
+               this.setState((prevState) => ({
+                  error: {
+                     ...prevState.error, 
+                     lastNameError: errorText
+                  },
+               }));
+            }
          break;
          case 'password':
-
-            errorText = passwordValidation(value);
-            this.setState((prevState) => ({
-               error: {
-                  ...prevState.error, 
-                  passwordError: errorText
-               },
-            }))
+            if(!value) {
+               errorText = 'Password is Required' 
+            } else {
+               errorText = passwordValidation(value);
+               this.setState((prevState) => ({
+                  error: {
+                     ...prevState.error, 
+                     passwordError: errorText
+                  },
+               }))
+            }
          break;
          case 'confPassword':
-
-            if (value !== this.state.user.password) {
-               errorText = 'Password does not match'
+            if(!value) {
+               errorText = 'Confirm Password is Required'
+            } else {
+               if (value !== this.state.user.password) {
+                  errorText = 'Password does not match'
+               }
+               this.setState((prevState) => ({
+                  error: {
+                     ...prevState.error, confPasswordError: errorText},
+                  }))
             }
-
-            this.setState((prevState) => ({
-               error: {
-                  ...prevState.error, confPasswordError: errorText},
-               }))
-
          break;
-
          case 'email':
-
-            errorText = emailValidation(value);
-            this.setState((prevState) => ({
-               error: {
-                  ...prevState.error,
-                  emailError: errorText
-               },
-            }))
+            if(!value) {
+               errorText = 'Email is Required'
+            } else {
+               errorText = emailValidation(value);
+               this.setState((prevState) => ({
+                  error: {
+                     ...prevState.error,
+                     emailError: errorText
+                  },
+               }))
+            }
          break;
          case 'zipCode':
-            errorText= zipCodeValidation(value);
-
-            this.setState((prevState) => ({
-               error: {
-                  ...prevState.error,
-                  zipCodeError: errorText
-               },
-            }))
+            if(!value) {
+               errorText = 'Zipcode is Required'
+            } else {
+               errorText= zipCodeValidation(value);
+               this.setState((prevState) => ({
+                  error: {
+                     ...prevState.error,
+                     zipCodeError: errorText
+                  },
+               }))
+            }
          break;
-         
          default:
             break;
       }
@@ -147,59 +170,138 @@ class Authenticate extends React.Component {
       this.setState({passwordClicked: false});
    }
 
-   checkErrorBeforeSave = (type) => {
+   //check if the fields have length > 0,if there is an error for current input field 
+   //if error fields are not 
+
+   checkErrorBeforeSave = () => {
       let errorValue = {};
       let isError = false;
-      Object.keys(this.state.user).forEach((val) => {
-         if (!this.state.user[val].length) {
-            errorValue = { ...errorValue, [`${val}Error`] : 'Required' };
-            isError = true
-         } 
 
-         else if (type === 'signUp') {
-            this.state.users.forEach(item => {
-               if (item.email === this.state.user.email) {
+      if (!this.state.user.email) {
+         errorValue = {
+           ...errorValue,
+           emailError: 'Email is Required'
+         };
+         isError = true;
+       } else if (!this.state.user.password || !this.state.user.confPassword){
+         errorValue = {
+            ...errorValue,
+            passwordError : 'Password is Required',
+            confPasswordError: 'Password is Required'
+         };
+         isError = true;
+      }
+       
+       else {
+         Object.keys(this.state.user).forEach((val) => {
+            if (!this.state.user[val].length) {
+               errorValue = { ...errorValue, [`${val}Error`] : 'Required' };
+               isError = true
+            } 
+            else if (val === 'confPassword' || val === 'password') {
+               if (this.state.user.password !== this.state.user.confPassword) {
                   errorValue = {
-                     ...errorValue, 
-                     emailError: 'Email already exists'};
-                     isError = true
+                     ...errorValue,
+                     passwordError : 'Password Must Match',
+                     confPasswordError: 'Password Must Match'
+                  };
+                  isError = true;
+               } 
+            } else if (!this.state.user.password || !this.state.user.confPassword){
+                  errorValue = {
+                     ...errorValue,
+                     passwordError : 'Password is Required',
+                     confPasswordError: 'Password is Required'
+                  };
+                  isError = true;
+            } 
+            // else if(val === 'email') {
+            //    if (!this.state.user.email) {
+            //       errorValue = {
+            //          ...errorValue,
+            //          emailError : 'Email is Required'
+            //       };
+            //       isError = true;
+            //    }
+            // }
+             else if(val === 'firstName') {
+               if (!this.state.user.firstName) {
+                  errorValue = {
+                     ...errorValue,
+                     firstNameError : 'First Name is Required'
+                  };
+                  isError = true;
                }
-            })
-         }
+            }
+            else if ( val ==='lastName') {
+               if (!this.state.user.lastName) {
+                  errorValue = {
+                     ...errorValue,
+                     lastNameError : 'Last Name is Required'
+                  };
+                  isError = true;
+               }
+            }
+            else if (val === 'zipCode') {
+               if (!this.state.user.zipCode) {
+                  errorValue = {
+                     ...errorValue,
+                     zipCodeError : 'Zipcode is Required'
+                  };
+                  isError = true;
+               }
+            }
+         });
+       }
 
-      });
-      this.setState({ error : errorValue });
-      return isError;
+       Object.keys(this.state.error).forEach((val) => {
+         if(this.state.error[val].length) {
+            errorValue = {...errorValue, [val]: this.state.error[val]};
+            isError = true;
+         }
+       });
+
+       if(isError) {
+         this.setState({error: errorValue});
+         return true;
+       } else {
+         return false;
+       }
+      // this.setState({ error : errorValue });
+      // return isError;
    }
 
    //button for signUP
-   handleSignUpUser = () => {
-      const errorCheck = this.checkErrorBeforeSave('create');
+   handleSignUpUser = (e) => {
+      e.preventDefault();
+      const errorCheck = this.checkErrorBeforeSave();
 
 
       if (!errorCheck) {
-         this.state.users.forEach(user => {
-            if(user.email === this.state.user.email) {
-               this.setState((prevState) => ({
-                  error: {
-                     ...prevState.error,
-                     emailError: 'Email already exists, please sign in'
-                  }
-               }))
-            } else {
-               this.addUserToState(this.state.user);
-               this.props.isLoggedInStateT();
-               this.setState((prevState) => ({
-                  users: {
-                     ...prevState.users,
-                     user: '',
-                  }
-               }))
-            }
-         })
+         this.addUserToState(...this.state.user);
+         this.props.isLoggedInStateT();
+         this.setState((prevState) => ({
+            user: newUser,
+            users: {
+               ...prevState.users,
+               user: '',
+            },
+            error: {},
+         }))
+         // this.state.users.forEach(user => {
+         //    if(user.email === this.state.user.email) {
+         //       this.setState((prevState) => ({
+         //          error: {
+         //             ...prevState.error,
+         //             emailError: 'Email already exists, please sign in'
+         //          }
+         //       }))
+         //    } else {
+         //    }
+         // })
 
       }
-
+//im close on the email errors , just need to get them taken care of 
    }
 
    //button for signIn
@@ -208,15 +310,16 @@ class Authenticate extends React.Component {
 
       if (!errorCheck) {
          this.state.users.forEach(user => {
-            console.log(user)
-            if (user.email !== this.state.user.email) {
-               this.setState((prevState) => ({
-                  error: {
-                     ...prevState.error,
-                     emailError: 'Email cannot be found'
-                  }
-               }))
-            } else if (user.password !== this.state.user.password) {
+            // console.log(user)
+            // if (user.email !== this.state.user.email) {
+            //    this.setState((prevState) => ({
+            //       error: {
+            //          ...prevState.error,
+            //          emailError: 'Email cannot be found'
+            //       }
+            //    }))
+            // } else 
+            if (user.password !== this.state.user.password) {
                this.setState((prevState) => ({
                   error: {
                      ...prevState.error,
