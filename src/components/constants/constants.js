@@ -21,7 +21,6 @@ export const newUser =[
    lastName: '',
    zipCode: '',
    },
-
 ]
 
 export const shoppingItems = [
@@ -120,3 +119,11 @@ export const CARDICON = {
 //next try out the button to see if it works or not
 
 //also current bug does not want me to register/authenticate the user
+
+
+//check if the fields have length > 0,if there is an error for current input field 
+//if error fields are not 
+
+
+//when i click the input it doesn't show the error, 
+//when i 

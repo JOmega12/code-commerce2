@@ -13,396 +13,428 @@ import Register from './Register/Register';
 
 
 class Authenticate extends React.Component {
-   constructor(props) {
-      super(props)
-      this.state = {
-         isLogInClicked: false,
-         // testUser: INIT_TEST,
-         users: INIT_TEST,
-         //this is where the user will be added 
-         user: '',
-         error: {},
-         passwordClicked: false,
-      }
-   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogInClicked: false,
+      // testUser: INIT_TEST,
+      users: INIT_TEST,
+      //this is where the user will be added
+      user: "",
+      error: {},
+      passwordClicked: false,
+      isRegistered: false,
+    };
+  }
 
-   //add the test user to users to populate the object
-   addUserToState = (obj) => {
-      const newArr = [...this.state.users];
-      newArr.push(obj);
+  //add the test user to users to populate the object
+  addUserToState = (obj) => {
+    const newArr = [...this.state.users];
+    newArr.push(obj);
+    this.setState((prevState) => ({
+      ...prevState,
+      users: newArr,
+    }));
+  };
+
+  //this checks if current user is in array
+  checkIfUserExist = (arr, type) => {
+    const foundUser = arr.find((item) => {
+      return item.type === type;
+    });
+    return foundUser.length > 0 ? true : false;
+  };
+
+  handleValidations = (name, value) => {
+    let errorText;
+    switch (name) {
+      // case 'firstName':
+      //    if(!value) {
+      //       errorText = 'First Name is Required'
+      //    } else {
+      //       errorText = onlyTextValidation(value);
+      //       this.setState((prevState) => ({
+      //          error: {
+      //             ...prevState.error,
+      //             firstNameError: errorText
+      //          },
+      //       }));
+      //    }
+
+      // break;
+      // case 'lastName':
+      //    if(!value){
+      //       errorText = 'Last Name is Required'
+      //    } else {
+      //       errorText = onlyTextValidation(value);
+      //       this.setState((prevState) => ({
+      //          error: {
+      //             ...prevState.error,
+      //             lastNameError: errorText
+      //          },
+      //       }));
+      //    }
+      // break;
+      // case 'password':
+      //    if(!value) {
+      //       errorText = 'Password is Required'
+      //    } else {
+      //       errorText = passwordValidation(value);
+      //       this.setState((prevState) => ({
+      //          error: {
+      //             ...prevState.error,
+      //             passwordError: errorText
+      //          },
+      //       }))
+      //    }
+      // break;
+      // case 'confPassword':
+      //    if(!value) {
+      //       errorText = 'Confirm Password is Required'
+      //    } else {
+      //       if (value !== this.state.user.password) {
+      //          errorText = 'Password does not match'
+      //       }
+      //       this.setState((prevState) => ({
+      //          error: {
+      //             ...prevState.error, confPasswordError: errorText},
+      //          }))
+      //    }
+      // break;
+      // case 'email':
+      //    if(!value) {
+      //       errorText = 'Email is Required'
+      //    } else {
+      //       errorText = emailValidation(value);
+      //       this.setState((prevState) => ({
+      //          error: {
+      //             ...prevState.error,
+      //             emailError: errorText
+      //          },
+      //       }))
+      //    }
+      // break;
+      // case 'zipCode':
+      //    if(!value) {
+      //       errorText = 'Zipcode is Required'
+      //    } else {
+      //       errorText= zipCodeValidation(value);
+      //       this.setState((prevState) => ({
+      //          error: {
+      //             ...prevState.error,
+      //             zipCodeError: errorText
+      //          },
+      //       }))
+      //    }
+      // break;
+      // default:
+      //    break;
+
+      case "firstName":
+        errorText = onlyTextValidation(value);
+        this.setState((prevState) => ({
+          error: {
+            ...prevState.error,
+            firstNameError: errorText,
+          },
+        }));
+        break;
+      case "lastName":
+        errorText = onlyTextValidation(value);
+        this.setState((prevState) => ({
+          error: {
+            ...prevState.error,
+            lastNameError: errorText,
+          },
+        }));
+        break;
+      case "password":
+        errorText = passwordValidation(value);
+        this.setState((prevState) => ({
+          error: {
+            ...prevState.error,
+            passwordError: errorText,
+          },
+        }));
+        break;
+      case "confPassword":
+        if (value !== this.state.user.password) {
+          errorText = "Password does not match";
+        }
+        this.setState((prevState) => ({
+          error: {
+            ...prevState.error,
+            confPasswordError: errorText,
+          },
+        }));
+        break;
+      case "email":
+        errorText = emailValidation(value);
+        this.setState((prevState) => ({
+          error: {
+            ...prevState.error,
+            emailError: errorText,
+          },
+        }));
+        break;
+      case "zipCode":
+        errorText = zipCodeValidation(value);
+        this.setState((prevState) => ({
+          error: {
+            ...prevState.error,
+            zipCodeError: errorText,
+          },
+        }));
+        break;
+      default:
+        break;
+    }
+
+    if (this.state.isRegistered) {
       this.setState((prevState) => ({
-         ...prevState,
-         users: newArr,
-      }))
-   }
+        error: {
+          ...prevState.error,
+          [`${name}Error`]: errorText || "Required",
+        },
+      }));
+    }
+  };
 
-   //this checks if current user is in array
-   checkIfUserExist = (arr, type) => {
-      const foundUser = arr.forEach((item) => {
-         return item.type === type
-      })
-      return foundUser.length > 0 ? true: false;
-   }
+  handleBlur = (e) => {
+    this.handleValidations(e.target.name, e.target.value);
+  };
 
-   handleValidations = (name, value) => {
-      let errorText;
-      switch (name) {
-         case 'firstName':
-            if(!value) {
-               errorText = 'First Name is Required'
-               if(errorText) {
-                  this.setState((prevState) => ({
-                     error: {
-                       ...prevState.error, 
-                       [`${name}Error`]: errorText
-                     },
-                   }));
-               }
-            } else {
-               errorText = onlyTextValidation(value);
-               this.setState((prevState) => ({
-                  error: {
-                     ...prevState.error, 
-                     firstNameError: errorText
-                  },
-               }));
-            }
+  //onChange function
+  handleInputData = (e) => {
+    this.setState((prevState) => ({
+      user: {
+        ...prevState.user,
+        [e.target.name]: e.target.value,
+      },
+    }));
 
-         break;
-         case 'lastName':
-            if(!value){
-               errorText = 'Last Name is Required'
-            } else {
-               errorText = onlyTextValidation(value);
-               this.setState((prevState) => ({
-                  error: {
-                     ...prevState.error, 
-                     lastNameError: errorText
-                  },
-               }));
-            }
-         break;
-         case 'password':
-            if(!value) {
-               errorText = 'Password is Required' 
-            } else {
-               errorText = passwordValidation(value);
-               this.setState((prevState) => ({
-                  error: {
-                     ...prevState.error, 
-                     passwordError: errorText
-                  },
-               }))
-            }
-         break;
-         case 'confPassword':
-            if(!value) {
-               errorText = 'Confirm Password is Required'
-            } else {
-               if (value !== this.state.user.password) {
-                  errorText = 'Password does not match'
-               }
-               this.setState((prevState) => ({
-                  error: {
-                     ...prevState.error, confPasswordError: errorText},
-                  }))
-            }
-         break;
-         case 'email':
-            if(!value) {
-               errorText = 'Email is Required'
-            } else {
-               errorText = emailValidation(value);
-               this.setState((prevState) => ({
-                  error: {
-                     ...prevState.error,
-                     emailError: errorText
-                  },
-               }))
-            }
-         break;
-         case 'zipCode':
-            if(!value) {
-               errorText = 'Zipcode is Required'
-            } else {
-               errorText= zipCodeValidation(value);
-               this.setState((prevState) => ({
-                  error: {
-                     ...prevState.error,
-                     zipCodeError: errorText
-                  },
-               }))
-            }
-         break;
-         default:
-            break;
-      }
-   }
+    //i know that when i write something, it might have something to do with the input and registering
+  };
 
-   handleBlur = (e) => {
-      this.handleValidations(e.target.name, e.target.value);
-   }
+  //onclick for radio buttons
+  handleSignUpRadio = () => {
+    this.setState({ isLogInClicked: true });
+  };
 
-   //onChange function
-   handleInputData = (e) => {
-      this.setState((prevState) => ({
-         user: {
-            ...prevState.user,
-            [e.target.name]: e.target.value,
-         }
-      }))
-   }
+  handleSignInRadio = () => {
+    this.setState({ isLogInClicked: false });
+  };
 
-   //onclick for radio buttons
-   handleSignUpRadio = () => {
-      this.setState({isLogInClicked : true})
-   }
+  handlePasswordVisibilityT = () => {
+    this.setState({ passwordClicked: true });
+  };
 
-   handleSignInRadio = () => {
-      this.setState({isLogInClicked : false})
-   }
+  handlePasswordVisibilityF = () => {
+    this.setState({ passwordClicked: false });
+  };
 
-   handlePasswordVisibilityT = () => {
-      this.setState({passwordClicked: true});
-   }
-
-   handlePasswordVisibilityF = () => {
-      this.setState({passwordClicked: false});
-   }
-
-   //check if the fields have length > 0,if there is an error for current input field 
-   //if error fields are not 
-
-   checkErrorBeforeSave = () => {
-      let errorValue = {};
-      let isError = false;
-
-      if (!this.state.user.email) {
-         errorValue = {
-           ...errorValue,
-           emailError: 'Email is Required'
-         };
-         isError = true;
-       } else if (!this.state.user.password || !this.state.user.confPassword){
-         errorValue = {
-            ...errorValue,
-            passwordError : 'Password is Required',
-            confPasswordError: 'Password is Required'
-         };
-         isError = true;
-      }
-       
-       else {
-         Object.keys(this.state.user).forEach((val) => {
-            if (!this.state.user[val].length) {
-               errorValue = { ...errorValue, [`${val}Error`] : 'Required' };
-               isError = true
-            } 
-            else if (val === 'confPassword' || val === 'password') {
-               if (this.state.user.password !== this.state.user.confPassword) {
-                  errorValue = {
-                     ...errorValue,
-                     passwordError : 'Password Must Match',
-                     confPasswordError: 'Password Must Match'
-                  };
-                  isError = true;
-               } 
-            } else if (!this.state.user.password || !this.state.user.confPassword){
-                  errorValue = {
-                     ...errorValue,
-                     passwordError : 'Password is Required',
-                     confPasswordError: 'Password is Required'
-                  };
-                  isError = true;
-            } 
-            // else if(val === 'email') {
-            //    if (!this.state.user.email) {
-            //       errorValue = {
-            //          ...errorValue,
-            //          emailError : 'Email is Required'
-            //       };
-            //       isError = true;
-            //    }
-            // }
-             else if(val === 'firstName') {
-               if (!this.state.user.firstName) {
-                  errorValue = {
-                     ...errorValue,
-                     firstNameError : 'First Name is Required'
-                  };
-                  isError = true;
-               }
-            }
-            else if ( val ==='lastName') {
-               if (!this.state.user.lastName) {
-                  errorValue = {
-                     ...errorValue,
-                     lastNameError : 'Last Name is Required'
-                  };
-                  isError = true;
-               }
-            }
-            else if (val === 'zipCode') {
-               if (!this.state.user.zipCode) {
-                  errorValue = {
-                     ...errorValue,
-                     zipCodeError : 'Zipcode is Required'
-                  };
-                  isError = true;
-               }
-            }
-         });
-       }
-
-       Object.keys(this.state.error).forEach((val) => {
-         if(this.state.error[val].length) {
-            errorValue = {...errorValue, [val]: this.state.error[val]};
+  checkErrorBeforeSave = () => {
+    let errorValue = {};
+    let isError = false;
+   // console.log(Object.entries(this.state.user))
+    Object.keys(this.state.user).forEach((val) => {
+      console.log(this.state.user[val], 'stateuser[val]')
+      console.log(this.state.user[val].length, 'stateuser[val]')
+      console.log(!this.state.user[val].length, '!stateuser[val]')
+      console.log(this.state.user, 'state user')
+      //okay! so we know that the user works when there is an input
+      //so now I need to find out why the errors are not picking up the user when the button is clicked
+      //so the problem is in the program not [picking up the input or the button not registering that there is no input
+      //so most likely there needs to be an if statement where if the input field is written, it has to show the errormessages
+      //but where am i gonna put the if statement and what am i writing to pickup the input?
+      if (!this.state.user[val].length) {
+        errorValue = { ...errorValue, [`${val}Error`]: "Required" };
+        console.log(errorValue, 'errorValue');
+        isError = true;
+      } 
+      else if(val === 'email') {
+         if (!this.state.user.email) {
+            errorValue = {
+               ...errorValue,
+               emailError : 'Email is Required'
+            };
             isError = true;
          }
-       });
-
-       if(isError) {
-         this.setState({error: errorValue});
-         return true;
-       } else {
-         return false;
-       }
-      // this.setState({ error : errorValue });
-      // return isError;
-   }
-
-   //button for signUP
-   handleSignUpUser = (e) => {
-      e.preventDefault();
-      const errorCheck = this.checkErrorBeforeSave();
-
-
-      if (!errorCheck) {
-         this.addUserToState(...this.state.user);
-         this.props.isLoggedInStateT();
-         this.setState((prevState) => ({
-            user: newUser,
-            users: {
-               ...prevState.users,
-               user: '',
-            },
-            error: {},
-         }))
-         // this.state.users.forEach(user => {
-         //    if(user.email === this.state.user.email) {
-         //       this.setState((prevState) => ({
-         //          error: {
-         //             ...prevState.error,
-         //             emailError: 'Email already exists, please sign in'
-         //          }
-         //       }))
-         //    } else {
-         //    }
-         // })
-
       }
-//im close on the email errors , just need to get them taken care of 
-   }
+      else if (val === "firstName") {
+        if (!this.state.user.firstName) {
+          errorValue = {
+            ...errorValue,
+            firstNameError: "First Name is Required",
+          };
+          isError = true;
+        }
+      } else if (val === "lastName") {
+        if (!this.state.user.lastName) {
+          errorValue = {
+            ...errorValue,
+            lastNameError: "Last Name is Required",
+          };
+          isError = true;
+        }
+      } else if (val === "zipCode") {
+        if (!this.state.user.zipCode) {
+          errorValue = {
+            ...errorValue,
+            zipCodeError: "Zipcode is Required",
+          };
+          isError = true;
+        }
+      }
+    });
 
-   //button for signIn
-   handleSignInUser = () => {
-      const errorCheck = this.checkErrorBeforeSave('signIn');
+   //  if (isError) {
+   //    this.setState({ error: errorValue });
+   //    return true;
+   //  } else {
+   //    return false;
+   //  }
+    this.setState({ error : errorValue });
+    return isError;
+  };
 
-      if (!errorCheck) {
-         this.state.users.forEach(user => {
-            // console.log(user)
-            // if (user.email !== this.state.user.email) {
-            //    this.setState((prevState) => ({
-            //       error: {
-            //          ...prevState.error,
-            //          emailError: 'Email cannot be found'
-            //       }
-            //    }))
-            // } else 
-            if (user.password !== this.state.user.password) {
-               this.setState((prevState) => ({
-                  error: {
-                     ...prevState.error,
-                     passwordError: 'Password is Incorrect'
-                  }
-               }))
-            }  else {
-                  this.addUserToState(this.state.user);
-                  this.props.isLoggedInStateT();
-                  this.setState({
-                     users: newUser,
-                     user: '',
-                  })
-               }
-         })
-      } 
-   }
+  //button for signUP
+  handleSignUpUser = (e) => {
+    e.preventDefault();
 
-   render() {
+    if(this.checkErrorBeforeSave()){
+      return;
+    }
+    const errorCheck = this.checkErrorBeforeSave();
+   console.log(errorCheck, 'errorCheck');
+   //why is the errorcheck false? shouldnt it be true?
 
-      return (
-         <div className='mainBox'>
-            <h1>Get Started</h1>
-            <div className='main-radioBox' onChange={this.handleSignIn}>
-               <label htmlFor="">
-                     <input type="radio" name='radioTag' value='register'
-                     onClick={this.handleSignUpRadio}
-                     checked = {this.state.isLogInClicked}
-                     />
-                     Register
-               </label>
-               <label htmlFor="">
-                     <input type="radio" name='radioTag' value='login'
-                     onClick={this.handleSignInRadio}
-                     checked = {!this.state.isLogInClicked}
-                     />
-                     Login
-               </label>
-            </div>
-
-            
-
-            {this.state.isLogInClicked ? (
-               <Register 
-               UserState={this.state.user}
-               UsersState = {this.state.users}
-               userTest = {this.state.testUser}
-
-               handleInputData = {this.handleInputData}
-               handlePasswordVisibilityT = {this.handlePasswordVisibilityT}
-               handlePasswordVisibilityF = {this.handlePasswordVisibilityF}
-               passwordState = {this.state.passwordClicked}
-               onBlurFunc = {this.handleBlur}
-               errorMState = {this.state.error}
-
-               onSubmitFunc = {this.handleSignUpUser}
-               /> 
-            ): <Login 
-               UserState={this.state.user}
-               UsersState = {this.state.users}
-               userTest = {this.state.testUser}
-
-               handleInputData = {this.handleInputData}
-               handlePasswordVisibilityT = {this.handlePasswordVisibilityT}
-               handlePasswordVisibilityF = {this.handlePasswordVisibilityF}
-               passwordState = {this.state.passwordClicked}
-               onBlurFunc = {this.handleBlur}
-               errorMState = {this.state.error}
-
-               onSubmitFunc = {this.handleSignInUser}
-               />
-            
+    this.state.users.forEach(user => {
+      if(user.email === this.state.user.email) {
+         this.setState((prevState) => ({
+            error: {
+               ...prevState.error,
+               emailError: 'Email already exists, please sign in'
             }
+         }))
+      } 
+   })
 
+    if (!errorCheck) {
+      this.addUserToState(this.state.user);
 
-            <div className='fb'>
-               <label htmlFor="" className='fb-box'>
-                  <h2>Facebook</h2>
-               </label>
-            </div>
-         </div>
-      )
-   }
+      this.props.isLoggedInStateT();
+      this.setState((prevState) => ({
+        user: newUser[0],
+      //   user: "",
+        users: {
+          ...prevState.users,
+          user: "",
+        },
+        error: {},
+        isRegistered: false,
+      }));
+    }
+    //im close on the email errors , just need to get them taken care of
+  };
+
+  //button for signIn
+  handleSignInUser = () => {
+    const errorCheck = this.checkErrorBeforeSave("signIn");
+
+    if (!errorCheck) {
+      this.state.users.forEach((user) => {
+        console.log(user);
+        if (user.email !== this.state.user.email) {
+          this.setState((prevState) => ({
+            error: {
+              ...prevState.error,
+              emailError: "Email cannot be found",
+            },
+          }));
+        } else if (user.password !== this.state.user.password) {
+          this.setState((prevState) => ({
+            error: {
+              ...prevState.error,
+              passwordError: "Password is Incorrect",
+            },
+          }));
+        } else {
+          this.addUserToState(this.state.user);
+          this.props.isLoggedInStateT();
+          this.setState({
+            users: newUser,
+            user: "",
+          });
+        }
+      });
+    }
+  };
+
+  render() {
+    return (
+      <div className="mainBox">
+        <h1>Get Started</h1>
+        <div className="main-radioBox" onChange={this.handleSignIn}>
+          <label htmlFor="">
+            <input
+              type="radio"
+              name="radioTag"
+              value="register"
+              onClick={this.handleSignUpRadio}
+              checked={this.state.isLogInClicked}
+            />
+            Register
+          </label>
+          <label htmlFor="">
+            <input
+              type="radio"
+              name="radioTag"
+              value="login"
+              onClick={this.handleSignInRadio}
+              checked={!this.state.isLogInClicked}
+            />
+            Login
+          </label>
+        </div>
+
+        {this.state.isLogInClicked ? (
+          <Register
+            userState={this.state.user}
+            UsersState={this.state.users}
+            userTest={this.state.testUser}
+            handleInputData={this.handleInputData}
+            handlePasswordVisibilityT={this.handlePasswordVisibilityT}
+            handlePasswordVisibilityF={this.handlePasswordVisibilityF}
+            passwordState={this.state.passwordClicked}
+            onBlurFunc={this.handleBlur}
+            errorMState={this.state.error}
+            onSubmitFunc={this.handleSignUpUser}
+            disabledButtonState={!this.state.isRegistered}
+          />
+        ) : (
+          <Login
+            UserState={this.state.user}
+            UsersState={this.state.users}
+            userTest={this.state.testUser}
+            handleInputData={this.handleInputData}
+            handlePasswordVisibilityT={this.handlePasswordVisibilityT}
+            handlePasswordVisibilityF={this.handlePasswordVisibilityF}
+            passwordState={this.state.passwordClicked}
+            onBlurFunc={this.handleBlur}
+            errorMState={this.state.error}
+            onSubmitFunc={this.handleSignInUser}
+          />
+        )}
+
+        <div className="fb">
+          <label htmlFor="" className="fb-box">
+            <h2>Facebook</h2>
+          </label>
+        </div>
+      </div>
+    );
+  }
 }
 
 

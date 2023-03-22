@@ -7,7 +7,7 @@ class Register extends React.Component {
    constructor(props) {
       super(props)
       this.state = {
-         user: this.props.UserState,
+         user: this.props.userState,
          users: this.props.UsersState,
          userTest: this.props.userTest,
          currentUserEmail: '',
@@ -33,13 +33,20 @@ class Register extends React.Component {
       ]
 
       return (
-         <form onSubmit= {(e) => this.props.onSubmitFunc(e)}>
+         <form 
+            onSubmit= {(e) => this.props.onSubmitFunc(e)}
+            // disabled={this.props.disabledButtonState}
+            disabled = {
+               this.props.disabledButtonState
+            }
+         >
             {inputData.map((item) => (
             <InputBase
             placeholder= {item.label}
             type = {item.type}
             name = {item.name}
             value = {this.state.users && this.state.users[item.name]}
+
             onChange = {handleInputData}
             autoComplete = 'off'
             onBlur= {onBlurFunc}
