@@ -242,11 +242,7 @@ class Authenticate extends React.Component {
       console.log(this.state.user[val].length, 'stateuser[val]')
       console.log(!this.state.user[val].length, '!stateuser[val]')
       console.log(this.state.user, 'state user')
-      //okay! so we know that the user works when there is an input
-      //so now I need to find out why the errors are not picking up the user when the button is clicked
-      //so the problem is in the program not [picking up the input or the button not registering that there is no input
-      //so most likely there needs to be an if statement where if the input field is written, it has to show the errormessages
-      //but where am i gonna put the if statement and what am i writing to pickup the input?
+
       if (!this.state.user[val].length) {
         errorValue = { ...errorValue, [`${val}Error`]: "Required" };
         console.log(errorValue, 'errorValue');
