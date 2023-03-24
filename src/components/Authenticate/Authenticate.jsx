@@ -20,7 +20,7 @@ class Authenticate extends React.Component {
       // testUser: INIT_TEST,
       users: INIT_TEST,
       //this is where the user will be added
-      user: "",
+      user: newUser,
       error: {},
       passwordClicked: false,
       isRegistered: false,
@@ -236,12 +236,12 @@ class Authenticate extends React.Component {
   checkErrorBeforeSave = () => {
     let errorValue = {};
     let isError = false;
-   // console.log(Object.entries(this.state.user))
+
     Object.keys(this.state.user).forEach((val) => {
-      console.log(this.state.user[val], 'stateuser[val]')
-      console.log(this.state.user[val].length, 'stateuser[val]')
-      console.log(!this.state.user[val].length, '!stateuser[val]')
-      console.log(this.state.user, 'state user')
+      // console.log(this.state.user[val], 'stateuser[val]')
+      // console.log(this.state.user[val].length, 'stateuser[val]')
+      // console.log(!this.state.user[val].length, '!stateuser[val]')
+      // console.log(this.state.user, 'state user')
 
       if (!this.state.user[val].length) {
         errorValue = { ...errorValue, [`${val}Error`]: "Required" };
@@ -283,13 +283,6 @@ class Authenticate extends React.Component {
         }
       }
     });
-
-   //  if (isError) {
-   //    this.setState({ error: errorValue });
-   //    return true;
-   //  } else {
-   //    return false;
-   //  }
     this.setState({ error : errorValue });
     return isError;
   };
@@ -302,8 +295,7 @@ class Authenticate extends React.Component {
       return;
     }
     const errorCheck = this.checkErrorBeforeSave();
-   console.log(errorCheck, 'errorCheck');
-   //why is the errorcheck false? shouldnt it be true?
+    console.log(errorCheck, 'errorCheck');
 
     this.state.users.forEach(user => {
       if(user.email === this.state.user.email) {
@@ -321,11 +313,11 @@ class Authenticate extends React.Component {
 
       this.props.isLoggedInStateT();
       this.setState((prevState) => ({
-        user: newUser[0],
+        user: newUser,
       //   user: "",
         users: {
           ...prevState.users,
-          user: "",
+          user: ''
         },
         error: {},
         isRegistered: false,
@@ -356,12 +348,16 @@ class Authenticate extends React.Component {
             },
           }));
         } else {
-          this.addUserToState(this.state.user);
+          // this.addUserToState(this.state.user);
+          
           this.props.isLoggedInStateT();
-          this.setState({
-            users: newUser,
-            user: "",
-          });
+          this.setState(       
+            (prevState) => ({
+            user: newUser,
+            users: {
+              ...prevState.use
+            },
+          }));
         }
       });
     }

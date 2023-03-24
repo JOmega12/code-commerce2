@@ -12,7 +12,7 @@ export const INIT_TEST = [{
    zipCode: '11111',
 },]
 
-export const newUser =[
+export const newUser =
    {
    email: '',
    password: '',
@@ -20,8 +20,8 @@ export const newUser =[
    firstName: '',
    lastName: '',
    zipCode: '',
-   },
-]
+   }
+
 
 export const shoppingItems = [
    {img: '/IMAGE/milk.png', name: 'Milk', price: 10, totalPrice: 0, quantity: 0},
