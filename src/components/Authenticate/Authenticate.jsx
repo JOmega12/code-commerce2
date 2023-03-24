@@ -48,88 +48,6 @@ class Authenticate extends React.Component {
   handleValidations = (name, value) => {
     let errorText;
     switch (name) {
-      // case 'firstName':
-      //    if(!value) {
-      //       errorText = 'First Name is Required'
-      //    } else {
-      //       errorText = onlyTextValidation(value);
-      //       this.setState((prevState) => ({
-      //          error: {
-      //             ...prevState.error,
-      //             firstNameError: errorText
-      //          },
-      //       }));
-      //    }
-
-      // break;
-      // case 'lastName':
-      //    if(!value){
-      //       errorText = 'Last Name is Required'
-      //    } else {
-      //       errorText = onlyTextValidation(value);
-      //       this.setState((prevState) => ({
-      //          error: {
-      //             ...prevState.error,
-      //             lastNameError: errorText
-      //          },
-      //       }));
-      //    }
-      // break;
-      // case 'password':
-      //    if(!value) {
-      //       errorText = 'Password is Required'
-      //    } else {
-      //       errorText = passwordValidation(value);
-      //       this.setState((prevState) => ({
-      //          error: {
-      //             ...prevState.error,
-      //             passwordError: errorText
-      //          },
-      //       }))
-      //    }
-      // break;
-      // case 'confPassword':
-      //    if(!value) {
-      //       errorText = 'Confirm Password is Required'
-      //    } else {
-      //       if (value !== this.state.user.password) {
-      //          errorText = 'Password does not match'
-      //       }
-      //       this.setState((prevState) => ({
-      //          error: {
-      //             ...prevState.error, confPasswordError: errorText},
-      //          }))
-      //    }
-      // break;
-      // case 'email':
-      //    if(!value) {
-      //       errorText = 'Email is Required'
-      //    } else {
-      //       errorText = emailValidation(value);
-      //       this.setState((prevState) => ({
-      //          error: {
-      //             ...prevState.error,
-      //             emailError: errorText
-      //          },
-      //       }))
-      //    }
-      // break;
-      // case 'zipCode':
-      //    if(!value) {
-      //       errorText = 'Zipcode is Required'
-      //    } else {
-      //       errorText= zipCodeValidation(value);
-      //       this.setState((prevState) => ({
-      //          error: {
-      //             ...prevState.error,
-      //             zipCodeError: errorText
-      //          },
-      //       }))
-      //    }
-      // break;
-      // default:
-      //    break;
-
       case "firstName":
         errorText = onlyTextValidation(value);
         this.setState((prevState) => ({
@@ -206,19 +124,31 @@ class Authenticate extends React.Component {
 
   //onChange function
   handleInputData = (e) => {
-    this.setState((prevState) => ({
-      user: {
-        ...prevState.user,
-        [e.target.name]: e.target.value,
-      },
-    }));
 
-    //i know that when i write something, it might have something to do with the input and registering
+    if(this.state.isRegistered && !['email', 'password'].includes(e.target.name)) {
+      this.setState((prevState) => ({
+        user: {
+          ...prevState.user,
+          [e.target.name]: e.target.value,
+        },
+      }));
+    } else {
+      this.setState((prevState) => ({
+        user: {
+          ...prevState.user,
+          [e.target.name]: e.target.value,
+        },
+      }));
+    }
   };
 
   //onclick for radio buttons
   handleSignUpRadio = () => {
-    this.setState({ isLogInClicked: true });
+    this.setState({
+      
+      isLogInClicked: true,
+      
+      });
   };
 
   handleSignInRadio = () => {
@@ -233,56 +163,67 @@ class Authenticate extends React.Component {
     this.setState({ passwordClicked: false });
   };
 
-  checkErrorBeforeSave = () => {
+  checkErrorBeforeSave = (type) => {
     let errorValue = {};
     let isError = false;
 
-    Object.keys(this.state.user).forEach((val) => {
-      // console.log(this.state.user[val], 'stateuser[val]')
-      // console.log(this.state.user[val].length, 'stateuser[val]')
-      // console.log(!this.state.user[val].length, '!stateuser[val]')
-      // console.log(this.state.user, 'state user')
 
-      if (!this.state.user[val].length) {
-        errorValue = { ...errorValue, [`${val}Error`]: "Required" };
-        console.log(errorValue, 'errorValue');
-        isError = true;
-      } 
-      else if(val === 'email') {
-         if (!this.state.user.email) {
+    if(type === "create") {
+      Object.keys(this.state.user).forEach((val) => {
+        if (!this.state.user[val].length) {
+          errorValue = { ...errorValue, [`${val}Error`]: "Required" };
+          console.log(errorValue, 'errorValue');
+          isError = true;
+        } 
+        else if(val === 'email') {
+           if (!this.state.user.email) {
+              errorValue = {
+                 ...errorValue,
+                 emailError : 'Email is Required'
+              };
+              isError = true;
+           }
+        }
+        else if (val === "firstName") {
+          if (!this.state.user.firstName) {
             errorValue = {
-               ...errorValue,
-               emailError : 'Email is Required'
+              ...errorValue,
+              firstNameError: "First Name is Required",
             };
             isError = true;
-         }
-      }
-      else if (val === "firstName") {
-        if (!this.state.user.firstName) {
-          errorValue = {
-            ...errorValue,
-            firstNameError: "First Name is Required",
-          };
-          isError = true;
+          }
+        } else if (val === "lastName") {
+          if (!this.state.user.lastName) {
+            errorValue = {
+              ...errorValue,
+              lastNameError: "Last Name is Required",
+            };
+            isError = true;
+          }
+        } else if (val === "zipCode") {
+          if (!this.state.user.zipCode) {
+            errorValue = {
+              ...errorValue,
+              zipCodeError: "Zipcode is Required",
+            };
+            isError = true;
+          }
         }
-      } else if (val === "lastName") {
-        if (!this.state.user.lastName) {
-          errorValue = {
-            ...errorValue,
-            lastNameError: "Last Name is Required",
-          };
+      });
+    }
+
+
+    else if (type === 'signIn') {
+      Object.keys(this.state.user).forEach((val) => {
+        if (!this.state.user['email'].length || !this.state.user['password'].length) {
+          errorValue = { ...errorValue, [`${val}Error`]: "Required" };
+          console.log(errorValue, 'errorValue');
           isError = true;
-        }
-      } else if (val === "zipCode") {
-        if (!this.state.user.zipCode) {
-          errorValue = {
-            ...errorValue,
-            zipCodeError: "Zipcode is Required",
-          };
-          isError = true;
-        }
-      }
-    });
+        } 
+      })
+
+      this.setState({isRegistered: true})
+    }
     this.setState({ error : errorValue });
     return isError;
   };
@@ -291,10 +232,10 @@ class Authenticate extends React.Component {
   handleSignUpUser = (e) => {
     e.preventDefault();
 
-    if(this.checkErrorBeforeSave()){
+    if(this.checkErrorBeforeSave('create')){
       return;
     }
-    const errorCheck = this.checkErrorBeforeSave();
+    const errorCheck = this.checkErrorBeforeSave('create');
     console.log(errorCheck, 'errorCheck');
 
     this.state.users.forEach(user => {
@@ -307,23 +248,20 @@ class Authenticate extends React.Component {
          }))
       } 
    })
-
     if (!errorCheck) {
       this.addUserToState(this.state.user);
 
       this.props.isLoggedInStateT();
       this.setState((prevState) => ({
         user: newUser,
-      //   user: "",
         users: {
           ...prevState.users,
           user: ''
         },
         error: {},
-        isRegistered: false,
+        isRegistered: true,
       }));
     }
-    //im close on the email errors , just need to get them taken care of
   };
 
   //button for signIn
@@ -348,8 +286,7 @@ class Authenticate extends React.Component {
             },
           }));
         } else {
-          // this.addUserToState(this.state.user);
-          
+
           this.props.isLoggedInStateT();
           this.setState(       
             (prevState) => ({
@@ -362,18 +299,39 @@ class Authenticate extends React.Component {
       });
     }
   };
-//asd
+
   render() {
+
+    const inputRadio = [
+      {id: 1, label: 'register', title: 'Register', onClick: this.handleSignUpRadio},
+      {id: 2, label: 'login', title: 'Login', onClick: this.handleSignInRadio}
+    ];
+
     return (
       <div className="mainBox">
         <h1>Get Started</h1>
         <div className="main-radioBox" onChange={this.handleSignIn}>
-          <label htmlFor="">
+
+          {inputRadio.map((item) => (
+            <label htmlFor="">
+            <input
+              id={item.id}
+              type="radio"
+              name="radioTag"
+              value={item.label}
+              onClick={item.onClick}
+              checked={this.state.isLogInClicked}
+            />
+            {item.title}
+            </label>
+          ))}
+
+          {/* <label htmlFor="">
             <input
               type="radio"
               name="radioTag"
               value="register"
-              onClick={this.handleSignUpRadio}
+              onClick={this.handleSignUpRadio(this.state.isLogInClicked)}
               checked={this.state.isLogInClicked}
             />
             Register
@@ -387,7 +345,9 @@ class Authenticate extends React.Component {
               checked={!this.state.isLogInClicked}
             />
             Login
-          </label>
+          </label> */}
+
+
         </div>
 
         {this.state.isLogInClicked ? (

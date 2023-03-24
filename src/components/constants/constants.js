@@ -127,3 +127,7 @@ export const CARDICON = {
 
 //when i click the input it doesn't show the error, 
 //when i 
+
+
+
+//bug fixed on sign up because it required me to fix the contants validation ebcause it was not picking up on a specific 
