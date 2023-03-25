@@ -111,23 +111,3 @@ export const CARDICON = {
    AMERICAN_EXPRESS: AMERICAN_EXPRESS,
    DISCOVER: DISCOVER_ICON,
 }
-
-
-//current code problem in the authenticate component is that it goes on to the next component without checking if the input is not in
-//current code bugs are that errors only show after the first error is present then it can be shown. The error do not show intially until the first error unrelated to empty input occurs
-//the one thing related to the one above is in the handleValidations method but it does not occur in the checkErrorBeforeSave method. 
-//next try out the button to see if it works or not
-
-//also current bug does not want me to register/authenticate the user
-
-
-//check if the fields have length > 0,if there is an error for current input field 
-//if error fields are not 
-
-
-//when i click the input it doesn't show the error, 
-//when i 
-
-
-
-//bug fixed on sign up because it required me to fix the contants validation ebcause it was not picking up on a specific 
