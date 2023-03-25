@@ -16,10 +16,11 @@ class Register extends React.Component {
     //functions
     const {
       handleInputData,
-      handlePasswordVisibilityT,
-      handlePasswordVisibilityF,
+      // handlePasswordVisibilityT,
+      // handlePasswordVisibilityF,
       passwordState,
       onBlurFunc,
+      handlePasswordVisible,
     } = this.props;
 
     const inputData = [
@@ -85,9 +86,7 @@ class Register extends React.Component {
           className="bi bi-eye-slash registerPass"
           id="togglePassword"
           onClick={
-            passwordState
-              ? handlePasswordVisibilityF
-              : handlePasswordVisibilityT
+            handlePasswordVisible
           }
         ></i>
         <div className="registerButton">

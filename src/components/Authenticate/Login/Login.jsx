@@ -19,8 +19,9 @@ class Login extends React.Component {
   render() {
     const {
       handleInputData,
-      handlePasswordVisibilityT,
-      handlePasswordVisibilityF,
+      // handlePasswordVisibilityT,
+      // handlePasswordVisibilityF,
+      handlePasswordVisible,
       onBlurFunc,
       passwordState,
     } = this.props;
@@ -60,9 +61,7 @@ class Login extends React.Component {
           className="bi bi-eye-slash loginPass"
           id="togglePassword"
           onClick={
-            passwordState
-              ? handlePasswordVisibilityF
-              : handlePasswordVisibilityT
+            handlePasswordVisible
           }
         ></i>
 

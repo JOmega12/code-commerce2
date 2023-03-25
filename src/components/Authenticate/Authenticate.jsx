@@ -143,25 +143,17 @@ class Authenticate extends React.Component {
   };
 
   //onclick for radio buttons
-  handleSignUpRadio = () => {
-    this.setState({
-      
-      isLogInClicked: true,
-      
-      });
-  };
+  handleClick = (bool) => {
+    this.setState({ isLogInClicked: bool });
+  }
 
-  handleSignInRadio = () => {
-    this.setState({ isLogInClicked: false });
-  };
 
-  handlePasswordVisibilityT = () => {
-    this.setState({ passwordClicked: true });
-  };
+  handlePasswordVisibility = () => {
 
-  handlePasswordVisibilityF = () => {
-    this.setState({ passwordClicked: false });
-  };
+    this.setState((prevState) => ({
+      passwordClicked: !prevState.passwordClicked,
+    }));
+  }
 
   checkErrorBeforeSave = (type) => {
     let errorValue = {};
@@ -303,8 +295,22 @@ class Authenticate extends React.Component {
   render() {
 
     const inputRadio = [
-      {id: 1, label: 'register', title: 'Register', onClick: this.handleSignUpRadio},
-      {id: 2, label: 'login', title: 'Login', onClick: this.handleSignInRadio}
+      { 
+        id: 1, 
+        label: 'register', 
+        title: 'Register', 
+        // onClick: this.handleSignUpRadio, 
+        checked: this.state.isLogInClicked, 
+        onChange: (()=> this.handleClick(true))
+      },
+      { 
+        id: 2, 
+        label: 'login', 
+        title: 'Login', 
+        // onClick: this.handleSignInRadio, 
+        checked: !this.state.isLogInClicked, 
+        onChange: (()=> this.handleClick(false))
+      }
     ];
 
     return (
@@ -319,33 +325,14 @@ class Authenticate extends React.Component {
               type="radio"
               name="radioTag"
               value={item.label}
-              onClick={item.onClick}
-              checked={this.state.isLogInClicked}
+              onClick={item.onChange}
+              checked= {item.checked}
+              // onChange = {item.onChange}
             />
             {item.title}
             </label>
           ))}
 
-          {/* <label htmlFor="">
-            <input
-              type="radio"
-              name="radioTag"
-              value="register"
-              onClick={this.handleSignUpRadio(this.state.isLogInClicked)}
-              checked={this.state.isLogInClicked}
-            />
-            Register
-          </label>
-          <label htmlFor="">
-            <input
-              type="radio"
-              name="radioTag"
-              value="login"
-              onClick={this.handleSignInRadio}
-              checked={!this.state.isLogInClicked}
-            />
-            Login
-          </label> */}
 
 
         </div>
@@ -356,8 +343,11 @@ class Authenticate extends React.Component {
             UsersState={this.state.users}
             userTest={this.state.testUser}
             handleInputData={this.handleInputData}
-            handlePasswordVisibilityT={this.handlePasswordVisibilityT}
-            handlePasswordVisibilityF={this.handlePasswordVisibilityF}
+
+            // handlePasswordVisibilityT={this.handlePasswordVisibilityT}
+            // handlePasswordVisibilityF={this.handlePasswordVisibilityF}
+            handlePasswordVisible= {this.handlePasswordVisibility}
+
             passwordState={this.state.passwordClicked}
             onBlurFunc={this.handleBlur}
             errorMState={this.state.error}
@@ -370,8 +360,11 @@ class Authenticate extends React.Component {
             UsersState={this.state.users}
             userTest={this.state.testUser}
             handleInputData={this.handleInputData}
-            handlePasswordVisibilityT={this.handlePasswordVisibilityT}
-            handlePasswordVisibilityF={this.handlePasswordVisibilityF}
+
+            // handlePasswordVisibilityT={this.handlePasswordVisibilityT}
+            // handlePasswordVisibilityF={this.handlePasswordVisibilityF}
+            handlePasswordVisible= {this.handlePasswordVisibility}
+
             passwordState={this.state.passwordClicked}
             onBlurFunc={this.handleBlur}
             errorMState={this.state.error}

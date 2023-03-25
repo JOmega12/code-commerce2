@@ -4,13 +4,6 @@ import ProgressBar from "../../ProgressBar/ProgressBar";
 import '../confirmation/confirmation.css'
 
 class Confirmation extends React.Component {
-   
-   constructor(props) {
-      super(props)
-      this.state ={
-         card: 4545454545454545,
-      }
-   }
 
    render() {
       return(
@@ -52,6 +45,10 @@ class Confirmation extends React.Component {
                      </div>
                      <hr />
                      {this.props.shoppingItemsProps.map((item, index) => {
+
+                        const data = [
+                           {label: 'Price: $', value: item.price}
+                        ]
                         if(item.quantity > 0) {
                            return (
                               <div className="itemsFromCart-Conf"
@@ -63,11 +60,12 @@ class Confirmation extends React.Component {
                               <div className="individualItemR-Conf">
 
                                  <h5>{item.name}</h5>
-                                 <p>Price: ${item.price}</p>
+                                 {data.map((val) => (
+                                    <p>{val.label}{item[val.price]}</p>
+                                 ))}
+                                 {/* <p>Price: ${item.price}</p> */}
                                  <p>Quantity: {item.quantity}</p>
                                  <p>Total: ${item.totalPrice}</p>
-                                 {/* <div className="description-items-Conf">
-                                 </div> */}
                               </div>
                            </div>
                            )
