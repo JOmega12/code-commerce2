@@ -24,7 +24,13 @@ class Authenticate extends React.Component {
       error: {},
       passwordClicked: false,
       isRegistered: false,
+      doesUserExist: false,
     };
+  }
+
+  checkIfUserInUsers = (arr, email) => {
+    const userExist = arr.some((item) => item.email === email)
+    this.setState({doesUserExist: userExist})
   }
 
   //add the test user to users to populate the object
@@ -42,7 +48,9 @@ class Authenticate extends React.Component {
     const foundUser = arr.find((item) => {
       return item.type === type;
     });
-    return foundUser.length > 0 ? true : false;
+
+    this.setState({doesUserExist: foundUser.length > 0})
+    // return foundUser.length > 0 ? true : false;
   };
 
   handleValidations = (name, value) => {
@@ -343,7 +351,9 @@ class Authenticate extends React.Component {
             UsersState={this.state.users}
             userTest={this.state.testUser}
             handleInputData={this.handleInputData}
-
+            
+            checkIfUserInUsers= {this.checkIfUserInUsers}
+            doesUserStateExist = {this.state.doesUserExist}
             // handlePasswordVisibilityT={this.handlePasswordVisibilityT}
             // handlePasswordVisibilityF={this.handlePasswordVisibilityF}
             handlePasswordVisible= {this.handlePasswordVisibility}

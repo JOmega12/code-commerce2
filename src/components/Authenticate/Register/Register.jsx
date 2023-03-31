@@ -12,10 +12,17 @@ class Register extends React.Component {
     };
   }
 
+  onChangeAction = (e) => {
+    this.props.handleInputData(e)
+    if(e.target.name === 'email') {
+      this.props.checkIfUserInUsers(this.props.UsersState, e.target.value)
+    }
+  }
+
   render() {
     //functions
     const {
-      handleInputData,
+      // handleInputData,
       // handlePasswordVisibilityT,
       // handlePasswordVisibilityF,
       passwordState,
@@ -70,7 +77,7 @@ class Register extends React.Component {
             type={item.type}
             name={item.name}
             value={this.state.users && this.state.users[item.name]}
-            onChange={handleInputData}
+            onChange={this.onChangeAction}
             autoComplete="off"
             onBlur={onBlurFunc}
             errorM={
@@ -90,7 +97,7 @@ class Register extends React.Component {
           }
         ></i>
         <div className="registerButton">
-          <InputBase type="submit" value="Register" />
+          <InputBase type="submit" value="Register" disabled = {this.props.doesUserStateExist}/>
         </div>
       </form>
     );
