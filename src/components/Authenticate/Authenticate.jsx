@@ -16,6 +16,7 @@ class Authenticate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      //isLogInClicked is false
       isLogInClicked: false,
       // testUser: INIT_TEST,
       users: INIT_TEST,

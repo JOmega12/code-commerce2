@@ -3,6 +3,8 @@ import AMERICAN_EXPRESS from '../assets/amex.png';
 import MASTER_CARD from '../assets/masterCard.png';
 import DISCOVER_ICON from '../assets/discover.png';
 
+export const API_KEY = process.env.REACT_APP_CHEC_PUBLIC_KEY;
+
 export const INIT_TEST = [{
    email: 'test@test.com',
    password: 'Test1234',

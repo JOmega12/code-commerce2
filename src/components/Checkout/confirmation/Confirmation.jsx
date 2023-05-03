@@ -46,23 +46,25 @@ class Confirmation extends React.Component {
                      <hr />
                      {this.props.shoppingItemsProps.map((item, index) => {
 
-                        const data = [
-                           {label: 'Price: $', value: item.price}
-                        ]
+                        // const data = [
+                        //    {label: 'Price: $', value: item.price}
+                        // ]
                         if(item.quantity > 0) {
                            return (
                               <div className="itemsFromCart-Conf"
                               key ={index}
                               >
                               <div className="individualItemL-Conf">
-                                 <img src={item.img} alt="" />
+                                 <img src={item.imageUrl} alt="" />
                               </div>
                               <div className="individualItemR-Conf">
 
-                                 <h5>{item.name}</h5>
-                                 {data.map((val) => (
+                                 <h5>{item.title}</h5>
+                                 <p>${item.price}</p>
+                                 {/* <p>{item.title}</p> */}
+                                 {/* {data.map((val) => (
                                     <p>{val.label}{item[val.price]}</p>
-                                 ))}
+                                 ))} */}
                                  {/* <p>Price: ${item.price}</p> */}
                                  <p>Quantity: {item.quantity}</p>
                                  <p>Total: ${item.totalPrice}</p>

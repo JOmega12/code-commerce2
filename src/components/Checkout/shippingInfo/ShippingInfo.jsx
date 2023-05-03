@@ -242,7 +242,7 @@ class ShippingInfo extends React.Component {
                     return (
                       <div className="itemsFromCart" key={index}>
                         <div className="individualItemL">
-                          <img src={item.img} alt="" />
+                          <img src={item.imageUrl} alt="" />
                         </div>
                         <div className="individualItemR">
                           <h5>{item.name}</h5>

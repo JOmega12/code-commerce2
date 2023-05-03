@@ -21,7 +21,17 @@ class Checkout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      shoppingItems: shoppingItems,
+      // shoppingItems: shoppingItems,
+      shoppingItems: props.productInfo.map((item) => ({
+        id: item.id,
+        category: item.category[0].name,
+        imageUrl: item.imageUrl,
+        title: item.title,
+        price: item.price,
+        description: item.description,
+        quantity: item.availableQuant,
+        totalPrice: 0,
+      })),
       shoppingEmpty: "",
       subTotal: 0,
       checkoutDisabled: false,
@@ -36,6 +46,24 @@ class Checkout extends React.Component {
       shippingFast: false,
       error: {},
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.productInfo !== this.props.productInfo) {
+      this.setState({
+        shoppingItems: this.props.productInfo.map((item) => ({
+          id: item.id,
+          category: item.category[0].name,
+          imageUrl: item.imageUrl,
+          title: item.title,
+          price: item.price,
+          description: item.description,
+          quantityAvailable: item.availableQuant,
+          quantity: 0,
+          totalPrice: 0,
+        })),
+      });
+    }
   }
 
   // onChange function for customerCart
@@ -59,23 +87,23 @@ class Checkout extends React.Component {
   };
 
   updateTotalPrice = (index, e) => {
-    let preDiscount = 0;
+    // let preDiscount = 0;
     const shoppingStuff = [...this.state.shoppingItems];
-    shoppingStuff[index].totalPrice =
-      shoppingStuff[index].price * e.target.value;
-    shoppingStuff[index].quantity = e.target.value;
+    console.log(shoppingStuff[index].price, 'shoppingStuffPrice');
+    shoppingStuff[index].totalPrice = parseFloat(shoppingStuff[index].price) * parseFloat(e.target.value);
+    shoppingStuff[index].quantity = parseInt(e.target.value);
 
-    console.log(shoppingStuff[index].quantity);
+    console.log(shoppingStuff[index].quantity, 'i');
 
     let preTotal = shoppingStuff.reduce(
-      (acc, item) => acc + item.totalPrice,
+      (acc, item) => acc + parseFloat(item.totalPrice),
       0
     );
 
     this.setState({
       shoppingItems: shoppingStuff,
       subTotal: preTotal,
-      discount: preDiscount,
+      discount: 0,
       finalTotal: preTotal,
     });
   };
@@ -318,6 +346,8 @@ class Checkout extends React.Component {
   };
 
   render() {
+    console.log(this.state.shoppingItems, 'shippingItemsCheckout')
+
     return (
       <div>
         {this.state.checkoutDisabled ? (

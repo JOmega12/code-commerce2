@@ -2,28 +2,37 @@
 .mainCustomerForm  {
    display: flex;
    flex-direction: column;
-   width: 900px;
-   height: 90vh;
+   width: 1100px;
+   height: fit-content;
    background-color: #ffffff;
    border-radius: 10px;
    box-shadow: 0px 10px 50px #555;
    padding: 5px 40px;
+   padding-bottom: 20px;
 }
 
 .items-container{
    display: flex;
    flex-direction: row;
    justify-content: space-evenly;
-   align-items: center;
+   /* align-items: center; */
    /* border: brown 2px solid; */
    margin: 10px 15px 10px 15px;
    padding: 30px 10px;
    gap: 20px;
    box-shadow: 0px 10px 30px #555;
    border-radius: 10px;
+   /* width: fit-content; */
+   height: max-content;
 
 }
 
+.shirts-items-container, .shorts-items-container {
+   display: flex;
+   border: 2px solid black;
+   margin: 3px 0;
+   padding: 15px 0;
+}
 
 .item-cart{
    display: flex;
@@ -54,9 +63,9 @@
 .mini-container-items{
    /* border: 2px solid yellow; */
    display: flex;
-   justify-content: space-between;
+   /* justify-content: space-between; */
    align-items: center;
-   flex-direction: row;
+   flex-direction: column;
    gap: 10px;
    padding: 10px 20px 10px 20px;
    width: 70%;
