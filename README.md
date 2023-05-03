@@ -6,6 +6,9 @@ Test Account Credentials:
    lastName: snake,
    zipCode: 11111,
 
+Discount Codes: 
+'ten', 'twenty'
+
 **You will build a 5-part checkout form. 
 **
 
