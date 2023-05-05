@@ -3,6 +3,25 @@ import React from "react";
 import "./customerCart.css";
 
 class CustomerCart extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      //i could put this in the checkout component so that it can be transferred to the shippingInfo component, instead of storing state here so that it could show that the selected items are reflected when the quantity is changed 
+      //available quantity - 1 if selected 
+      selectedItems: {}
+    }
+  }
+
+  handleQuantityChange = (item, e) => {
+    const selectedItems = {...this.state.selectedItems};
+
+    this.setState({selectedItems});
+    this.props.updateTotalPriceProps(this.props.shoppingItemsProps.indexOf(item), e)
+
+  }
+
+
   handleDiscount = (e) => {
     e.preventDefault(e);
     this.props.discountButtonProps();
@@ -47,11 +66,9 @@ class CustomerCart extends React.Component {
                     <select
                       name="quantity"
                       id=""
+                      value={this.state.selectedItems[item.id] || 0}
                       onChange={(e) =>
-                        this.props.updateTotalPriceProps(
-                          this.props.shoppingItemsProps.indexOf(item),
-                          e
-                        )
+                        this.handleQuantityChange(item, e)
                       }>
                       Quantity:
                       {[...Array(11).keys()].map((_, index) => (
@@ -64,7 +81,7 @@ class CustomerCart extends React.Component {
               }
             </div>
 
-            <div className="shorts-items-container">
+            {/* <div className="shorts-items-container">
               {this.props.shoppingItemsProps
                 .filter((item) => item.category === 'Shorts')
                 .map((item) => (
@@ -209,7 +226,7 @@ class CustomerCart extends React.Component {
                 </div>
                 ))
               }
-            </div>
+            </div> */}
           </div>
           
 

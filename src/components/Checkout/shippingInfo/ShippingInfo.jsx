@@ -16,9 +16,6 @@ class ShippingInfo extends React.Component {
   handleCheckoutShippingInfo = (e) => {
     e.preventDefault();
 
-    // this.props.handleCheckoutShippingInfo()
-    // this.setState({shippingInfoDisabled: true})
-
     if (this.props.handleCheckoutShippingInfo()) {
       this.setState({ shippingInfoDisabled: true });
     }

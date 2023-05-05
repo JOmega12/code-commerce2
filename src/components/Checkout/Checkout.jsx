@@ -22,6 +22,7 @@ class Checkout extends React.Component {
     super(props);
     this.state = {
       // shoppingItems: shoppingItems,
+      // selectedItem: [],
       shoppingItems: props.productInfo.map((item) => ({
         id: item.id,
         category: item.category[0].name,
@@ -86,7 +87,20 @@ class Checkout extends React.Component {
     this.handleValidations(e.target.name, e.target.value);
   };
 
+  // handleSelectItem = (item) => {
+  //   const selectedItems = this.state.selectedItems.slice();
+  //   const index = selectedItems.findIndex((i) => i.id === item.id);
+  //   if (index === -1) {
+  //     selectedItems.push(item);
+  //   } else {
+  //     selectedItems.splice(index, 1);
+  //   }
+  //   this.setState({ selectedItems });
+  // };
+
+
   updateTotalPrice = (index, e) => {
+
     // let preDiscount = 0;
     const shoppingStuff = [...this.state.shoppingItems];
     console.log(shoppingStuff[index].price, 'shoppingStuffPrice');
