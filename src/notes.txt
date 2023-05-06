@@ -1,6 +1,0 @@
-current bug: it adds all the items in the props component
-needs to be changed 
-
-the reason why the items show up in the summary props component is because the quantity in the state is over 0 (if item.quantity > 0), now how do i write a code that if the quantity in the customer cart is selected, that specific component shows up in the 
-
-i have tried to try to change the value of the selectedItems in the value, the but the props are still showing in the next component over because of this code 'if(item.quantity > 0)' in the className summary in shippingInfo, how do I try to change if item.quantity to be coming from the state from customer cart? 

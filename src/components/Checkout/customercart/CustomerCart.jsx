@@ -16,6 +16,7 @@ class CustomerCart extends React.Component {
   handleQuantityChange = (item, e) => {
     const selectedItems = {...this.state.selectedItems};
 
+    selectedItems[item.id] = parseInt(e.target.value);
     this.setState({selectedItems});
     this.props.updateTotalPriceProps(this.props.shoppingItemsProps.indexOf(item), e)
 
@@ -29,12 +30,29 @@ class CustomerCart extends React.Component {
 
   handleCheckout = (e) => {
     e.preventDefault(e);
-    this.props.handleCheckoutProp();
+
+    const { selectedItems } = this.state;
+    const { shoppingItemsProps } = this.props;
+
+    const outOfStock = shoppingItemsProps.filter((item) => 
+      selectedItems[item.id] > item.quantityAvailable
+    ); 
+    console.log(outOfStock, 'outOfStock');
+
+    if(outOfStock.length > 0) {
+      alert(`The following items(s) are out of stock: ${outOfStock.map(item => item.title).join(', ')}}`)
+    } else {
+      this.props.handleCheckoutProp();
+    }
   };
 
   render() {
-    const { handleInputData } = this.props;
+    const { handleInputData, shoppingItemsProps } = this.props;
 
+    const { selectedItems } = this.state;
+
+    const outOfStockItems = shoppingItemsProps.filter((item) => selectedItems[item.id] > item.quantityAvailable);
+    console.log(outOfStockItems, 'outofstockItems')
     // console.log(this.props.shoppingItemsProps, 'shoppingProps');
     // console.log(this.props.shoppingItemsProps.map((item) => (item.imageURL)), 'shoppingPropsURl');
     return (
@@ -69,6 +87,13 @@ class CustomerCart extends React.Component {
                       value={this.state.selectedItems[item.id] || 0}
                       onChange={(e) =>
                         this.handleQuantityChange(item, e)
+                      // }>
+                        
+                      // onChange={(e) =>
+                      //   this.props.updateTotalPriceProps(
+                      //     this.props.shoppingItemsProps.indexOf(item),
+                      //     e
+                      //   )
                       }>
                       Quantity:
                       {[...Array(11).keys()].map((_, index) => (
@@ -257,6 +282,7 @@ class CustomerCart extends React.Component {
               <div>
                 <button
                   disabled={this.props.checkoutDisabledProps}
+                  // disabled = {outOfStockItems.length > 0}
                   onClick={(e) => this.handleCheckout(e)}
                 >
                   Checkout

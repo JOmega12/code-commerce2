@@ -13,8 +13,8 @@ class CodeCommerce extends React.Component {
 
       this.state = {
          //originally is false
-         isLoggedIn: true,
-         isHomepage: false,
+         isLoggedIn: false,
+         isHomepage: true,
          productInfo: [],
       }
    }
@@ -91,6 +91,7 @@ class CodeCommerce extends React.Component {
             isLoggedIn ? (
                <Checkout 
                   productInfo = {productInfo}
+                  homepageState = {isHomepage}
                />
                ): 
                <Authenticate 

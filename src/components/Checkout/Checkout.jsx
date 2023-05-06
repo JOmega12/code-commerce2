@@ -30,7 +30,8 @@ class Checkout extends React.Component {
         title: item.title,
         price: item.price,
         description: item.description,
-        quantity: item.availableQuant,
+        quantityAvailable: item.availableQuant,
+        quantity: 0,
         totalPrice: 0,
       })),
       shoppingEmpty: "",
@@ -367,6 +368,7 @@ class Checkout extends React.Component {
         {this.state.checkoutDisabled ? (
           <ShippingInfo
             //state data for component
+            homepageState = {this.props.homepageState}
             shippingInfoDisabledProps={this.state.shippingInfoDisabled}
             backToShippingInfoProps={this.backToShippingInfoButton}
             shippingInfoDataProps={this.state.shippingInfoData}
@@ -392,6 +394,7 @@ class Checkout extends React.Component {
           />
         ) : (
           <CustomerCart
+            homepageState = {this.props.homepageState}
             shoppingItemsProps={this.state.shoppingItems}
             subTotalAmountItemsProps={this.state.subTotal}
             checkoutDisabledProps={this.state.checkoutDisabled}
