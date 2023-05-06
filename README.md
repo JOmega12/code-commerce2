@@ -1,4 +1,4 @@
-Test Account Credentials:
+**Test Account Credentials: **
    email: test@test.com,
    password: Test1234,
    confPassword: Test1234,
@@ -11,7 +11,6 @@ Discount Codes:
 
 **You will build a 5-part checkout form. 
 **
-
 
 
 -Signup/Login

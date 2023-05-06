@@ -4,7 +4,7 @@ import CustomerCart from "./customercart/CustomerCart";
 import ShippingInfo from "./shippingInfo/ShippingInfo";
 import "./checkout.css";
 import {
-  shoppingItems,
+  // shoppingItems,
   discountVal,
   shippingInfoData,
   shippingInfoDataInput,
