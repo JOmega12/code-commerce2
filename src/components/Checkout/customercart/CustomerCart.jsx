@@ -68,9 +68,6 @@ class CustomerCart extends React.Component {
               {this.props.shoppingItemsProps
                 .filter((item) => item.category === 'Shirts')
                 .map((item) => (
-                  // <div key={item.id}>
-                  //   <h3>{item.title}</h3>
-                  // </div>
                 <div className="mini-container-items" key={item.id}>
                   <div className="img-item-container">
                     <img src={item.imageUrl} alt={item.title} />
@@ -105,14 +102,10 @@ class CustomerCart extends React.Component {
                 ))
               }
             </div>
-
-            {/* <div className="shorts-items-container">
+            <div className="shirts-items-container">
               {this.props.shoppingItemsProps
                 .filter((item) => item.category === 'Shorts')
                 .map((item) => (
-                  // <div key={item.id}>
-                  //   <h3>{item.title}</h3>
-                  // </div>
                 <div className="mini-container-items" key={item.id}>
                   <div className="img-item-container">
                     <img src={item.imageUrl} alt={item.title} />
@@ -126,11 +119,16 @@ class CustomerCart extends React.Component {
                     <select
                       name="quantity"
                       id=""
+                      value={this.state.selectedItems[item.id] || 0}
                       onChange={(e) =>
-                        this.props.updateTotalPriceProps(
-                          this.props.shoppingItemsProps.indexOf(item),
-                          e
-                        )
+                        this.handleQuantityChange(item, e)
+                      // }>
+                        
+                      // onChange={(e) =>
+                      //   this.props.updateTotalPriceProps(
+                      //     this.props.shoppingItemsProps.indexOf(item),
+                      //     e
+                      //   )
                       }>
                       Quantity:
                       {[...Array(11).keys()].map((_, index) => (
@@ -142,14 +140,10 @@ class CustomerCart extends React.Component {
                 ))
               }
             </div>
-
-            <div className="shorts-items-container">
+            <div className="shirts-items-container">
               {this.props.shoppingItemsProps
                 .filter((item) => item.category === 'Shoes')
                 .map((item) => (
-                  // <div key={item.id}>
-                  //   <h3>{item.title}</h3>
-                  // </div>
                 <div className="mini-container-items" key={item.id}>
                   <div className="img-item-container">
                     <img src={item.imageUrl} alt={item.title} />
@@ -163,11 +157,16 @@ class CustomerCart extends React.Component {
                     <select
                       name="quantity"
                       id=""
+                      value={this.state.selectedItems[item.id] || 0}
                       onChange={(e) =>
-                        this.props.updateTotalPriceProps(
-                          this.props.shoppingItemsProps.indexOf(item),
-                          e
-                        )
+                        this.handleQuantityChange(item, e)
+                      // }>
+                        
+                      // onChange={(e) =>
+                      //   this.props.updateTotalPriceProps(
+                      //     this.props.shoppingItemsProps.indexOf(item),
+                      //     e
+                      //   )
                       }>
                       Quantity:
                       {[...Array(11).keys()].map((_, index) => (
@@ -179,14 +178,10 @@ class CustomerCart extends React.Component {
                 ))
               }
             </div>
-
-            <div className="shorts-items-container">
+            <div className="shirts-items-container">
               {this.props.shoppingItemsProps
                 .filter((item) => item.category === 'Gym Equipment')
                 .map((item) => (
-                  // <div key={item.id}>
-                  //   <h3>{item.title}</h3>
-                  // </div>
                 <div className="mini-container-items" key={item.id}>
                   <div className="img-item-container">
                     <img src={item.imageUrl} alt={item.title} />
@@ -200,11 +195,16 @@ class CustomerCart extends React.Component {
                     <select
                       name="quantity"
                       id=""
+                      value={this.state.selectedItems[item.id] || 0}
                       onChange={(e) =>
-                        this.props.updateTotalPriceProps(
-                          this.props.shoppingItemsProps.indexOf(item),
-                          e
-                        )
+                        this.handleQuantityChange(item, e)
+                      // }>
+                        
+                      // onChange={(e) =>
+                      //   this.props.updateTotalPriceProps(
+                      //     this.props.shoppingItemsProps.indexOf(item),
+                      //     e
+                      //   )
                       }>
                       Quantity:
                       {[...Array(11).keys()].map((_, index) => (
@@ -216,13 +216,10 @@ class CustomerCart extends React.Component {
                 ))
               }
             </div>
-            <div className="shorts-items-container">
+            <div className="shirts-items-container">
               {this.props.shoppingItemsProps
                 .filter((item) => item.category === 'Supplements')
                 .map((item) => (
-                  // <div key={item.id}>
-                  //   <h3>{item.title}</h3>
-                  // </div>
                 <div className="mini-container-items" key={item.id}>
                   <div className="img-item-container">
                     <img src={item.imageUrl} alt={item.title} />
@@ -236,11 +233,16 @@ class CustomerCart extends React.Component {
                     <select
                       name="quantity"
                       id=""
+                      value={this.state.selectedItems[item.id] || 0}
                       onChange={(e) =>
-                        this.props.updateTotalPriceProps(
-                          this.props.shoppingItemsProps.indexOf(item),
-                          e
-                        )
+                        this.handleQuantityChange(item, e)
+                      // }>
+                        
+                      // onChange={(e) =>
+                      //   this.props.updateTotalPriceProps(
+                      //     this.props.shoppingItemsProps.indexOf(item),
+                      //     e
+                      //   )
                       }>
                       Quantity:
                       {[...Array(11).keys()].map((_, index) => (
@@ -251,7 +253,7 @@ class CustomerCart extends React.Component {
                 </div>
                 ))
               }
-            </div> */}
+            </div>
           </div>
           
 
