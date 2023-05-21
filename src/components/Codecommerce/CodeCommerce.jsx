@@ -32,7 +32,8 @@ class CodeCommerce extends React.Component {
             .forEach(key => url.searchParams.append(key, params[key]));
         
         const headers = {
-            "X-Authorization": API_KEY,
+            // "X-Authorization": API_KEY,
+            "X-Authorization": 'pk_51601b1845104d3e1bccacdbc702bad6d7ba0a6a61067',
             "Accept": "application/json",
             "Content-Type": "application/json",
         };
