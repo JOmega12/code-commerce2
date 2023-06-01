@@ -1,12 +1,12 @@
 import React from 'react';
 import { INIT_TEST, newUser } from '../constants/constants';
-// import InputBase from '../InputBase/InputBase.jsx';
+
 import { emailValidation, 
    onlyTextValidation, 
    passwordValidation, 
    zipCodeValidation } 
    from '../validations/validation';
-// import Register from './Register/Register';
+
 import './Authenticate.css';
 import Login from './Login/Login';
 import Register from './Register/Register';
@@ -18,7 +18,6 @@ class Authenticate extends React.Component {
     this.state = {
       //isLogInClicked is false
       isLogInClicked: false,
-      // testUser: INIT_TEST,
       users: INIT_TEST,
       //this is where the user will be added
       user: newUser,
@@ -51,7 +50,6 @@ class Authenticate extends React.Component {
     });
 
     this.setState({doesUserExist: foundUser.length > 0})
-    // return foundUser.length > 0 ? true : false;
   };
 
   handleValidations = (name, value) => {
@@ -173,7 +171,6 @@ class Authenticate extends React.Component {
       Object.keys(this.state.user).forEach((val) => {
         if (!this.state.user[val].length) {
           errorValue = { ...errorValue, [`${val}Error`]: "Required" };
-          console.log(errorValue, 'errorValue');
           isError = true;
         } 
         else if(val === 'email') {
@@ -218,7 +215,6 @@ class Authenticate extends React.Component {
       Object.keys(this.state.user).forEach((val) => {
         if (!this.state.user['email'].length || !this.state.user['password'].length) {
           errorValue = { ...errorValue, [`${val}Error`]: "Required" };
-          console.log(errorValue, 'errorValue');
           isError = true;
         } 
       })
@@ -271,7 +267,6 @@ class Authenticate extends React.Component {
 
     if (!errorCheck) {
       this.state.users.forEach((user) => {
-        console.log(user);
         if (user.email !== this.state.user.email) {
           this.setState((prevState) => ({
             error: {
@@ -316,7 +311,6 @@ class Authenticate extends React.Component {
         id: 2, 
         label: 'login', 
         title: 'Login', 
-        // onClick: this.handleSignInRadio, 
         checked: !this.state.isLogInClicked, 
         onChange: (()=> this.handleClick(false))
       }
@@ -336,7 +330,6 @@ class Authenticate extends React.Component {
               value={item.label}
               onClick={item.onChange}
               checked= {item.checked}
-              // onChange = {item.onChange}
             />
             {item.title}
             </label>
@@ -355,8 +348,6 @@ class Authenticate extends React.Component {
             
             checkIfUserInUsers= {this.checkIfUserInUsers}
             doesUserStateExist = {this.state.doesUserExist}
-            // handlePasswordVisibilityT={this.handlePasswordVisibilityT}
-            // handlePasswordVisibilityF={this.handlePasswordVisibilityF}
             handlePasswordVisible= {this.handlePasswordVisibility}
 
             passwordState={this.state.passwordClicked}
@@ -372,8 +363,6 @@ class Authenticate extends React.Component {
             userTest={this.state.testUser}
             handleInputData={this.handleInputData}
 
-            // handlePasswordVisibilityT={this.handlePasswordVisibilityT}
-            // handlePasswordVisibilityF={this.handlePasswordVisibilityF}
             handlePasswordVisible= {this.handlePasswordVisibility}
 
             passwordState={this.state.passwordClicked}

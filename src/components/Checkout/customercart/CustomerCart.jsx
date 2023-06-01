@@ -1,14 +1,13 @@
 import React from "react";
 // import InputBase from "../../InputBase/InputBase";
 import "./customerCart.css";
+import Item from './Item'
 
 class CustomerCart extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      //i could put this in the checkout component so that it can be transferred to the shippingInfo component, instead of storing state here so that it could show that the selected items are reflected when the quantity is changed 
-      //available quantity - 1 if selected 
       selectedItems: {}
     }
   }
@@ -37,7 +36,6 @@ class CustomerCart extends React.Component {
     const outOfStock = shoppingItemsProps.filter((item) => 
       selectedItems[item.id] > item.quantityAvailable
     ); 
-    console.log(outOfStock, 'outOfStock');
 
     if(outOfStock.length > 0) {
       alert(`The following items(s) are out of stock: ${outOfStock.map(item => item.title).join(', ')}}`)
@@ -47,16 +45,9 @@ class CustomerCart extends React.Component {
   };
 
   render() {
-    const { handleInputData, shoppingItemsProps } = this.props;
+    const { handleInputData } = this.props;
 
-    const { selectedItems } = this.state;
-
-    const outOfStockItems = shoppingItemsProps.filter((item) => selectedItems[item.id] > item.quantityAvailable);
-    console.log(outOfStockItems, 'outofstockItems')
-    // console.log(this.props.shoppingItemsProps, 'shoppingProps');
-    // console.log(this.props.shoppingItemsProps.map((item) => (item.imageURL)), 'shoppingPropsURl');
     return (
-      // <div>hi</div>
       <div className="mainCustomerForm">
         <h3>Shopping Cart</h3>
         <form className="items-container">
@@ -68,37 +59,7 @@ class CustomerCart extends React.Component {
               {this.props.shoppingItemsProps
                 .filter((item) => item.category === 'Shirts')
                 .map((item) => (
-                <div className="mini-container-items" key={item.id}>
-                  <div className="img-item-container">
-                    <img src={item.imageUrl} alt={item.title} />
-                  </div>
-                  <p>{item.title}</p>
-                  <p>${item.price}</p>
-                  <div className="quantity-items"
-                    style={{display:'flex'}}  
-                  >
-                    <p>Quantity:</p>
-                    <select
-                      name="quantity"
-                      id=""
-                      value={this.state.selectedItems[item.id] || 0}
-                      onChange={(e) =>
-                        this.handleQuantityChange(item, e)
-                      // }>
-                        
-                      // onChange={(e) =>
-                      //   this.props.updateTotalPriceProps(
-                      //     this.props.shoppingItemsProps.indexOf(item),
-                      //     e
-                      //   )
-                      }>
-                      Quantity:
-                      {[...Array(11).keys()].map((_, index) => (
-                        <option value={index}>{index}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+                <Item item={item} selectedItems ={this.state.selectedItems} handleQuantityChange={this.handleQuantityChange}/>
                 ))
               }
             </div>
@@ -122,13 +83,6 @@ class CustomerCart extends React.Component {
                       value={this.state.selectedItems[item.id] || 0}
                       onChange={(e) =>
                         this.handleQuantityChange(item, e)
-                      // }>
-                        
-                      // onChange={(e) =>
-                      //   this.props.updateTotalPriceProps(
-                      //     this.props.shoppingItemsProps.indexOf(item),
-                      //     e
-                      //   )
                       }>
                       Quantity:
                       {[...Array(11).keys()].map((_, index) => (
@@ -160,13 +114,7 @@ class CustomerCart extends React.Component {
                       value={this.state.selectedItems[item.id] || 0}
                       onChange={(e) =>
                         this.handleQuantityChange(item, e)
-                      // }>
-                        
-                      // onChange={(e) =>
-                      //   this.props.updateTotalPriceProps(
-                      //     this.props.shoppingItemsProps.indexOf(item),
-                      //     e
-                      //   )
+
                       }>
                       Quantity:
                       {[...Array(11).keys()].map((_, index) => (

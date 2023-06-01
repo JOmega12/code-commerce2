@@ -2,7 +2,6 @@ import React from "react";
 import { CARDICON, cardInformation, expressShipping, OTHERCARDS } from "../../constants/constants";
 import ProgressBar from "../../ProgressBar/ProgressBar";
 import { cardNumberValidation, onlyTextValidation, securityCodeValidation } from "../../validations/validation";
-// import { CARD } from "../../constants/constants";
 
 import '../paymentInfo/paymentInfo.css'
 import Confirmation from "../confirmation/Confirmation";
@@ -22,8 +21,6 @@ class PaymentInfo extends React.Component {
 
    findDebitCardType = (cardNumber) => {
       const regexPattern = {
-        // MASTERCARD: /^5[1-5][0-9]{1,}^[2-7][0-9]{1,}$/,
-        // MASTERCARD:/^5[1-5][0-9]{14}$/ ,
         MASTERCARD:/^(?:5[1-5][0-9]{14})$/ ,
         VISA: /^4[0-9]{2,}$/,
         AMERICAN_EXPRESS: /^3[47][0-9]{5,}$/,
@@ -126,11 +123,6 @@ class PaymentInfo extends React.Component {
    checkErrorBeforeFinal = () => {
     let errorValue= {};
     let isError = false;
-    //set error value
-    //set error = false
-    //then for each of card information state  refer to each item such item.cardHolder and set the state and return the error
-
-
 
     Object.keys(this.state.cardData).forEach((val) => {
       console.log(val);
@@ -193,7 +185,6 @@ class PaymentInfo extends React.Component {
       ];
 
       const expInput = [
-         // {label: 'Exp.Date', name:'expDate'},
          {label: 'Month', name:'monthExp'},
          {label: 'Year', name:'yearExp'},
       ];
@@ -320,7 +311,6 @@ class PaymentInfo extends React.Component {
 
                      <button
                         className="checkout-next2"
-                        // disabled={this.props.checkoutDisabledProps}
                         onClick={(e) => this.finalCheckout(e)}
                      >
                         PAY ${this.props.finalTotalProps}
@@ -339,7 +329,6 @@ class PaymentInfo extends React.Component {
 
                 <div className="summary">
                   <h3>Summary</h3>
-                  {/* missing the items that are moved from previous component*/}
                   {this.props.shoppingItemsProps.map((item, index) => {
                     if (item.quantity > 0) {
                       return (
@@ -397,7 +386,6 @@ class PaymentInfo extends React.Component {
                   <div>
                     <button
                       className="checkout-next"
-                      // disabled={this.props.checkoutDisabledProps}
                       onClick={(e) => this.finalCheckout(e)}
                     >
                       PAY ${this.props.finalTotalProps}

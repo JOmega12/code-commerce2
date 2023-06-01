@@ -88,27 +88,12 @@ class Checkout extends React.Component {
     this.handleValidations(e.target.name, e.target.value);
   };
 
-  // handleSelectItem = (item) => {
-  //   const selectedItems = this.state.selectedItems.slice();
-  //   const index = selectedItems.findIndex((i) => i.id === item.id);
-  //   if (index === -1) {
-  //     selectedItems.push(item);
-  //   } else {
-  //     selectedItems.splice(index, 1);
-  //   }
-  //   this.setState({ selectedItems });
-  // };
-
-
   updateTotalPrice = (index, e) => {
 
-    // let preDiscount = 0;
     const shoppingStuff = [...this.state.shoppingItems];
-    console.log(shoppingStuff[index].price, 'shoppingStuffPrice');
     shoppingStuff[index].totalPrice = parseFloat(shoppingStuff[index].price) * parseFloat(e.target.value);
     shoppingStuff[index].quantity = parseInt(e.target.value);
 
-    console.log(shoppingStuff[index].quantity, 'i');
 
     let preTotal = shoppingStuff.reduce(
       (acc, item) => acc + parseFloat(item.totalPrice),
@@ -125,10 +110,8 @@ class Checkout extends React.Component {
 
   handleDiscountButton = () => {
     let subTotal = this.state.subTotal;
-    // let sH = this.state.shipPlusHandle;
     let discountValWord = this.state.discountValueInput;
     let discount = 0;
-    // let semiTotal = subTotal + sH;
     let totalTotal = 0;
 
     const discountValue = discountVal.find((item) => {
@@ -194,7 +177,6 @@ class Checkout extends React.Component {
   handleShippingFastTrue = () => {
     let currentSHTotal = 5;
     let addToTotalAmount = this.state.finalTotal + currentSHTotal;
-    console.log(addToTotalAmount);
 
     this.setState({
       shippingFast: true,
@@ -217,8 +199,6 @@ class Checkout extends React.Component {
         } else {
           errorText = onlyTextValidation(value);
         }
-        //find addressTitle type
-        //set the state of error message
         break;
       case "name":
         if (!value) {
@@ -228,7 +208,6 @@ class Checkout extends React.Component {
         }
         break;
       case "address":
-        // errorText= onlyTextValidation(value);
         if (!value) {
           errorText = "Address required";
         } else {
@@ -361,7 +340,6 @@ class Checkout extends React.Component {
   };
 
   render() {
-    console.log(this.state.shoppingItems, 'shippingItemsCheckout')
 
     return (
       <div>
