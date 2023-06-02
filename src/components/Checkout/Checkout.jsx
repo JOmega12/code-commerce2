@@ -88,12 +88,47 @@ class Checkout extends React.Component {
     this.handleValidations(e.target.name, e.target.value);
   };
 
-  updateTotalPrice = (index, e) => {
+/*   updateTotalPrice = (index, e) => {
 
     const shoppingStuff = [...this.state.shoppingItems];
     shoppingStuff[index].totalPrice = parseFloat(shoppingStuff[index].price) * parseFloat(e.target.value);
     shoppingStuff[index].quantity = parseInt(e.target.value);
 
+
+    let preTotal = shoppingStuff.reduce(
+      (acc, item) => acc + parseFloat(item.totalPrice),
+      0
+    );
+
+    this.setState({
+      shoppingItems: shoppingStuff,
+      subTotal: preTotal,
+      discount: 0,
+      finalTotal: preTotal,
+    });
+  }; */
+
+  updateTotalPrice = (itemId, quantity) => {
+
+    const shoppingStuff = [...this.state.shoppingItems];
+
+    const itemIndex = shoppingStuff.findIndex((item => item.id === itemId))
+
+    console.log(shoppingStuff, 'shoppingStuff checkout update totalprice func')
+    // const priceOfItem = shoppingStuff[index].price
+    // console.log(priceOfItem, 'price')
+    //for each item total price is the amount after multiplying price and quantity 
+    //the quantity in the state is 0 but is added in the next components to be multiplied for total price
+
+
+    shoppingStuff[itemIndex].totalPrice = parseFloat(shoppingStuff[itemIndex].price) * parseFloat(quantity);
+  shoppingStuff[itemIndex].quantity = parseInt(quantity);
+
+
+    /* shoppingStuff[index].totalPrice = parseFloat(shoppingStuff[index].price) * parseFloat(quantity);
+    shoppingStuff[index].quantity = parseInt(quantity); */
+
+    // console.log(shoppingStuff[index].quantity, 'index quantity');
 
     let preTotal = shoppingStuff.reduce(
       (acc, item) => acc + parseFloat(item.totalPrice),
@@ -340,6 +375,11 @@ class Checkout extends React.Component {
   };
 
   render() {
+
+    const {shoppingItems} = this.state;
+    const priceOfItems = [...shoppingItems].map((item) => item.price)
+    // console.log(shoppingItems, 'shoppingItems Checkout')
+    // console.log(priceOfItems, 'price of Items');
 
     return (
       <div>

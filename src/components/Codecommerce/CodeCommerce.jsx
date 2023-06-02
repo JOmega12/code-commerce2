@@ -13,8 +13,8 @@ class CodeCommerce extends React.Component {
 
       this.state = {
          //originally is false
-         isLoggedIn: false,
-         isHomepage: true,
+         isLoggedIn: true,
+         isHomepage: false,
          productInfo: [],
       }
    }
