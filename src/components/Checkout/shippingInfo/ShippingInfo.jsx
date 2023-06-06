@@ -235,7 +235,7 @@ class ShippingInfo extends React.Component {
                 <h3>Summary</h3>
 
                 {this.props.shoppingItemsProps.map((item, index) => {
-                  if (item.quantity > 0 ) {
+                  if (item.quantity > 0) {
                     return (
                       <div className="itemsFromCart" key={index}>
                         <div className="individualItemL">
