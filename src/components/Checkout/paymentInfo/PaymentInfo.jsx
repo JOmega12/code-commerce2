@@ -125,7 +125,6 @@ class PaymentInfo extends React.Component {
     let isError = false;
 
     Object.keys(this.state.cardData).forEach((val) => {
-      console.log(val);
       if(!this.state.cardData[val].length) {
         if(val === 'cardHolderName') {
           errorValue = {

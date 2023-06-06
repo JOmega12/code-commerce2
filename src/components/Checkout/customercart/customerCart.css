@@ -15,23 +15,24 @@
    display: flex;
    flex-direction: row;
    justify-content: space-evenly;
-   /* align-items: center; */
-   /* border: brown 2px solid; */
    margin: 10px 15px 10px 15px;
    padding: 30px 10px;
    gap: 20px;
    box-shadow: 0px 10px 30px #555;
    border-radius: 10px;
-   /* width: fit-content; */
    height: max-content;
+}
 
+.itemsInContainer {
+   display: flex;
+   flex-wrap: wrap;
 }
 
 .shirts-items-container, .shorts-items-container {
    display: flex;
-   /* border: 2px solid black; */
    margin: 3px 0;
    padding: 15px 0;
+   gap: 10px;
 }
 
 .item-cart{
@@ -40,10 +41,22 @@
    justify-content: center;
    align-items: center;
    color: black;
-   /* border: black solid 2px; */
    border-radius: 20px;
-   /* box-shadow: 0px 10px 50px #555; */
    width: 60%
+}
+
+.addToCartButton {
+   margin-top: 10px;
+   background-color: #362a89;
+   color: #fff;
+   padding: 5px;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+.addToCartButton:hover{
+   background-color: #4e892a;
+   border: #4e892a 2px solid;
 }
 
 .summary {
@@ -51,7 +64,6 @@
    flex-direction: column;
    height: 100%;
    width: 100%;
-   /* justify-content: center; */
 }
 
 .promo-button{
@@ -60,29 +72,44 @@
    margin-top: 0;
 }
 
+.mini-container-items:nth-child(3) .img-item-container {
+   width: 120px;
+}
+
+.mini-container-items:nth-child(odd) {
+   padding: 20px;
+   width: 125px;
+   height: 320px;
+   /* flex: 10; */
+}
+
+
 .mini-container-items{
-   /* border: 2px solid yellow; */
-   /* box-shadow: -2px 2px 86px -2px rgba(0,0,0,0.3); */
+   box-shadow: 2px 2px 32px 14px rgba(0,0,0,0.14);
+   border-radius: 10px;
    display: flex;
-   /* justify-content: space-between; */
    align-items: center;
+   justify-content: center;
    flex-direction: column;
    gap: 10px;
    padding: 10px 20px 10px 20px;
    width: 70%;
+   flex: 1;
 }
 
 .img-item-container {
-   width: 40px;
-   height: 40px;
+   width: 90px;
 }
+
+/* .img-item-container:nth-child(odd) .img-item-container:nth-child(odd) img{
+   width: 60%;
+} */
 
 .img-item-container img {
    width: 100%;
 }
 
 .mini-container-items p {
-   /* border: grey solid 2px; */
    gap: 10px;
 }
 
@@ -91,10 +118,6 @@
 }
 
 .total-price {
-   /* display: flex;
-   margin: 2px 0;
-   padding: 0; */
-   /* flex-direction: column; */
    justify-content: center;
    font-size: medium;
 }

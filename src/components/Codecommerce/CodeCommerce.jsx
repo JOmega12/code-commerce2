@@ -13,8 +13,8 @@ class CodeCommerce extends React.Component {
 
       this.state = {
          //originally is false
-         isLoggedIn: true,
-         isHomepage: false,
+         isLoggedIn: false,
+         isHomepage: true,
          productInfo: [],
       }
    }
@@ -81,7 +81,6 @@ class CodeCommerce extends React.Component {
 
    render() {
       const {productInfo, isLoggedIn, isHomepage} = this.state;
-      // console.log(productInfo, 'productInfo');
       return (
          <div>
             {isHomepage ? 
@@ -100,13 +99,6 @@ class CodeCommerce extends React.Component {
                   isLoggedInStateF = {this.isLoggedInStateF}
                />
             }
-            {/* {this.state.isLoggedIn ? (
-               <Checkout />
-            ): 
-               <Authenticate isLoggedInStateT  = {this.handleIsLoggedInStateT}
-               isLoggedInStateF = {this.isLoggedInStateF}
-               />
-            } */}
 
          </div>
       )

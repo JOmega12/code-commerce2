@@ -15,9 +15,7 @@ class Homepage extends React.Component {
 
   render() {
     const { productInfo} = this.props;
-   //  console.log(this.props.productInfo, 'productInfo Homepage');
-
-
+    console.log(productInfo)
     return (
       <React.Fragment>
          <nav className="topPageContainer">
@@ -27,8 +25,8 @@ class Homepage extends React.Component {
             </div>
             <div className="other-labels">
                <div>Home</div>
-               <div>SignIn/SignUp</div>
-               <div>Cart</div>
+               <div onClick={this.handleProductsContainerClick}>SignIn/SignUp</div>
+               <div onClick={this.handleProductsContainerClick}>Cart</div>
             </div>
           </div>
         </nav>
@@ -50,9 +48,8 @@ class Homepage extends React.Component {
                               <img src={item.imageUrl} alt={item.title} />
                            </div>
                            <p>{item.title}</p>
-                           <p>{item.description}</p>
                            <p>{item.price}
-                           <i class="fa-solid fa-cart-shopping"></i>
+                           <i className="fa-solid fa-cart-shopping"></i>
                            </p>
                            <p>{item.availableQuant} items
                            </p>
@@ -76,9 +73,8 @@ class Homepage extends React.Component {
                               <img src={item.imageUrl} alt={item.title} />
                            </div>
                            <p>{item.title}</p>
-                           <p>{item.description}</p>
                            <p>{item.price}
-                           <i class="fa-solid fa-cart-shopping"></i>
+                           <i className="fa-solid fa-cart-shopping"></i>
                            </p>
                            <p>{item.availableQuant} items</p>
                         </div>
@@ -100,9 +96,8 @@ class Homepage extends React.Component {
                               <img src={item.imageUrl} alt={item.title} />
                            </div>
                            <p>{item.title}</p>
-                           <p>{item.description}</p>
                            <p>{item.price}
-                           <i class="fa-solid fa-cart-shopping"></i>
+                           <i className="fa-solid fa-cart-shopping"></i>
                            </p>
                            <p>{item.availableQuant} items</p>
                         </div>
@@ -124,9 +119,8 @@ class Homepage extends React.Component {
                               <img src={item.imageUrl} alt={item.title} />
                            </div>
                            <p>{item.title}</p>
-                           <p>{item.description}</p>
                            <p>{item.price}
-                           <i class="fa-solid fa-cart-shopping"></i>
+                           <i className="fa-solid fa-cart-shopping"></i>
                            </p>
                            <p>{item.availableQuant} items</p>
                         </div>
@@ -148,9 +142,8 @@ class Homepage extends React.Component {
                                  <img src={item.imageUrl} alt={item.title} />
                               </div>
                               <p>{item.title}</p>
-                              <p>{item.description}</p>
                               <p>{item.price}
-                              <i class="fa-solid fa-cart-shopping"></i>
+                              <i className="fa-solid fa-cart-shopping"></i>
                               </p>
                               <p>{item.availableQuant} items</p>
                            </div>

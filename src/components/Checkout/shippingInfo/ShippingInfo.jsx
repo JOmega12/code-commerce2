@@ -118,8 +118,8 @@ class ShippingInfo extends React.Component {
                 </div>
                 <h3>Shipping Information</h3>
                 <div className="shippingInfoContainerBox">
-                  {address.map((item) => (
-                    <div className="inputShippingInfoContainer">
+                  {address.map((item, index) => (
+                    <div className="inputShippingInfoContainer" key={index}>
                       <span className="label">{item.placeHolder}</span>
                       <input
                         style={{ width: "50%", height: "25px" }}
@@ -153,8 +153,8 @@ class ShippingInfo extends React.Component {
                       )}
                     </div>
 
-                    {zipCode.map((item) => (
-                      <div className="zipCodeOtherItems">
+                    {zipCode.map((item, index) => (
+                      <div className="zipCodeOtherItems" key={index}>
                         <p>{item.placeHolder}: </p>
                         <select
                           name={item.name}
@@ -185,8 +185,8 @@ class ShippingInfo extends React.Component {
                     ))}
                   </div>
 
-                  {phone.map((item) => (
-                    <div className="phone-number-shipping">
+                  {phone.map((item, index) => (
+                    <div className="phone-number-shipping" key={index}>
                       <span className="label">{item.placeHolder}</span>
                       <input
                         type="number"
@@ -204,8 +204,8 @@ class ShippingInfo extends React.Component {
                   ))}
                   <hr />
                   <div className="shipping-method-container">
-                    {radio.map((item) => (
-                      <div className="radio-shipping">
+                    {radio.map((item, index) => (
+                      <div className="radio-shipping" key={index}>
                         <input
                           type="radio"
                           name={item.name}

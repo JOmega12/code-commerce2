@@ -33,6 +33,7 @@ class Checkout extends React.Component {
         quantityAvailable: item.availableQuant,
         quantity: 0,
         totalPrice: 0,
+        isAdded: false,
       })),
       shoppingEmpty: "",
       subTotal: 0,
@@ -63,6 +64,7 @@ class Checkout extends React.Component {
           quantityAvailable: item.availableQuant,
           quantity: 0,
           totalPrice: 0,
+          isAdded: false,
         })),
       });
     }
@@ -78,35 +80,10 @@ class Checkout extends React.Component {
         return item;
       }),
 
-      //why does this snippet break the code
-      // shippingInfoDataInput: {
-      //    ...prevState.shippingInfoDataInput,
-      //    [e.target.name] : e.target.value,
-      // },
       [e.target.name]: e.target.value,
     }));
     this.handleValidations(e.target.name, e.target.value);
   };
-
-/*   updateTotalPrice = (index, e) => {
-
-    const shoppingStuff = [...this.state.shoppingItems];
-    shoppingStuff[index].totalPrice = parseFloat(shoppingStuff[index].price) * parseFloat(e.target.value);
-    shoppingStuff[index].quantity = parseInt(e.target.value);
-
-
-    let preTotal = shoppingStuff.reduce(
-      (acc, item) => acc + parseFloat(item.totalPrice),
-      0
-    );
-
-    this.setState({
-      shoppingItems: shoppingStuff,
-      subTotal: preTotal,
-      discount: 0,
-      finalTotal: preTotal,
-    });
-  }; */
 
   updateTotalPrice = (itemId, quantity) => {
 
@@ -114,21 +91,8 @@ class Checkout extends React.Component {
 
     const itemIndex = shoppingStuff.findIndex((item => item.id === itemId))
 
-    console.log(shoppingStuff, 'shoppingStuff checkout update totalprice func')
-    // const priceOfItem = shoppingStuff[index].price
-    // console.log(priceOfItem, 'price')
-    //for each item total price is the amount after multiplying price and quantity 
-    //the quantity in the state is 0 but is added in the next components to be multiplied for total price
-
-
     shoppingStuff[itemIndex].totalPrice = parseFloat(shoppingStuff[itemIndex].price) * parseFloat(quantity);
-  shoppingStuff[itemIndex].quantity = parseInt(quantity);
-
-
-    /* shoppingStuff[index].totalPrice = parseFloat(shoppingStuff[index].price) * parseFloat(quantity);
-    shoppingStuff[index].quantity = parseInt(quantity); */
-
-    // console.log(shoppingStuff[index].quantity, 'index quantity');
+    shoppingStuff[itemIndex].quantity = parseInt(quantity);
 
     let preTotal = shoppingStuff.reduce(
       (acc, item) => acc + parseFloat(item.totalPrice),
@@ -184,19 +148,6 @@ class Checkout extends React.Component {
       shippingInfoData: newArr,
     }));
   };
-
-  //this breaks the code
-  // handleShippingFast = (val, bool) => {
-  //    let currentSHTotal = val;
-  //    let subtractFromTotal = val === 0
-  //       ? this.state.finalTotal - 5
-  //       : this.state.finalTotal + currentSHTotal
-  //    this.setState({
-  //       shippingFast: bool,
-  //       shipPlusHandle: currentSHTotal,
-  //       finalTotal: subtractFromTotal,
-  //    })
-  // }
 
   handleShippingFastFalse = () => {
     let currentSHTotal = 0;
@@ -364,7 +315,6 @@ class Checkout extends React.Component {
         shippingInfoData: {
           ...prevState.shippingInfoDataInput,
         },
-        // shippingInfoDataInput: shippingInfoDataInput
         shippingInfoDisabled: true,
       }));
     }
@@ -375,11 +325,6 @@ class Checkout extends React.Component {
   };
 
   render() {
-
-    const {shoppingItems} = this.state;
-    const priceOfItems = [...shoppingItems].map((item) => item.price)
-    // console.log(shoppingItems, 'shoppingItems Checkout')
-    // console.log(priceOfItems, 'price of Items');
 
     return (
       <div>
@@ -395,10 +340,8 @@ class Checkout extends React.Component {
             errorMState={this.state.error}
             //functions for component
             handleInputData={this.handleInputData}
-            // handleInputDataShippingInfo = {this.handleInputDataShippingInfo}
             handleShippingFastFalse={this.handleShippingFastFalse}
             handleShippingFastTrue={this.handleShippingFastTrue}
-            // handleShippingFast = {this.handleShippingFast}
 
             handleBackToCartProps={this.handleBackToCart}
             onBlurFunc={this.handleBlur}
@@ -417,7 +360,6 @@ class Checkout extends React.Component {
             subTotalAmountItemsProps={this.state.subTotal}
             checkoutDisabledProps={this.state.checkoutDisabled}
             shippingAndHandleProps={this.state.shipPlusHandle}
-            // discountValueProps = {this.state.discountValueInput}
             discountNumberProps={this.state.discount}
             finalTotalProps={this.state.finalTotal}
             handleInputData={this.handleInputData}
