@@ -54,7 +54,6 @@ class CodeCommerce extends React.Component {
           availableQuant: item.inventory.available,
           description: item.description,
         }));
-        // console.log(productInfo, 'productInfo')
         this.setState({ productInfo });
       }
     } catch (error) {

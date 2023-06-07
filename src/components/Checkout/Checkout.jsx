@@ -1,6 +1,5 @@
 import React from "react";
 import CustomerCart from "./customercart/CustomerCart";
-// import PaymentInfo from './paymentInfo/PaymentInfo';
 import ShippingInfo from "./shippingInfo/ShippingInfo";
 import "./checkout.css";
 import {
@@ -21,8 +20,6 @@ class Checkout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // shoppingItems: shoppingItems,
-      // selectedItem: [],
       shoppingItems: props.productInfo.map((item) => ({
         id: item.id,
         category: item.category[0].name,

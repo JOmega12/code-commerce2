@@ -48,7 +48,6 @@ export const onlyTextValidation = (value) => {
 
 export const cardNumberValidation = (cardNumber) => {
    const regexPattern = {
-      // MASTERCARD: /^5[1-5][0-9]{1,}^[2-7][0-9]{1,}$/,
       MASTERCARD:/^(?:5[1-5][0-9]{14})$/ ,
       VISA: /^4[0-9]{2,}$/,
       AMERICAN_EXPRESS: /^3[47][0-9]{5,}$/,
@@ -99,7 +98,6 @@ export const addressValidation = (value) => {
       return 'You need an address'
    }
 }
-// /^[0-9]{1,4}(([\-\/][0-9]{1,4})|(\/[ABCDFGHJKLMNPRSTV]{1,2}))*$/
 
 export const phoneNumberValidation = (value) => {
    const phoneNumberRegex = /^[0-9]{10}$/; 

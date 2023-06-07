@@ -24,10 +24,6 @@ class ShippingInfo extends React.Component {
   backToShippingInfoButton = () => {
     this.setState({ shippingInfoDisabled: false });
   };
-  //this breaks the code
-  // handleShippingFastSI = (val, bool) => {
-  //    this.props.handleShippingFast(val, bool)
-  // }
 
   render() {
     const { shippingInfoDataInputProps } = this.props;
@@ -75,7 +71,6 @@ class ShippingInfo extends React.Component {
         description: "Delivery in 4-6 Business Days - Free",
         shippingDetails: "",
         onClick: this.props.handleShippingFastFalse,
-        // onClick: this.handleShippingFastSI(0, false),
         checked: !this.props.shippingFastStateProps,
         name: expressShipping.regularShipping,
       },
@@ -84,7 +79,6 @@ class ShippingInfo extends React.Component {
         description: "Delivery in 1-3 Business Days - $5",
         shippingDetails: "View Shipping Details",
         onClick: this.props.handleShippingFastTrue,
-        // onClick: this.handleShippingFastSI(5, true),
         checked: this.props.shippingFastStateProps,
       },
     ];
@@ -96,7 +90,6 @@ class ShippingInfo extends React.Component {
     const citys = ["Los Angeles", "Houston", "New York"];
 
     return (
-      //the back button for paymentInfo is broken
       <div>
         {this.props.shippingInfoDisabledProps ? (
           <PaymentInfo

@@ -303,7 +303,6 @@ class Authenticate extends React.Component {
         id: 1, 
         label: 'register', 
         title: 'Register', 
-        // onClick: this.handleSignUpRadio, 
         checked: this.state.isLogInClicked, 
         onChange: (()=> this.handleClick(true))
       },

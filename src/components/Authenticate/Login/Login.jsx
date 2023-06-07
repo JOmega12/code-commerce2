@@ -19,8 +19,6 @@ class Login extends React.Component {
   render() {
     const {
       handleInputData,
-      // handlePasswordVisibilityT,
-      // handlePasswordVisibilityF,
       handlePasswordVisible,
       onBlurFunc,
       passwordState,

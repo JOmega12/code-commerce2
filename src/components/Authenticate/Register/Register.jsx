@@ -22,9 +22,6 @@ class Register extends React.Component {
   render() {
     //functions
     const {
-      // handleInputData,
-      // handlePasswordVisibilityT,
-      // handlePasswordVisibilityF,
       passwordState,
       onBlurFunc,
       handlePasswordVisible,
@@ -68,7 +65,6 @@ class Register extends React.Component {
     return (
       <form
         onSubmit={(e) => this.props.onSubmitFunc(e)}
-        // disabled={this.props.disabledButtonState}
         disabled={this.props.disabledButtonState}
       >
         {inputData.map((item) => (
