@@ -13,6 +13,13 @@ Discount Codes:
 **
 
 
+**HOW TO START THE APPLICATION**
+- clone repo then on the terminal install 'npm i'
+- next cd the main folder
+- then on the terminal type 'npm start'
+
+**THESE ARE THE REQUIREMENTS**
+
 -Signup/Login
 
 -Customer cart
