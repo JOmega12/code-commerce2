@@ -9,6 +9,8 @@
 Discount Codes: 
 'ten', 'twenty'
 
+
+To start: `npm run start` on the terminal
 **You will build a 5-part checkout form. 
 **
 
